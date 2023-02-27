@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33403.182
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1_Core", "1_Core", "{A2B7D85C-E9F5-45C8-90BD-CF2D98CBFBD5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2_Infracstructure", "2_Infracstructure", "{E50D5BE9-56A9-4D09-B53B-9F82B621D03A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3_UI", "3_UI", "{67F1FDD7-3224-4F02-9210-17DF1510E3E7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4_Test", "4_Test", "{3923D79A-AD3A-41B2-9506-AC14E3EDC7D9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.NetStandard.Core", "src\Demo.NetStandard.Core\Demo.NetStandard.Core.csproj", "{A2535828-12B5-489A-8E44-CF24A2EEE61C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A2535828-12B5-489A-8E44-CF24A2EEE61C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2535828-12B5-489A-8E44-CF24A2EEE61C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2535828-12B5-489A-8E44-CF24A2EEE61C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2535828-12B5-489A-8E44-CF24A2EEE61C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A2535828-12B5-489A-8E44-CF24A2EEE61C} = {A2B7D85C-E9F5-45C8-90BD-CF2D98CBFBD5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {42BF3B49-E541-4E42-BE64-26F1528C71D5}
+	EndGlobalSection
+EndGlobal
