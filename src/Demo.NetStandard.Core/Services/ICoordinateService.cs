@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Demo.NetStandard.Core.Services
 {
-	public interface ICoordinateService
+	public interface IPointService
 	{
-		Task<IEnumerable<Point>> GetCoordinatesAsync();
+		Task<IEnumerable<Point>> GetPointListAsync();
 	}
 }
