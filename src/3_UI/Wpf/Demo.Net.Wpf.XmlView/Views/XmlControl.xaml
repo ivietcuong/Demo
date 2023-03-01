@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Demo.Net.Wpf.XmlView.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <Grid Background="WhiteSmoke">
+        <TextBlock Text="I am XML View" Foreground="Red"/>
     </Grid>
 </UserControl>
