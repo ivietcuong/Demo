@@ -1,28 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using Demo.Net.Wpf.Core;
+using Demo.Net.Wpf.XmlView.ViewModels;
+
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Demo.Net.Wpf.XmlView.Views
 {
 	/// <summary>
 	/// Interaction logic for XmlControl.xaml
 	/// </summary>
-	public partial class XmlControl : UserControl
+	public partial class XmlControl : UserControl, IView
 	{
 		public XmlControl()
 		{
 			InitializeComponent();
+		}
+
+		public XmlControl(XmlControlViewModel viewModel)
+			: this()
+		{
+			DataContext = viewModel;
 		}
 	}
 }

@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Demo.NetStandard.Core.Services;
 
 namespace Demo.Net.Wpf.JsonView.ViewModels
 {
-    class JsonControlViewModel
-    {
-    }
+	public class JsonControlViewModel
+	{
+		private readonly IPointService _pointService;
+
+		public JsonControlViewModel(IPointService pointService)
+		{
+			_pointService = pointService;
+		}
+	}
 }
+

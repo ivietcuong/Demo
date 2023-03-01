@@ -10,4 +10,9 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\1_Core\Demo.NetStandard.Core\Demo.NetStandard.Core.csproj" />
+    <ProjectReference Include="..\Demo.Net.Wpf.Core\Demo.Net.Wpf.Core.csproj" />
+  </ItemGroup>
+
 </Project>
