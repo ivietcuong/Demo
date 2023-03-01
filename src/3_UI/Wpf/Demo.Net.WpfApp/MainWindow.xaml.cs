@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace Demo.Net.WpfApp
 {
@@ -7,9 +8,16 @@ namespace Demo.Net.WpfApp
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		public IServiceProvider Services { get; }
 		public MainWindow()
 		{
+			Services = ConfigureServices();
 			InitializeComponent();
+		}
+
+		private IServiceProvider ConfigureServices()
+		{
+			throw new NotImplementedException();
 		}
 	}
 }
