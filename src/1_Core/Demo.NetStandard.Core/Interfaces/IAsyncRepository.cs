@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Demo.NetStandard.Core.Interfaces
 {
-	public interface IRepositoryAsync
+	public interface IAsyncRepository
 	{
 		IUnitOfWork UnitOfWork { get; }
 		Task<T> AddAsync<T>(T entity);
