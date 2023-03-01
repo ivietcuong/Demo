@@ -28,6 +28,7 @@ namespace Demo.Net.WpfApp
 			base.OnStartup(e);
 			Initialize();
 		}
+		
 
 		private void Initialize()
 		{
