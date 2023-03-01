@@ -19,9 +19,6 @@ using System.Windows;
 
 namespace Demo.Net.WpfApp
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
 	{
 		public IServiceProvider? ServiceProvider { get; private set; }
