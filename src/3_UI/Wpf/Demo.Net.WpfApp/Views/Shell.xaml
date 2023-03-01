@@ -8,6 +8,6 @@
 		Height="450"
 		Width="800">
 	<Grid>
-		<ContentControl Content="{Binding Workspace}"/>
+        <ContentControl Content="{Binding Content}"/>
 	</Grid>
 </Window>

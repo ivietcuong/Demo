@@ -1,6 +1,6 @@
 namespace Demo.Net.Wpf.Core
 {
-	public interface IView
+	public interface IWorkspace
 	{
 		string Name { get; set; }
 	}

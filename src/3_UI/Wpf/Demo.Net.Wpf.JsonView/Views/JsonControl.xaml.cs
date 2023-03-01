@@ -8,7 +8,7 @@ namespace Demo.Net.Wpf.JsonView.Views
 	/// <summary>
 	/// Interaction logic for JsonControl.xaml
 	/// </summary>
-	public partial class JsonControl : UserControl, IView
+	public partial class JsonControl : UserControl, IWorkspace
 	{
 		public JsonControl()
 		{

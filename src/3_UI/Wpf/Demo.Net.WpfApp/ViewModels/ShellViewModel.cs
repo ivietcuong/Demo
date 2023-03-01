@@ -7,7 +7,16 @@ namespace Demo.Net.WpfApp.ViewModels
 {
     public class ShellViewModel
     {
-        public ShellViewModel(IEnumerable<IView> views)
+
+        private object _content = null!;
+
+        public object Content
+        {
+            get { return _content; }
+            set { _content = value; }
+        }
+
+        public ShellViewModel(IEnumerable<IWorkspace> views)
         {
             var xmlview = views.First();
         }

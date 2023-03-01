@@ -8,7 +8,7 @@ namespace Demo.Net.Wpf.XmlView.Views
 	/// <summary>
 	/// Interaction logic for XmlControl.xaml
 	/// </summary>
-	public partial class XmlControl : UserControl, IView
+	public partial class XmlControl : UserControl, IWorkspace
 	{
 		public XmlControl()
 		{

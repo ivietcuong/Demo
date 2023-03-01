@@ -51,7 +51,7 @@ namespace Demo.Net.WpfApp
 				var viewmodel = ActivatorUtilities.CreateInstance(provider, typeof(XmlControlViewModel), service);
 				return (XmlControlViewModel)viewmodel;
 			});
-			serviceCollection.AddTransient<IView, XmlControl>();
+			serviceCollection.AddTransient<IWorkspace, XmlControl>();
 
 			serviceCollection.AddTransient<JsonControlViewModel>(provider =>
 			{
@@ -59,7 +59,7 @@ namespace Demo.Net.WpfApp
 				var viewmodel = ActivatorUtilities.CreateInstance(provider, typeof(JsonControlViewModel), service);
 				return (JsonControlViewModel)viewmodel;
 			});
-			serviceCollection.AddTransient<IView, JsonControl>();
+			serviceCollection.AddTransient<IWorkspace, JsonControl>();
 		}
 
 		private ServiceCollection RegisterServices(ServiceCollection serviceCollection)
