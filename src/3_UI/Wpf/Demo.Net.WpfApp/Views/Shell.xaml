@@ -14,6 +14,7 @@
 		</Grid.ColumnDefinitions>
 		<ListBox ItemsSource="{Binding Workspaces}"
 				 Background="WhiteSmoke"
+				 BorderThickness="0 1 1 0"
 				 VerticalContentAlignment="Stretch"
 				 HorizontalContentAlignment="Stretch">
 			<ListBox.ItemContainerStyle>
