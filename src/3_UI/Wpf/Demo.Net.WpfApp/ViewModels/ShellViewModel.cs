@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 using Demo.Net.Wpf.Core;
 
@@ -9,17 +10,23 @@ namespace Demo.Net.WpfApp.ViewModels
 {
 
 	public partial class ShellViewModel : ObservableObject
-    {
+	{
 
-        [ObservableProperty]
-        private object? _content;
+		[ObservableProperty]
+		private object? _workspace;
 
-        [ObservableProperty]
-        private ObservableCollection<IWorkspace> _workspaces;
+		[ObservableProperty]
+		private ObservableCollection<IWorkspace> _workspaces;
 
-        public ShellViewModel(IEnumerable<IWorkspace> views)
-        {
-            _workspaces = new ObservableCollection<IWorkspace>(views);
-        }
-    }
+		public ShellViewModel(IEnumerable<IWorkspace> views)
+		{
+			_workspaces = new ObservableCollection<IWorkspace>(views);
+		}
+
+		[RelayCommand]
+		private void SelectWorkspace(IWorkspace workspace)
+		{
+			Workspace = workspace;
+		}
+	}
 }

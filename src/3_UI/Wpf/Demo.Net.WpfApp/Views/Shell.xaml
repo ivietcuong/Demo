@@ -45,7 +45,9 @@
 							Background="WhiteSmoke"
 							VerticalAlignment="Stretch"
 							HorizontalAlignment="Stretch"
-							HorizontalContentAlignment="Left">
+							HorizontalContentAlignment="Left"
+							CommandParameter="{Binding}"
+							Command="{Binding DataContext.SelectWorkspaceCommand, RelativeSource={RelativeSource AncestorType=Window}}">
 						<Button.ContentTemplate>
 							<DataTemplate>
 								<StackPanel Orientation="Horizontal">
@@ -67,6 +69,7 @@
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>
-		<ContentControl Content="{Binding Content}" />
+		<ContentControl Grid.Column="1"
+						Content="{Binding Workspace}" />
 	</Grid>
 </Window>
