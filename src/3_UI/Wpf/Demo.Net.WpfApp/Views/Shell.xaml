@@ -7,6 +7,7 @@
         Title="WPF with MVVM Toolkit"
         Height="720"
         Width="1280">
+    
     <Window.Resources>
         <ResourceDictionary>
             <Style x:Key="DemoButtonStyle"
@@ -132,16 +133,20 @@
             </Style>
         </ResourceDictionary>
     </Window.Resources>
+    
     <Grid>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        
         <ListBox ItemsSource="{Binding Workspaces}"
                  Background="WhiteSmoke"
                  BorderThickness="0 0 1 0"
                  VerticalContentAlignment="Stretch"
                  HorizontalContentAlignment="Stretch">
+            
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="Padding"
@@ -164,10 +169,10 @@
                     </Setter>
                 </Style>
             </ListBox.ItemContainerStyle>
+            
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Button Content="{Binding}"
-                            BorderThickness="0"
                             Padding="10"
                             Background="WhiteSmoke"
                             VerticalAlignment="Stretch"
@@ -185,7 +190,7 @@
                                           Data="{Binding Icon}"
                                           VerticalAlignment="Center">
                                     </Path>
-                                    <TextBlock FontSize="14"
+                                    <TextBlock FontSize="16"
                                                Foreground="DarkRed"
                                                FontWeight="SemiBold"
                                                VerticalAlignment="Center"
@@ -196,7 +201,9 @@
                     </Button>
                 </DataTemplate>
             </ListBox.ItemTemplate>
+            
         </ListBox>
+        
         <ContentControl Grid.Column="1"
                         Content="{Binding Workspace}" />
     </Grid>
