@@ -14,7 +14,6 @@ namespace Demo.NetStandard.Infrast.Impl.XmlService
 		public XmlPointService(IAsyncRepository repository)
 		{
 			_repository = repository;
-
 		}
 
 		public async Task<IEnumerable<Point>> GetPointListAsync()

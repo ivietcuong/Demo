@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Demo.Net.WpfApp.ViewModels
 {
-    public partial class ShellViewModel : ObservableObject
+	public partial class ShellViewModel : ObservableObject
     {
 
         [ObservableProperty]

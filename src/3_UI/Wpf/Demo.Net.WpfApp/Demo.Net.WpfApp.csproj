@@ -16,8 +16,8 @@
     <ProjectReference Include="..\..\..\1_Core\Demo.NetStandard.Core\Demo.NetStandard.Core.csproj" />
     <ProjectReference Include="..\..\..\2_Infrastructure\Demo.NetStandard.Infrast.Impl.JsonService\Demo.NetStandard.Infrast.Impl.JsonService.csproj" />
     <ProjectReference Include="..\..\..\2_Infrastructure\Demo.NetStandard.Infrast.Impl.XmlService\Demo.NetStandard.Infrast.Impl.XmlService.csproj" />
-    <ProjectReference Include="..\Demo.Net.Wpf.JsonView\Demo.Net.Wpf.JsonView.csproj" />
-    <ProjectReference Include="..\Demo.Net.Wpf.XmlView\Demo.Net.Wpf.XmlView.csproj" />
+    <ProjectReference Include="..\Demo.Net.Wpf.JsonPresenter\Demo.Net.Wpf.JsonPresenter.csproj" />
+    <ProjectReference Include="..\Demo.Net.Wpf.XmlPresenter\Demo.Net.Wpf.XmlPresenter.csproj" />
   </ItemGroup>
 
 </Project>

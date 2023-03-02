@@ -1,6 +1,6 @@
 ﻿using Demo.NetStandard.Core.Services;
 
-namespace Demo.Net.Wpf.JsonView.ViewModels
+namespace Demo.Net.Wpf.JsonPresenter.ViewModels
 {
 	public class JsonControlViewModel
 	{
