@@ -15,5 +15,5 @@ namespace Demo.Net.WpfApp.Views
 		{
 			DataContext = viewModel;
 		}
-	}
+    }
 }

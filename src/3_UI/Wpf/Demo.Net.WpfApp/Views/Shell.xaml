@@ -8,6 +8,65 @@
 		Height="450"
 		Width="800">
 	<Grid>
-        <ContentControl Content="{Binding Content}"/>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="2*" />
+			<ColumnDefinition Width="8*" />
+		</Grid.ColumnDefinitions>
+		<ListBox ItemsSource="{Binding Workspaces}"
+				 Background="WhiteSmoke"
+				 VerticalContentAlignment="Stretch"
+				 HorizontalContentAlignment="Stretch">
+			<ListBox.ItemContainerStyle>
+				<Style TargetType="ListBoxItem">
+					<Setter Property="Padding"
+							Value="0" />
+					<Setter Property="Margin"
+							Value="0" />
+					<Setter Property="Template">
+						<Setter.Value>
+							<ControlTemplate TargetType="ListBoxItem">
+								<Border x:Name="Border"
+										SnapsToDevicePixels="true">
+									<ContentPresenter x:Name="ContentPresenter"
+													  Margin="{TemplateBinding Padding}"
+													  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+													  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+													  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
+								</Border>
+							</ControlTemplate>
+						</Setter.Value>
+					</Setter>
+				</Style>
+			</ListBox.ItemContainerStyle>
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<Button Content="{Binding}"
+							BorderThickness="0"
+							Background="WhiteSmoke"
+							VerticalAlignment="Stretch"
+							HorizontalAlignment="Stretch"
+							HorizontalContentAlignment="Left">
+						<Button.ContentTemplate>
+							<DataTemplate>
+								<StackPanel Orientation="Horizontal">
+									<Path Stroke="DarkRed"
+										  Margin="5 5 10 5"
+										  StrokeThickness="1.4"
+										  Data="{Binding Icon}"
+										  VerticalAlignment="Center">
+									</Path>
+									<TextBlock Text="{Binding Description}"
+											   FontSize="14"
+											   Foreground="Gray"
+											   FontWeight="SemiBold"
+											   VerticalAlignment="Center" />
+								</StackPanel>
+							</DataTemplate>
+						</Button.ContentTemplate>
+					</Button>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+		<ContentControl Content="{Binding Content}" />
 	</Grid>
 </Window>

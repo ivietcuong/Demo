@@ -7,6 +7,10 @@ namespace Demo.Net.Wpf.XmlPresenter.Views
 {
 	public partial class XmlView : UserControl, IWorkspace
 	{
+		public string? Icon { get; set; } = Icons.Xml;
+
+		public string? Description { get; set; } = ViewDesriptions.XmlView;
+
 		public XmlView()
 		{
 			InitializeComponent();
@@ -17,5 +21,6 @@ namespace Demo.Net.Wpf.XmlPresenter.Views
 		{
 			DataContext = viewModel;
 		}
+
 	}
 }
