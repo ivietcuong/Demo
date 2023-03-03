@@ -15,9 +15,9 @@
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 
-		<ListBox ItemsSource="{Binding Workspaces}"
-				 Background="WhiteSmoke"
+		<ListBox Background="WhiteSmoke"
 				 BorderThickness="0 0 1 0"
+				 ItemsSource="{Binding Workspaces}"
 				 VerticalContentAlignment="Stretch"
 				 HorizontalContentAlignment="Stretch"
 				 ItemContainerStyle="{StaticResource DemoListBoxItem}">
