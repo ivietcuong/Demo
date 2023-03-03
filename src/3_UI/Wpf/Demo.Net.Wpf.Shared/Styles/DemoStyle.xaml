@@ -82,7 +82,7 @@
 							<Setter Property="Panel.Background"
 									TargetName="border">
 								<Setter.Value>
-									<SolidColorBrush Color="LightGray" />
+									<SolidColorBrush Color="LightGreen" />
 								</Setter.Value>
 							</Setter>
 							<Setter Property="TextElement.Foreground">

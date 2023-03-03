@@ -1,4 +1,4 @@
-﻿namespace Demo.Net.Wpf.Core
+﻿namespace Demo.Net.Wpf.Shared
 {
 	public static class Icons
 	{

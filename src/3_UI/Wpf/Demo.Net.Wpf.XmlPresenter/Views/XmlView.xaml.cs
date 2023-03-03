@@ -1,4 +1,4 @@
-﻿using Demo.Net.Wpf.Core;
+﻿using Demo.Net.Wpf.Shared;
 using Demo.Net.Wpf.XmlPresenter.ViewModels;
 
 using System.Windows.Controls;

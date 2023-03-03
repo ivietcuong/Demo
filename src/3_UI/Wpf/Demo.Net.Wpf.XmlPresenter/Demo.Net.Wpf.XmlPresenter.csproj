@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\1_Core\Demo.NetStandard.Core\Demo.NetStandard.Core.csproj" />
-    <ProjectReference Include="..\Demo.Net.Wpf.Core\Demo.Net.Wpf.Core.csproj" />
+    <ProjectReference Include="..\Demo.Net.Wpf.Shared\Demo.Net.Wpf.Shared.csproj" />
   </ItemGroup>
 
 </Project>

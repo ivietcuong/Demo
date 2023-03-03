@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-using Demo.Net.Wpf.Core;
+using Demo.Net.Wpf.Shared;
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

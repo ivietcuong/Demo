@@ -1,4 +1,4 @@
-﻿using Demo.Net.Wpf.Core;
+﻿using Demo.Net.Wpf.Shared;
 using Demo.Net.Wpf.JsonPresenter.ViewModels;
 using Demo.Net.Wpf.JsonPresenter.Views;
 using Demo.Net.Wpf.XmlPresenter.ViewModels;
