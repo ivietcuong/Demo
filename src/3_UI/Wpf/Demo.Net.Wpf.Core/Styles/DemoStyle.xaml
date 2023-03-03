@@ -38,16 +38,16 @@
 							Background="{TemplateBinding Panel.Background}"
 							Name="border"
 							SnapsToDevicePixels="True">
-						<ContentPresenter RecognizesAccessKey="True"
+						<ContentPresenter Focusable="False"
+										  Name="contentPresenter"
+										  RecognizesAccessKey="True"
+										  Margin="{TemplateBinding Control.Padding}"
 										  Content="{TemplateBinding ContentControl.Content}"
 										  ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
 										  ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}"
-										  Name="contentPresenter"
-										  Margin="{TemplateBinding Control.Padding}"
 										  HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
 										  VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
-										  SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"
-										  Focusable="False" />
+										  SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
 					</Border>
 					<ControlTemplate.Triggers>
 						<Trigger Property="Button.IsDefaulted">
@@ -82,7 +82,7 @@
 							<Setter Property="Panel.Background"
 									TargetName="border">
 								<Setter.Value>
-									<SolidColorBrush Color="Green" />
+									<SolidColorBrush Color="LightGray" />
 								</Setter.Value>
 							</Setter>
 							<Setter Property="TextElement.Foreground">

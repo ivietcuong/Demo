@@ -27,6 +27,7 @@
 					<Button Content="{Binding}"
 							Padding="10"
 							FontFamily="Cambria Math"
+							Foreground="#FFCA0B0B"
 							Background="WhiteSmoke"
 							VerticalAlignment="Stretch"
 							CommandParameter="{Binding}"
@@ -34,15 +35,6 @@
 							HorizontalContentAlignment="Left"
 							Style="{StaticResource DemoButton}"
 							Command="{Binding DataContext.SelectWorkspaceCommand, RelativeSource={RelativeSource AncestorType=Window}}">
-						<Button.Foreground>
-							<LinearGradientBrush EndPoint="0.5,1"
-												 StartPoint="0.5,0">
-								<GradientStop Color="#FF8E3535"
-											  Offset="1" />
-								<GradientStop Color="#FFCA2424"
-											  Offset="0" />
-							</LinearGradientBrush>
-						</Button.Foreground>
 						<Button.ContentTemplate>
 							<DataTemplate>
 								<StackPanel Orientation="Horizontal">
@@ -53,7 +45,6 @@
 										  Stroke="{TemplateBinding TextElement.Foreground}">
 									</Path>
 									<TextBlock FontSize="16"
-											   FontWeight="SemiBold"
 											   VerticalAlignment="Center"
 											   Text="{Binding Description}"
 											   FontFamily="{TemplateBinding TextElement.FontFamily}"
