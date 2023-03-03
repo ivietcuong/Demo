@@ -28,7 +28,6 @@ namespace Demo.Net.WpfApp
 			base.OnStartup(e);
 			Initialize();
 		}
-
 		private void Initialize()
 		{
 			var serviceCollection = new ServiceCollection();
@@ -39,8 +38,8 @@ namespace Demo.Net.WpfApp
 			RegisterShell(serviceCollection);
 
 			ServiceProvider = serviceCollection.BuildServiceProvider();
-			var shell = ServiceProvider.GetService<Shell>();
-			shell?.Show();
+			MainWindow = ServiceProvider.GetService<Shell>();
+			MainWindow?.Show();
 		}
 
 		private void RegisterViews(ServiceCollection serviceCollection)
