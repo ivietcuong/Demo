@@ -5,6 +5,7 @@ using Demo.Net.Wpf.Shared;
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Demo.Net.WpfApp.ViewModels
 {
@@ -21,6 +22,7 @@ namespace Demo.Net.WpfApp.ViewModels
 		public ShellViewModel(IEnumerable<IWorkspace> views)
 		{
 			_workspaces = new ObservableCollection<IWorkspace>(views);
+			Workspace = Workspaces.FirstOrDefault();
 		}
 
 		[RelayCommand]

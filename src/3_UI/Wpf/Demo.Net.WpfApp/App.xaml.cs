@@ -51,7 +51,9 @@ namespace Demo.Net.WpfApp
 
 		private static void RegisterViewModels(ServiceCollection serviceCollection)
 		{
-			serviceCollection.AddTransient<XmlControlViewModel>(provider =>
+			serviceCollection.AddTransient<HomeViewModel>();
+
+            serviceCollection.AddTransient<XmlControlViewModel>(provider =>
 			{
 				var xmlcontext = ActivatorUtilities.CreateInstance(provider, typeof(XmlContext));
 				var xmlrepository = ActivatorUtilities.CreateInstance(provider, typeof(AsyncXmlRepository), xmlcontext);
