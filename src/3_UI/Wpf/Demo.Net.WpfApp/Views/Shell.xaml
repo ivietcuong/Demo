@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:viewmodels="clr-namespace:Demo.Net.WpfApp.ViewModels"
         d:DataContext="{d:DesignInstance Type=viewmodels:ShellViewModel}"
         mc:Ignorable="d"
@@ -22,42 +23,34 @@
                  ItemsSource="{Binding Workspaces}"
                  VerticalContentAlignment="Stretch"
                  HorizontalContentAlignment="Stretch"
+                 SelectedItem="{Binding Workspace}"
                  ItemContainerStyle="{StaticResource DemoListBoxItem}">
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Button Content="{Binding}"
-                            Padding="10"
-                            FontFamily="Cambria Math"
-                            Foreground="#FFCA0B0B"
-                            Background="WhiteSmoke"
-                            VerticalAlignment="Stretch"
-                            CommandParameter="{Binding}"
-                            HorizontalAlignment="Stretch"
-                            HorizontalContentAlignment="Left"
-                            Style="{StaticResource DemoButton}"
-                            Command="{Binding DataContext.SelectWorkspaceCommand, RelativeSource={RelativeSource AncestorType=Window}}">
-                        <Button.ContentTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Path Margin="5 5 10 5"
-                                          StrokeThickness="1.4"
-                                          Data="{Binding Icon}"
-                                          VerticalAlignment="Center"
-                                          Stroke="{TemplateBinding TextElement.Foreground}">
-                                    </Path>
-                                    <TextBlock FontSize="16"
-                                               VerticalAlignment="Center"
-                                               Text="{Binding Description}"
-                                               FontFamily="{TemplateBinding TextElement.FontFamily}"
-                                               Foreground="{TemplateBinding TextElement.Foreground}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </Button.ContentTemplate>
-                    </Button>
+                    <StackPanel Orientation="Horizontal">
+                        <Path Margin="5 0 10 0"
+                              StrokeThickness="1.4"
+                              Data="{Binding Icon}"
+                              VerticalAlignment="Center"
+                              Stroke="{TemplateBinding TextElement.Foreground}">
+                        </Path>
+                        <TextBlock FontSize="15"
+                                   Margin="0 5 0 0"
+                                   VerticalAlignment="Bottom"
+                                   Text="{Binding Description}"
+                                   FontFamily="{TemplateBinding TextElement.FontFamily}"
+                                   Foreground="{TemplateBinding TextElement.Foreground}" />
+                    </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
 
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelectWorkspaceCommand}"
+                                           CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=SelectedItem}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </ListBox>
 
         <ContentControl Grid.Column="1"
