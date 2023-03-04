@@ -1,15 +1,30 @@
 ﻿<UserControl x:Class="Demo.Net.WpfApp.Views.HomeView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Demo.Net.WpfApp.Views"
              xmlns:oxy="http://oxyplot.org/wpf"
              xmlns:viewmodels="clr-namespace:Demo.Net.WpfApp.ViewModels"
+             xmlns:demoLib="clr-namespace:Demo.Net.Wpf.Shared.Controls;assembly=Demo.Net.Wpf.Shared"
              d:DataContext="{d:DesignInstance Type=viewmodels:HomeViewModel}"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+
     <Grid Background="Red">
-        <oxy:PlotView Model="{Binding Model}" />
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <oxy:PlotView Grid.Column="0"
+                      Model="{Binding Model}" />
+
+        <demoLib:DemoPlotControl Grid.Column="1"
+                                 Title="Home"
+                                 Subtitle="Raman spectrum"
+                                 SeriesTitle="Demo plot" Points="{Binding Points}"/>
     </Grid>
 </UserControl>
