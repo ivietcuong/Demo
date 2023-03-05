@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Linq;
 
 namespace Demo.Net.Wpf.Shared.Controls
-{  
+{
     [TemplatePart(Name = "PART_PlotView", Type = typeof(PlotView))]
     public class DemoPlotControl : Control
     {
@@ -22,15 +22,15 @@ namespace Demo.Net.Wpf.Shared.Controls
             DependencyProperty.Register("Subtitle", typeof(string), typeof(DemoPlotControl), new FrameworkPropertyMetadata(string.Empty, new PropertyChangedCallback(OnSubTitleChanged)));
 
 
-        private PlotView? _plotView;
-        private LineSeries? _lineSeries;
+        private PlotView _plotView = null!;
+        private LineSeries _lineSeries = null!;
 
-        public string Title
+        public string? Title
         {
             get { return (string)GetValue(TitleProperty); }
             set { SetValue(TitleProperty, value); }
         }
-        public string Subtitle
+        public string? Subtitle
         {
             get { return (string)GetValue(SubtitleProperty); }
             set { SetValue(SubtitleProperty, value); }
@@ -62,7 +62,9 @@ namespace Demo.Net.Wpf.Shared.Controls
             };
 
             _lineSeries = new LineSeries();
-            _lineSeries.Points.AddRange(Points.Select(p => new DataPoint(p.X, p.Y)));
+
+            if (Points != null)
+                _lineSeries.Points.AddRange(Points.Select(p => new DataPoint(p.X, p.Y)));
 
             _plotView.Model.Series.Add(_lineSeries);
             _plotView.Model.InvalidatePlot(true);

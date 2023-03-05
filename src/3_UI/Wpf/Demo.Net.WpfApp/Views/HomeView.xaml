@@ -10,10 +10,7 @@
              d:DesignHeight="450"
              d:DesignWidth="800">
 
-    <Grid>
-
-        <demoLib:DemoPlotControl Title="Home"
-                                 Subtitle="Raman spectrum"
-                                 Points="{Binding Points}" />
-    </Grid>
+    <demoLib:DemoPlotControl Title="Home"
+                             Subtitle="Raman spectrum"
+                             Points="{Binding Points}" />
 </UserControl>
