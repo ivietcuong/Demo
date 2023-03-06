@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Linq;
 
-namespace Demo.Net.Wpf.Shared.Controls
+namespace Demo.Net.Wpf.Shared
 {
     [TemplatePart(Name = "PART_PlotView", Type = typeof(PlotView))]
     public class DemoPlotControl : Control

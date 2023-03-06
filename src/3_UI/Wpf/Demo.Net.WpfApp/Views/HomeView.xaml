@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewmodels="clr-namespace:Demo.Net.WpfApp.ViewModels"
-             xmlns:demoLib="clr-namespace:Demo.Net.Wpf.Shared.Controls;assembly=Demo.Net.Wpf.Shared"
+             xmlns:demoLib="clr-namespace:Demo.Net.Wpf.Shared;assembly=Demo.Net.Wpf.Shared"
              d:DataContext="{d:DesignInstance Type=viewmodels:HomeViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="450"
