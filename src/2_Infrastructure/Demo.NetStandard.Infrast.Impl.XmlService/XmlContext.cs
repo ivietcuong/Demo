@@ -38,7 +38,20 @@ namespace Demo.NetStandard.Infrast.XmlService.Impl
 			throw new NotImplementedException();
 		}
 
-		private async Task<IEnumerable<Point>> ReadDataAsync()
+		public async Task<IEnumerable<Point>> ReadDataAsync()
+		{
+			var taskCompletionSource = new TaskCompletionSource<IEnumerable<Point>>();
+
+			XmlSerializer serializer = new XmlSerializer(typeof(List<Point>));
+			Stream reader = new FileStream(@"..\..\..\DataSource\products.xml", FileMode.Open);
+			var result = (IEnumerable<Point>)serializer.Deserialize(reader);
+			reader.Close();
+
+			taskCompletionSource.SetResult(result ?? Enumerable.Empty<Point>());
+			return await taskCompletionSource.Task;
+		}
+
+		public async Task<IEnumerable<Point>> WriteDataAsync()
 		{
 			var taskCompletionSource = new TaskCompletionSource<IEnumerable<Point>>();
 
