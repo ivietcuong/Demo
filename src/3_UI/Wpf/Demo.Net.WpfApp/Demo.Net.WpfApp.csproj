@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>cicon.ico</ApplicationIcon>
-    <BaseOutputPath>..\..\..\..\bin</BaseOutputPath>
+    <BaseOutputPath>..\..\..\..\build</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
