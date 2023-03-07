@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Net.Wpf.Shared", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Infrastructure.Json.Test", "src\4_Tests\Demo.Infrastructure.Json.Test\Demo.Infrastructure.Json.Test.csproj", "{8C8F08C5-F064-4B13-A714-2EC6F0090C84}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Infrastructure.Xml.Test", "src\4_Tests\Demo.Infrastructure.Xml.Test\Demo.Infrastructure.Xml.Test.csproj", "{7FFEBB2F-4D11-4591-9768-973BD617D2CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{8C8F08C5-F064-4B13-A714-2EC6F0090C84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C8F08C5-F064-4B13-A714-2EC6F0090C84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C8F08C5-F064-4B13-A714-2EC6F0090C84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FFEBB2F-4D11-4591-9768-973BD617D2CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FFEBB2F-4D11-4591-9768-973BD617D2CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FFEBB2F-4D11-4591-9768-973BD617D2CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FFEBB2F-4D11-4591-9768-973BD617D2CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{673FA97E-9080-4481-8485-3A124F83CF67} = {CE1ED979-053F-4CC6-A686-D93BA88D2294}
 		{47E57D01-198F-41A1-BC76-007807840AD5} = {CE1ED979-053F-4CC6-A686-D93BA88D2294}
 		{8C8F08C5-F064-4B13-A714-2EC6F0090C84} = {3923D79A-AD3A-41B2-9506-AC14E3EDC7D9}
+		{7FFEBB2F-4D11-4591-9768-973BD617D2CD} = {3923D79A-AD3A-41B2-9506-AC14E3EDC7D9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {42BF3B49-E541-4E42-BE64-26F1528C71D5}

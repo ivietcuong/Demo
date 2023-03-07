@@ -1,4 +1,5 @@
-﻿using Demo.NetStandard.Core.Entities;
+﻿using Demo.NetStandard.Core.Data;
+using Demo.NetStandard.Core.Entities;
 using Demo.NetStandard.Core.Interfaces;
 
 using System;
@@ -19,7 +20,7 @@ namespace Demo.NetStandard.Infrast.XmlService.Impl
 		public async Task<IEnumerable<T>> SetAsync<T>()
 		{
 			if (!Points.Any())
-				Points = await ReadDataAsync();
+				Points = await ReadXmlDataAsync();
 
 			PropertyInfo propertyInfo = GetType().GetProperties().FirstOrDefault(p => p.PropertyType == typeof(IEnumerable<T>));
 			var set = propertyInfo?.GetValue(this);
@@ -38,30 +39,30 @@ namespace Demo.NetStandard.Infrast.XmlService.Impl
 			throw new NotImplementedException();
 		}
 
-		public async Task<IEnumerable<Point>> ReadDataAsync()
+		public async Task WriteXmlDataAsync()
+		{
+			var taskCompletionSource = new TaskCompletionSource<Task>();
+
+			XmlSerializer serializer = new XmlSerializer(typeof(List<Point>));
+			FileStream streamReader = File.Create(@"..\..\..\..\..\..\DataSource\points.xml");
+			serializer.Serialize(streamReader, Data.Points);
+			streamReader.Close();
+
+			taskCompletionSource.SetResult(Task.CompletedTask);
+			await taskCompletionSource.Task;
+		}
+
+		public async Task<IEnumerable<Point>> ReadXmlDataAsync()
 		{
 			var taskCompletionSource = new TaskCompletionSource<IEnumerable<Point>>();
 
 			XmlSerializer serializer = new XmlSerializer(typeof(List<Point>));
-			Stream reader = new FileStream(@"..\..\..\DataSource\products.xml", FileMode.Open);
+			Stream reader = new FileStream(@"..\..\..\..\..\..\DataSource\points.xml", FileMode.Open);
 			var result = (IEnumerable<Point>)serializer.Deserialize(reader);
 			reader.Close();
 
 			taskCompletionSource.SetResult(result ?? Enumerable.Empty<Point>());
 			return await taskCompletionSource.Task;
-		}
-
-		public async Task<IEnumerable<Point>> WriteDataAsync()
-		{
-			var taskCompletionSource = new TaskCompletionSource<IEnumerable<Point>>();
-
-			XmlSerializer serializer = new XmlSerializer(typeof(List<Point>));
-			Stream reader = new FileStream(@"..\..\..\DataSource\products.xml", FileMode.Open);
-			var result = (IEnumerable<Point>)serializer.Deserialize(reader);
-			reader.Close();
-
-			taskCompletionSource.SetResult(result ?? Enumerable.Empty<Point>());
-			return await taskCompletionSource.Task;
-		}
+		}		
 	}
 }

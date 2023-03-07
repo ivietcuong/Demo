@@ -1,3 +1,4 @@
+using Demo.NetStandard.Core.Data;
 using Demo.NetStandard.Core.Interfaces;
 using Demo.NetStandard.Infrast.JsonService.Impl;
 
@@ -13,9 +14,19 @@ namespace Demo.Infrastructure.Test
 		}
 
 		[Fact]
-		public async void CreateJsonFileFixture()
+		public async void IsWrittingJsonFile_Successful()
 		{
-			await (_unitOfWork as JsonContext).ReadDataAsync();
+			await ((JsonContext)_unitOfWork).WriteJsonDataAsync();
+			var result = File.Exists(@"..\..\..\..\..\..\DataSource\points.json");
+			Assert.True(result);
+		}
+
+		[Fact]
+		public async void DataCollectionInJsonFile_IsTheSame_AsSourceCollection()
+		{
+			var result = await ((JsonContext)_unitOfWork).ReadJsonDataAsync();
+			Assert.True(result.Any());
+			Assert.Equal(Data.Points.Count, result.Count());
 		}
 	}
 }

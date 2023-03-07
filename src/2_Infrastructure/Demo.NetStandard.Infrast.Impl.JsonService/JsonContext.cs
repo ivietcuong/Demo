@@ -1,4 +1,5 @@
-﻿using Demo.NetStandard.Core.Entities;
+﻿using Demo.NetStandard.Core.Data;
+using Demo.NetStandard.Core.Entities;
 using Demo.NetStandard.Core.Interfaces;
 
 using System;
@@ -19,7 +20,7 @@ namespace Demo.NetStandard.Infrast.JsonService.Impl
 		public async Task<IEnumerable<T>> SetAsync<T>()
 		{
 			if (!Points.Any())
-				Points = await ReadDataAsync();
+				Points = await ReadJsonDataAsync();
 
 			PropertyInfo propertyInfo = GetType().GetProperties().FirstOrDefault(p => p.PropertyType == typeof(IEnumerable<T>));
 			var set = propertyInfo?.GetValue(this);
@@ -38,18 +39,24 @@ namespace Demo.NetStandard.Infrast.JsonService.Impl
 			throw new NotImplementedException();
 		}
 
-		public async Task<IEnumerable<Point>> ReadDataAsync()
+		public async Task<IEnumerable<Point>> ReadJsonDataAsync()
 		{
-			var jsonPoints = await File.ReadAllTextAsync(@"..\..\..\..\..\..\..\DataSource\points.json");
+			var jsonPoints = await File.ReadAllTextAsync(@"..\..\..\..\..\..\DataSource\points.json");
 			var result = JsonSerializer.Deserialize<List<Point>>(jsonPoints);
 			return result ?? Enumerable.Empty<Point>();
 		}
 
-		public async Task<IEnumerable<Point>> WriteDataAsync()
+		/// <summary>
+		/// Serializing to UTF-8 byte array is about 5-10% faster than the string-based methods. The difference is because
+		/// the bytes (as UTF-8) don't need to be converted to strings (UTF-16). But you can try it yourself out.
+		/// </summary>
+		/// <returns></returns>
+		public async Task WriteJsonDataAsync()
 		{
-			var jsonPoints = await File.ReadAllTextAsync(@"..\..\..\..\..\..\..\DataSource\points.json");
-			var result = JsonSerializer.Deserialize<List<Point>>(jsonPoints);
-			return result ?? Enumerable.Empty<Point>();
+			// to do the logging
+			using FileStream filestream = File.Create(@"..\..\..\..\..\..\DataSource\points.json");
+			await JsonSerializer.SerializeAsync(filestream, Data.Points);
+			await filestream.DisposeAsync();
 		}
 	}
 }
