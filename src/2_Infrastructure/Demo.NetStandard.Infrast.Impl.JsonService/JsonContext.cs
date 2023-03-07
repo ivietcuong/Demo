@@ -17,6 +17,19 @@ namespace Demo.NetStandard.Infrast.JsonService.Impl
 	{
 		public IEnumerable<Point> Points { get; set; }
 
+		/// <summary>
+		/// Serializing to UTF-8 byte array is about 5-10% faster than the string-based methods. The difference is because
+		/// the bytes (as UTF-8) don't need to be converted to strings (UTF-16). But you can try it yourself out.
+		/// </summary>
+		/// <returns></returns>
+		public async Task WriteJsonDataAsync()
+		{
+			// to do the logging
+			using FileStream filestream = File.Create(@"..\..\..\..\..\..\DataSource\points.json");
+			await JsonSerializer.SerializeAsync(filestream, Data.Points);
+			await filestream.DisposeAsync();
+		}
+
 		public async Task<IEnumerable<T>> SetAsync<T>()
 		{
 			if (!Points.Any())
@@ -34,11 +47,6 @@ namespace Demo.NetStandard.Infrast.JsonService.Impl
 			throw new NotImplementedException();
 		}
 
-		public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-		{
-			throw new NotImplementedException();
-		}
-
 		public async Task<IEnumerable<Point>> ReadJsonDataAsync()
 		{
 			var jsonPoints = await File.ReadAllTextAsync(@"..\..\..\..\..\..\DataSource\points.json");
@@ -46,17 +54,9 @@ namespace Demo.NetStandard.Infrast.JsonService.Impl
 			return result ?? Enumerable.Empty<Point>();
 		}
 
-		/// <summary>
-		/// Serializing to UTF-8 byte array is about 5-10% faster than the string-based methods. The difference is because
-		/// the bytes (as UTF-8) don't need to be converted to strings (UTF-16). But you can try it yourself out.
-		/// </summary>
-		/// <returns></returns>
-		public async Task WriteJsonDataAsync()
+		public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
 		{
-			// to do the logging
-			using FileStream filestream = File.Create(@"..\..\..\..\..\..\DataSource\points.json");
-			await JsonSerializer.SerializeAsync(filestream, Data.Points);
-			await filestream.DisposeAsync();
+			throw new NotImplementedException();
 		}
 	}
 }

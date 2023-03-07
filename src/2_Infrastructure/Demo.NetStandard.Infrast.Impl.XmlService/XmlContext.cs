@@ -17,6 +17,20 @@ namespace Demo.NetStandard.Infrast.XmlService.Impl
 	{
 		public IEnumerable<Point> Points { get; set; }
 
+
+		public async Task WriteXmlDataAsync()
+		{
+			var taskCompletionSource = new TaskCompletionSource<Task>();
+
+			XmlSerializer serializer = new XmlSerializer(typeof(List<Point>));
+			FileStream streamReader = File.Create(@"..\..\..\..\..\..\DataSource\points.xml");
+			serializer.Serialize(streamReader, Data.Points);
+			streamReader.Close();
+
+			taskCompletionSource.SetResult(Task.CompletedTask);
+			await taskCompletionSource.Task;
+		}
+
 		public async Task<IEnumerable<T>> SetAsync<T>()
 		{
 			if (!Points.Any())
@@ -34,24 +48,6 @@ namespace Demo.NetStandard.Infrast.XmlService.Impl
 			throw new NotImplementedException();
 		}
 
-		public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-		{
-			throw new NotImplementedException();
-		}
-
-		public async Task WriteXmlDataAsync()
-		{
-			var taskCompletionSource = new TaskCompletionSource<Task>();
-
-			XmlSerializer serializer = new XmlSerializer(typeof(List<Point>));
-			FileStream streamReader = File.Create(@"..\..\..\..\..\..\DataSource\points.xml");
-			serializer.Serialize(streamReader, Data.Points);
-			streamReader.Close();
-
-			taskCompletionSource.SetResult(Task.CompletedTask);
-			await taskCompletionSource.Task;
-		}
-
 		public async Task<IEnumerable<Point>> ReadXmlDataAsync()
 		{
 			var taskCompletionSource = new TaskCompletionSource<IEnumerable<Point>>();
@@ -64,5 +60,10 @@ namespace Demo.NetStandard.Infrast.XmlService.Impl
 			taskCompletionSource.SetResult(result ?? Enumerable.Empty<Point>());
 			return await taskCompletionSource.Task;
 		}		
+
+		public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
