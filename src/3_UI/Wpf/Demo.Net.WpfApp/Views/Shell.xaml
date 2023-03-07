@@ -8,6 +8,7 @@
         d:DataContext="{d:DesignInstance Type=viewmodels:ShellViewModel}"
         mc:Ignorable="d"
         Title="WPF with MVVM Toolkit"
+		FontFamily="Sitka Display Semibold"
         Height="720"
         Width="1280">
 

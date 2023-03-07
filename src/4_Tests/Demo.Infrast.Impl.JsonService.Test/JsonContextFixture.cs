@@ -2,7 +2,7 @@ using Demo.NetStandard.Core.Data;
 using Demo.NetStandard.Core.Interfaces;
 using Demo.NetStandard.Infrast.JsonService.Impl;
 
-namespace Demo.Infrastructure.Test
+namespace Demo.Infrast.Impl.JsonSerivce.Test
 {
 	public class JsonContextFixture
 	{

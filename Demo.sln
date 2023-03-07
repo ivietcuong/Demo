@@ -27,9 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Net.Wpf.XmlPresenter",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Net.Wpf.Shared", "src\3_UI\Wpf\Demo.Net.Wpf.Shared\Demo.Net.Wpf.Shared.csproj", "{47E57D01-198F-41A1-BC76-007807840AD5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Infrastructure.Json.Test", "src\4_Tests\Demo.Infrastructure.Json.Test\Demo.Infrastructure.Json.Test.csproj", "{8C8F08C5-F064-4B13-A714-2EC6F0090C84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Infrast.Impl.JsonService.Test", "src\4_Tests\Demo.Infrast.Impl.JsonService.Test\Demo.Infrast.Impl.JsonService.Test.csproj", "{2116F5B9-6475-4486-8A33-4C61928CC32B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Infrastructure.Xml.Test", "src\4_Tests\Demo.Infrastructure.Xml.Test\Demo.Infrastructure.Xml.Test.csproj", "{7FFEBB2F-4D11-4591-9768-973BD617D2CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Infrast.Impl.XmlService.Test", "src\4_Tests\Demo.Infrast.Impl.XmlService.Test\Demo.Infrast.Impl.XmlService.Test.csproj", "{98978028-09D4-487C-9C34-AC76BA0A0F64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,14 +65,14 @@ Global
 		{47E57D01-198F-41A1-BC76-007807840AD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47E57D01-198F-41A1-BC76-007807840AD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47E57D01-198F-41A1-BC76-007807840AD5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8C8F08C5-F064-4B13-A714-2EC6F0090C84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8C8F08C5-F064-4B13-A714-2EC6F0090C84}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8C8F08C5-F064-4B13-A714-2EC6F0090C84}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8C8F08C5-F064-4B13-A714-2EC6F0090C84}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7FFEBB2F-4D11-4591-9768-973BD617D2CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7FFEBB2F-4D11-4591-9768-973BD617D2CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7FFEBB2F-4D11-4591-9768-973BD617D2CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7FFEBB2F-4D11-4591-9768-973BD617D2CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2116F5B9-6475-4486-8A33-4C61928CC32B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2116F5B9-6475-4486-8A33-4C61928CC32B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2116F5B9-6475-4486-8A33-4C61928CC32B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2116F5B9-6475-4486-8A33-4C61928CC32B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98978028-09D4-487C-9C34-AC76BA0A0F64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98978028-09D4-487C-9C34-AC76BA0A0F64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98978028-09D4-487C-9C34-AC76BA0A0F64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98978028-09D4-487C-9C34-AC76BA0A0F64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,8 +86,8 @@ Global
 		{94C9EF8B-52BE-4264-943A-8475DF2E1B72} = {CE1ED979-053F-4CC6-A686-D93BA88D2294}
 		{673FA97E-9080-4481-8485-3A124F83CF67} = {CE1ED979-053F-4CC6-A686-D93BA88D2294}
 		{47E57D01-198F-41A1-BC76-007807840AD5} = {CE1ED979-053F-4CC6-A686-D93BA88D2294}
-		{8C8F08C5-F064-4B13-A714-2EC6F0090C84} = {3923D79A-AD3A-41B2-9506-AC14E3EDC7D9}
-		{7FFEBB2F-4D11-4591-9768-973BD617D2CD} = {3923D79A-AD3A-41B2-9506-AC14E3EDC7D9}
+		{2116F5B9-6475-4486-8A33-4C61928CC32B} = {3923D79A-AD3A-41B2-9506-AC14E3EDC7D9}
+		{98978028-09D4-487C-9C34-AC76BA0A0F64} = {3923D79A-AD3A-41B2-9506-AC14E3EDC7D9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {42BF3B49-E541-4E42-BE64-26F1528C71D5}

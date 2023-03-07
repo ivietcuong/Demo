@@ -2,15 +2,13 @@ using Demo.NetStandard.Core.Data;
 using Demo.NetStandard.Core.Interfaces;
 using Demo.NetStandard.Infrast.XmlService.Impl;
 
-using Xunit;
-
-namespace Demo.Infrastructure.Xml.Test
+namespace Demo.Infrast.Impl.XmlService.Test
 {
 	[TestFixture]
 	public class XmlContextFixture
 	{
 		private readonly IUnitOfWork _unitOfWork;
-	
+
 		public XmlContextFixture()
 		{
 			_unitOfWork = new XmlContext();
