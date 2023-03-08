@@ -33,7 +33,7 @@ namespace Demo.NetStandard.Infrast.XmlService.Impl
 
 		public async Task<IEnumerable<T>> SetAsync<T>()
 		{
-			if (!Points.Any())
+			if (Points == null || !Points.Any())
 				Points = await ReadXmlDataAsync();
 
 			PropertyInfo propertyInfo = GetType().GetProperties().FirstOrDefault(p => p.PropertyType == typeof(IEnumerable<T>));
@@ -59,7 +59,7 @@ namespace Demo.NetStandard.Infrast.XmlService.Impl
 
 			taskCompletionSource.SetResult(result ?? Enumerable.Empty<Point>());
 			return await taskCompletionSource.Task;
-		}		
+		}
 
 		public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
 		{

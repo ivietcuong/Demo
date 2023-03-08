@@ -4,6 +4,7 @@ using Demo.NetStandard.Core.Interfaces;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -32,14 +33,22 @@ namespace Demo.NetStandard.Infrast.JsonService.Impl
 
 		public async Task<IEnumerable<T>> SetAsync<T>()
 		{
-			if (!Points.Any())
-				Points = await ReadJsonDataAsync();
+			try
+			{
+				if (Points == null || !Points.Any())
+					Points = await ReadJsonDataAsync();
 
-			PropertyInfo propertyInfo = GetType().GetProperties().FirstOrDefault(p => p.PropertyType == typeof(IEnumerable<T>));
-			var set = propertyInfo?.GetValue(this);
-			IEnumerable<T> result = (IEnumerable<T>)set;
+				PropertyInfo propertyInfo = GetType().GetProperties().FirstOrDefault(p => p.PropertyType == typeof(IEnumerable<T>));
+				var set = propertyInfo?.GetValue(this);
+				IEnumerable<T> result = (IEnumerable<T>)set;
 
-			return result ?? Enumerable.Empty<T>();
+				return result ?? Enumerable.Empty<T>();
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine(e.Message);
+				throw;
+			}
 		}
 
 		public int SaveChanges(bool acceptAllChangesOnSuccess)

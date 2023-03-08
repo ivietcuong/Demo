@@ -1,4 +1,5 @@
 using Demo.NetStandard.Core.Data;
+using Demo.NetStandard.Core.Entities;
 using Demo.NetStandard.Core.Interfaces;
 using Demo.NetStandard.Infrast.XmlService.Impl;
 
@@ -8,10 +9,12 @@ namespace Demo.Infrast.Impl.XmlService.Test
 	public class XmlContextFixture
 	{
 		private readonly IUnitOfWork _unitOfWork;
+		private readonly AsyncXmlRepository _asyncRepository;
 
 		public XmlContextFixture()
 		{
 			_unitOfWork = new XmlContext();
+			_asyncRepository = new AsyncXmlRepository(_unitOfWork);
 		}
 
 		[Test]
@@ -28,6 +31,29 @@ namespace Demo.Infrast.Impl.XmlService.Test
 			var result = await ((XmlContext)_unitOfWork).ReadXmlDataAsync();
 			Assert.True(result.Any());
 			Assert.That(result.Count(), Is.EqualTo(Data.Points.Count));
+		}
+
+		[Test]
+		public async Task PointSet_Is_Not_Empty()
+		{
+			var result = await _unitOfWork.SetAsync<Point>();
+			Assert.True(result.Any());
+			Assert.That(result.Count(), Is.EqualTo(Data.Points.Count));
+		}
+
+		[Test]
+		public async Task Points_From_Repository_Are_Equal_To_Points_From_Context()
+		{
+			var pointsInContext = await _unitOfWork.SetAsync<Point>();
+			var pointsInRepo = await _asyncRepository.GetAsync<Point>();
+
+			Assert.That(pointsInRepo.Count(), Is.EqualTo(pointsInContext.Count()));
+		}
+
+		[Test]
+		public void Throw_Exception_When_Call_AddAsync()
+		{
+			Assert.ThrowsAsync<NotImplementedException>(async () => { await _asyncRepository.AddAsync<Point>(new Point()); });
 		}
 	}
 }
