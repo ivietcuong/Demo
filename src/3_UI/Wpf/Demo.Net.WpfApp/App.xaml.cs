@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 using Microsoft.Extensions.Logging;
+using System.Runtime.CompilerServices;
 
 namespace Demo.Net.WpfApp
 {

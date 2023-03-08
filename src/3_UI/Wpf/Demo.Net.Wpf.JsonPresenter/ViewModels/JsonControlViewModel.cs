@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
+using Demo.Net.Wpf.Shared;
 using Demo.NetStandard.Core.Entities;
 using Demo.NetStandard.Core.Services;
 
@@ -25,7 +26,8 @@ namespace Demo.Net.Wpf.JsonPresenter.ViewModels
 		{
 			_logger = logger;
 			_pointService = pointService;
-			InitializePoints(GetPoints());
+
+			GetPoints().InitializeData(_logger);
 		}
 
 		private async Task GetPoints()
@@ -39,19 +41,6 @@ namespace Demo.Net.Wpf.JsonPresenter.ViewModels
 			catch (Exception e)
 			{
 				Debug.WriteLine(e.Message);
-				throw;
-			}
-		}
-
-		private async void InitializePoints(Task task)
-		{
-			try
-			{
-				await task;
-			}
-			catch (Exception)
-			{
-
 				throw;
 			}
 		}
