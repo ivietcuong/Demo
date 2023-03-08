@@ -4,7 +4,7 @@ using Demo.NetStandard.Core.Entities;
 using Demo.NetStandard.Core.Services;
 
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -15,7 +15,7 @@ namespace Demo.Net.Wpf.XmlPresenter.ViewModels
 		private readonly IPointService _pointService;
 
 		[ObservableProperty]
-		private ObservableCollection<Point> _points = new ObservableCollection<Point>();
+		private List<Point> _points = new List<Point>();
 
 		public XmlControlViewModel(IPointService pointService)
 		{
@@ -27,7 +27,7 @@ namespace Demo.Net.Wpf.XmlPresenter.ViewModels
 			try
 			{
 				var points = await _pointService.GetPointListAsync();
-				Points = new ObservableCollection<Point>(points);
+				Points = new List<Point>(points);
 			}
 			catch (Exception e)
 			{

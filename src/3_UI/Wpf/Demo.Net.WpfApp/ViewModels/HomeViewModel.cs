@@ -7,6 +7,7 @@ using OxyPlot;
 using OxyPlot.Series;
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Demo.Net.WpfApp.ViewModels
 {
@@ -16,11 +17,11 @@ namespace Demo.Net.WpfApp.ViewModels
         private PlotModel? _model;
 
         [ObservableProperty]
-        public List<Point> _points = null!;
+        public ObservableCollection<Point> _points = null!;
 
         public HomeViewModel()
         {
-            Points = new List<Point>(Data.Points);
+            Points = new ObservableCollection<Point>(Data.Points);
         }
     }
 }

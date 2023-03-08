@@ -2,18 +2,18 @@
 using OxyPlot;
 using OxyPlot.Series;
 using OxyPlot.Wpf;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Linq;
+using System.Collections;
 
 namespace Demo.Net.Wpf.Shared
 {
 	[TemplatePart(Name = "PART_PlotView", Type = typeof(PlotView))]
 	public class DemoPlotControl : Control
 	{
-		public static readonly DependencyProperty PointsProperty =
-			DependencyProperty.Register("Points", typeof(List<DemoCore.Point>), typeof(DemoPlotControl), new PropertyMetadata(null, new PropertyChangedCallback(OnPointsChanged)));
+		public static readonly DependencyProperty ItemsSourceProperty =
+			DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(DemoPlotControl), new PropertyMetadata(null));
 
 		public static readonly DependencyProperty TitleProperty =
 			DependencyProperty.Register("Title", typeof(string), typeof(DemoPlotControl), new FrameworkPropertyMetadata(string.Empty, new PropertyChangedCallback(OnTitleChanged)));
@@ -35,10 +35,10 @@ namespace Demo.Net.Wpf.Shared
 			get { return (string)GetValue(SubtitleProperty); }
 			set { SetValue(SubtitleProperty, value); }
 		}
-		public List<DemoCore.Point> Points
+		public IEnumerable ItemsSource
 		{
-			get { return (List<DemoCore.Point>)GetValue(PointsProperty); }
-			set { SetValue(PointsProperty, value); }
+			get { return (IEnumerable)GetValue(ItemsSourceProperty); }
+			set { SetValue(ItemsSourceProperty, value); }
 		}
 
 		static DemoPlotControl()
@@ -65,8 +65,8 @@ namespace Demo.Net.Wpf.Shared
 
 			_lineSeries = new LineSeries();
 
-			if (Points != null)
-				_lineSeries.Points.AddRange(Points.Select(p => new DataPoint(p.X, p.Y)));
+			if (ItemsSource != null)
+				_lineSeries.Points.AddRange(ItemsSource.Cast<DemoCore.Point>().Select(p => new DataPoint(p.X, p.Y)));
 
 			_plotView.Model.Series.Add(_lineSeries);
 			_plotView.Model.InvalidatePlot(true);

@@ -10,7 +10,7 @@
              d:DesignHeight="450"
              d:DesignWidth="800">
 
-    <demoLib:DemoPlotControl Title="Home"
+	<demoLib:DemoPlotControl Title="Home"
                              Subtitle="Raman spectrum"
-                             Points="{Binding Points}" />
+                             ItemsSource="{Binding Points}" />
 </UserControl>
