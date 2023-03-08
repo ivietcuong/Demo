@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	
 	<Import Project="$(SolutionDir)Demo.Version.props" />
 
@@ -9,14 +9,6 @@
 		<Authors>$(AssemblyCompany)</Authors>
 		<Company>$(AssemblyCompany)</Company>
 		<Copyright>$(AssemblyCopyright)</Copyright>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-	</PropertyGroup>
-
+	</PropertyGroup>	
+	
 </Project>

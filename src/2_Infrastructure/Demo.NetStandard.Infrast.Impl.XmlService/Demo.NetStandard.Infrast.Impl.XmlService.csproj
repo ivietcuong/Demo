@@ -9,15 +9,7 @@
 		<Company>$(AssemblyCompany)</Company>
 		<Copyright>$(AssemblyCopyright)</Copyright>
 	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-	</PropertyGroup>
-
+	
 	<ItemGroup>
 		<ProjectReference Include="..\..\1_Core\Demo.NetStandard.Core\Demo.NetStandard.Core.csproj" />
 	</ItemGroup>

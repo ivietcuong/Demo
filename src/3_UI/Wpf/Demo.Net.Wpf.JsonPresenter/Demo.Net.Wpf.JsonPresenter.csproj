@@ -10,15 +10,7 @@
 		<Authors>$(AssemblyCompany)</Authors>
 		<Company>$(AssemblyCompany)</Company>
 		<Copyright>$(AssemblyCopyright)</Copyright>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-	</PropertyGroup>
+	</PropertyGroup>	
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm"

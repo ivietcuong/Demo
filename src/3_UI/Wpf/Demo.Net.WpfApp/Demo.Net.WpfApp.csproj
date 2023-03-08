@@ -13,18 +13,9 @@
 		<Authors>$(AssemblyCompany)</Authors>
 		<Company>$(AssemblyCompany)</Company>
 		<Copyright>$(AssemblyCopyright)</Copyright>
-		<Product>$(AssemblyProduct)</Product>
-		<FileVersion>$(AssemblyFileVersion)</FileVersion>
-		<AssemblyVersion>$(AssemblyVersion)</AssemblyVersion>
+		<Product>$(AssemblyProduct)</Product>		
 		<Description>Demo in WPF</Description>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+		<AssemblyVersion>$(AssemblyVersion)</AssemblyVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -1,32 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<Import Project="$(SolutionDir)Demo.Version.props" />
-	
-  <PropertyGroup>
-    <TargetFramework>net7.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-	  <Version>$(AssemblyVersion)</Version>
-	  <Authors>$(AssemblyCompany)</Authors>
-	  <Company>$(AssemblyCompany)</Company>
-	  <Copyright>$(AssemblyCopyright)</Copyright>
-  </PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-	</PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<Version>$(AssemblyVersion)</Version>
+		<Authors>$(AssemblyCompany)</Authors>
+		<Company>$(AssemblyCompany)</Company>
+		<Copyright>$(AssemblyCopyright)</Copyright>
+	</PropertyGroup>	
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-	</PropertyGroup>
-	
-  <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm"
+						  Version="8.1.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\1_Core\Demo.NetStandard.Core\Demo.NetStandard.Core.csproj" />
-    <ProjectReference Include="..\Demo.Net.Wpf.Shared\Demo.Net.Wpf.Shared.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\1_Core\Demo.NetStandard.Core\Demo.NetStandard.Core.csproj" />
+		<ProjectReference Include="..\Demo.Net.Wpf.Shared\Demo.Net.Wpf.Shared.csproj" />
+	</ItemGroup>
 
 </Project>
