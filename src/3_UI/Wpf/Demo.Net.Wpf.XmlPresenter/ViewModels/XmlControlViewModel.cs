@@ -6,6 +6,7 @@ using Demo.NetStandard.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Demo.Net.Wpf.XmlPresenter.ViewModels
@@ -27,7 +28,7 @@ namespace Demo.Net.Wpf.XmlPresenter.ViewModels
 			try
 			{
 				var points = await _pointService.GetPointListAsync();
-				Points = new List<Point>(points);
+				Points = new List<Point>(points.Select(p => new Point() { X = p.X, Y = 3 * Math.Pow(p.X, 2) - 4 * p.X + 1 }));
 			}
 			catch (Exception e)
 			{

@@ -6,14 +6,21 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Linq;
 using System.Collections;
+using OxyPlot.Legends;
 
 namespace Demo.Net.Wpf.Shared
 {
-	[TemplatePart(Name = "PART_PlotView", Type = typeof(PlotView))]
+	[TemplatePart(Name = PartPlotView, Type = typeof(PlotView))]
 	public class DemoPlotControl : Control
 	{
+		private const string PartPlotView = "PART_PlotView";
+
 		public static readonly DependencyProperty ItemsSourceProperty =
 			DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(DemoPlotControl), new PropertyMetadata(null));
+
+		public static readonly DependencyProperty LineTitleProperty =
+			DependencyProperty.Register("LineTitle", typeof(string), typeof(DemoPlotControl), new PropertyMetadata(string.Empty));
+
 
 		public static readonly DependencyProperty TitleProperty =
 			DependencyProperty.Register("Title", typeof(string), typeof(DemoPlotControl), new FrameworkPropertyMetadata(string.Empty, new PropertyChangedCallback(OnTitleChanged)));
@@ -35,6 +42,11 @@ namespace Demo.Net.Wpf.Shared
 			get { return (string)GetValue(SubtitleProperty); }
 			set { SetValue(SubtitleProperty, value); }
 		}
+		public string LineTitle
+		{
+			get { return (string)GetValue(LineTitleProperty); }
+			set { SetValue(LineTitleProperty, value); }
+		}
 		public IEnumerable ItemsSource
 		{
 			get { return (IEnumerable)GetValue(ItemsSourceProperty); }
@@ -53,7 +65,7 @@ namespace Demo.Net.Wpf.Shared
 			if (Template == null)
 				return;
 
-			_plotView = (PlotView)Template.FindName("PART_PlotView", this);
+			_plotView = (PlotView)Template.FindName(PartPlotView, this);
 
 			_plotView.Model = new PlotModel
 			{
@@ -63,7 +75,17 @@ namespace Demo.Net.Wpf.Shared
 				SubtitleFont = "Sitka Display Semibold"
 			};
 
-			_lineSeries = new LineSeries();
+			var legend = new Legend
+			{
+				LegendBorder = OxyColors.Black,
+				LegendPosition = LegendPosition.RightTop,
+				LegendOrientation = LegendOrientation.Vertical,
+				LegendBackground = OxyColor.FromAColor(200, OxyColors.White)
+			};
+
+			_plotView.Model.Legends.Add(legend);
+
+			_lineSeries = new LineSeries() { Title = LineTitle };
 
 			if (ItemsSource != null)
 				_lineSeries.Points.AddRange(ItemsSource.Cast<DemoCore.Point>().Select(p => new DataPoint(p.X, p.Y)));
