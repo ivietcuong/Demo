@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using System;
 using System.Windows;
+using Microsoft.Extensions.Logging;
 
 namespace Demo.Net.WpfApp
 {
@@ -32,6 +33,12 @@ namespace Demo.Net.WpfApp
 		{
 			var serviceCollection = new ServiceCollection();
 
+			serviceCollection.AddLogging(configure => 
+			{
+				configure.ClearProviders(); 
+				configure.AddDebug(); 
+			});
+
 			RegisterServices(serviceCollection);
 			RegisterViewModels(serviceCollection);
 			RegisterViews(serviceCollection);
@@ -43,7 +50,7 @@ namespace Demo.Net.WpfApp
 		}
 
 		private void RegisterViews(ServiceCollection serviceCollection)
-		{			
+		{
 			serviceCollection.AddTransient<IWorkspace, HomeView>();
 			serviceCollection.AddTransient<IWorkspace, XmlView>();
 			serviceCollection.AddTransient<IWorkspace, JsonView>();
@@ -53,7 +60,7 @@ namespace Demo.Net.WpfApp
 		{
 			serviceCollection.AddTransient<HomeViewModel>();
 
-            serviceCollection.AddTransient<XmlControlViewModel>(provider =>
+			serviceCollection.AddTransient<XmlControlViewModel>(provider =>
 			{
 				var xmlcontext = ActivatorUtilities.CreateInstance(provider, typeof(XmlContext));
 				var xmlrepository = ActivatorUtilities.CreateInstance(provider, typeof(AsyncXmlRepository), xmlcontext);

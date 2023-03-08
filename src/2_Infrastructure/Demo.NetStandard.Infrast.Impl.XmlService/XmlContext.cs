@@ -4,6 +4,8 @@ using Demo.NetStandard.Core.Interfaces;
 using Demo.NetStandard.Core.Services;
 using Demo.NetStandard.Infrast.Impl.XmlService;
 
+using Microsoft.Extensions.Logging;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,11 +20,13 @@ namespace Demo.NetStandard.Infrast.XmlService.Impl
 	public class XmlContext : IUnitOfWork
 	{
 		private readonly IPathService _pathService;
+		private readonly ILogger<XmlContext> _logger;
 
 		public IEnumerable<Point> Points { get; set; }
 
-		public XmlContext(IXmlPathService pathService)
+		public XmlContext(IXmlPathService pathService, ILogger<XmlContext> logger = null)
 		{
+			_logger = logger;
 			_pathService = pathService;
 		}
 		public async Task WriteXmlDataAsync()
@@ -40,14 +44,24 @@ namespace Demo.NetStandard.Infrast.XmlService.Impl
 
 		public async Task<IEnumerable<T>> SetAsync<T>()
 		{
-			if (Points == null || !Points.Any())
-				Points = await ReadXmlDataAsync();
+			try
+			{
+				_logger.LogInformation($"{nameof(SetAsync)}");
 
-			PropertyInfo propertyInfo = GetType().GetProperties().FirstOrDefault(p => p.PropertyType == typeof(IEnumerable<T>));
-			var set = propertyInfo?.GetValue(this);
-			IEnumerable<T> result = (IEnumerable<T>)set;
+				if (Points == null || !Points.Any())
+					Points = await ReadXmlDataAsync();
 
-			return result ?? Enumerable.Empty<T>();
+				PropertyInfo propertyInfo = GetType().GetProperties().FirstOrDefault(p => p.PropertyType == typeof(IEnumerable<T>));
+				var set = propertyInfo?.GetValue(this);
+				IEnumerable<T> result = (IEnumerable<T>)set;
+
+				return result ?? Enumerable.Empty<T>();
+			}
+			catch (Exception e)
+			{
+				_logger.LogError(e.Message);
+				throw;
+			}
 		}
 
 		public int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -57,16 +71,26 @@ namespace Demo.NetStandard.Infrast.XmlService.Impl
 
 		public async Task<IEnumerable<Point>> ReadXmlDataAsync()
 		{
-			var taskCompletionSource = new TaskCompletionSource<IEnumerable<Point>>();
+			try
+			{
+				_logger.LogInformation($"{nameof(ReadXmlDataAsync)}");
 
-			XmlSerializer serializer = new XmlSerializer(typeof(List<Point>));
-			Stream reader = new FileStream(_pathService.GetPath(), FileMode.Open);
+				var taskCompletionSource = new TaskCompletionSource<IEnumerable<Point>>();
 
-			var result = (IEnumerable<Point>)serializer.Deserialize(reader);
-			reader.Close();
+				XmlSerializer serializer = new XmlSerializer(typeof(List<Point>));
+				Stream reader = new FileStream(_pathService.GetPath(), FileMode.Open);
 
-			taskCompletionSource.SetResult(result ?? Enumerable.Empty<Point>());
-			return await taskCompletionSource.Task;
+				var result = (IEnumerable<Point>)serializer.Deserialize(reader);
+				reader.Close();
+
+				taskCompletionSource.SetResult(result ?? Enumerable.Empty<Point>());
+				return await taskCompletionSource.Task;
+			}
+			catch (Exception e)
+			{
+				_logger.LogError(e.Message);
+				throw;
+			}
 		}
 
 		public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

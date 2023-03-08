@@ -4,6 +4,8 @@ using Demo.NetStandard.Core.Interfaces;
 using Demo.NetStandard.Core.Services;
 using Demo.NetStandard.Infrast.Impl.JsonService;
 
+using Microsoft.Extensions.Logging;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,11 +21,13 @@ namespace Demo.NetStandard.Infrast.JsonService.Impl
 	public class JsonContext : IUnitOfWork
 	{
 		private readonly IPathService _pathService;
+		private readonly ILogger<JsonContext> _logger;
 
 		public IEnumerable<Point> Points { get; set; }
 
-		public JsonContext(IJsonPathService pathService)
+		public JsonContext(IJsonPathService pathService, ILogger<JsonContext> logger = null)
 		{
+			_logger = logger;
 			_pathService = pathService;
 		}
 
@@ -44,6 +48,8 @@ namespace Demo.NetStandard.Infrast.JsonService.Impl
 		{
 			try
 			{
+				_logger.LogInformation($"{nameof(SetAsync)}");
+
 				if (Points == null || !Points.Any())
 					Points = await ReadJsonDataAsync();
 
@@ -55,7 +61,7 @@ namespace Demo.NetStandard.Infrast.JsonService.Impl
 			}
 			catch (Exception e)
 			{
-				Debug.WriteLine(e.Message);
+				_logger.LogError(e.Message);
 				throw;
 			}
 		}
@@ -67,9 +73,18 @@ namespace Demo.NetStandard.Infrast.JsonService.Impl
 
 		public async Task<IEnumerable<Point>> ReadJsonDataAsync()
 		{
-			var jsonPoints = await File.ReadAllTextAsync(_pathService.GetPath());
-			var result = JsonSerializer.Deserialize<List<Point>>(jsonPoints);
-			return result ?? Enumerable.Empty<Point>();
+			try
+			{
+				_logger.LogInformation($"{nameof(ReadJsonDataAsync)}");
+				var jsonPoints = await File.ReadAllTextAsync(_pathService.GetPath());
+				var result = JsonSerializer.Deserialize<List<Point>>(jsonPoints);
+				return result ?? Enumerable.Empty<Point>();
+			}
+			catch (Exception e)
+			{
+				_logger.LogError(e.Message);
+				throw;
+			}
 		}
 
 		public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
