@@ -10,8 +10,8 @@
 			 d:DesignWidth="800">
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition />
-			<RowDefinition />
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
 
 		</Grid.RowDefinitions>
 		<demoLib:DemoPlotControl Grid.Row="0"
@@ -19,8 +19,8 @@
 								 LineTitle="Xml"
 								 Subtitle="Raman spectrum"
 								 ItemsSource="{Binding Points}" />
-		<Border Grid.Row="1">
+		<!--<Border Grid.Row="1">
 			<demoLib:DemoMathBlock Content="ax^{2} + bx + c" FontSize="24" />
-		</Border>
+		</Border>-->
 	</Grid>
 </UserControl>
