@@ -72,6 +72,9 @@ namespace Demo.Net.WpfApp
 
 		private ServiceCollection RegisterServices(ServiceCollection serviceCollection)
 		{
+			serviceCollection.AddTransient<IJsonPathService, JsonPathService>();
+			serviceCollection.AddTransient<IXmlPathService, XmlPathService>();
+
 			serviceCollection.AddTransient<IUnitOfWork, JsonContext>();
 			serviceCollection.AddTransient<IUnitOfWork, XmlContext>();
 

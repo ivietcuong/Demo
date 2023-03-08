@@ -1,6 +1,8 @@
 ﻿using Demo.NetStandard.Core.Data;
 using Demo.NetStandard.Core.Entities;
 using Demo.NetStandard.Core.Interfaces;
+using Demo.NetStandard.Core.Services;
+using Demo.NetStandard.Infrast.Impl.XmlService;
 
 using System;
 using System.Collections.Generic;
@@ -15,15 +17,20 @@ namespace Demo.NetStandard.Infrast.XmlService.Impl
 {
 	public class XmlContext : IUnitOfWork
 	{
+		private readonly IPathService _pathService;
+
 		public IEnumerable<Point> Points { get; set; }
 
-
+		public XmlContext(IXmlPathService pathService)
+		{
+			_pathService = pathService;
+		}
 		public async Task WriteXmlDataAsync()
 		{
 			var taskCompletionSource = new TaskCompletionSource<Task>();
 
 			XmlSerializer serializer = new XmlSerializer(typeof(List<Point>));
-			FileStream streamReader = File.Create(@"..\..\..\..\..\..\DataSource\points.xml");
+			FileStream streamReader = File.Create(_pathService.GetPath());
 			serializer.Serialize(streamReader, Data.Points);
 			streamReader.Close();
 
@@ -53,11 +60,7 @@ namespace Demo.NetStandard.Infrast.XmlService.Impl
 			var taskCompletionSource = new TaskCompletionSource<IEnumerable<Point>>();
 
 			XmlSerializer serializer = new XmlSerializer(typeof(List<Point>));
-#if TEST
-			Stream reader = new FileStream(@"..\..\..\..\..\..\DataSource\points.xml", FileMode.Open);
-#else
-			Stream reader = new FileStream(@"..\..\..\..\..\..\DataSource\points.xml", FileMode.Open);
-#endif
+			Stream reader = new FileStream(_pathService.GetPath(), FileMode.Open);
 
 			var result = (IEnumerable<Point>)serializer.Deserialize(reader);
 			reader.Close();

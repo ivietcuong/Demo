@@ -6,5 +6,6 @@
 		<AssemblyCompany>Le Viet Cuong</AssemblyCompany>
 		<AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
 		<AssemblyCopyright>Copyright © Le Viet Cuong 2023</AssemblyCopyright>
+		<DemoOption>None</DemoOption>
     </PropertyGroup>
 </Project>

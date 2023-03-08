@@ -1,6 +1,8 @@
 ﻿using Demo.NetStandard.Core.Data;
 using Demo.NetStandard.Core.Entities;
 using Demo.NetStandard.Core.Interfaces;
+using Demo.NetStandard.Core.Services;
+using Demo.NetStandard.Infrast.Impl.JsonService;
 
 using System;
 using System.Collections.Generic;
@@ -16,7 +18,14 @@ namespace Demo.NetStandard.Infrast.JsonService.Impl
 {
 	public class JsonContext : IUnitOfWork
 	{
+		private readonly IPathService _pathService;
+
 		public IEnumerable<Point> Points { get; set; }
+
+		public JsonContext(IJsonPathService pathService)
+		{
+			_pathService = pathService;
+		}
 
 		/// <summary>
 		/// Serializing to UTF-8 byte array is about 5-10% faster than the string-based methods. The difference is because
@@ -26,7 +35,7 @@ namespace Demo.NetStandard.Infrast.JsonService.Impl
 		public async Task WriteJsonDataAsync()
 		{
 			// to do the logging
-			using FileStream filestream = File.Create(@"..\..\..\..\..\..\DataSource\points.json");
+			using FileStream filestream = File.Create(_pathService.GetPath());
 			await JsonSerializer.SerializeAsync(filestream, Data.Points);
 			await filestream.DisposeAsync();
 		}
@@ -58,11 +67,7 @@ namespace Demo.NetStandard.Infrast.JsonService.Impl
 
 		public async Task<IEnumerable<Point>> ReadJsonDataAsync()
 		{
-#if TEST
-			var jsonPoints = await File.ReadAllTextAsync(@"..\..\..\..\..\..\DataSource\points.json");
-#else
-			var jsonPoints = await File.ReadAllTextAsync(@"..\DataSource\points.json");
-#endif
+			var jsonPoints = await File.ReadAllTextAsync(_pathService.GetPath());
 			var result = JsonSerializer.Deserialize<List<Point>>(jsonPoints);
 			return result ?? Enumerable.Empty<Point>();
 		}

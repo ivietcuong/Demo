@@ -1,3 +1,4 @@
+using Demo.Infrast.Impl.JsonService.Test;
 using Demo.NetStandard.Core.Data;
 using Demo.NetStandard.Core.Entities;
 using Demo.NetStandard.Core.Interfaces;
@@ -11,11 +12,13 @@ namespace Demo.Infrast.Impl.JsonSerivce.Test
 	{
 		private readonly IUnitOfWork _unitOfWork;
 		private readonly IPointService _pointService;
+		private readonly IJsonPathService _pathService;
 		private readonly IAsyncRepository _asyncRepository;
 
 		public JsonContextFixture()
 		{
-			_unitOfWork = new JsonContext();
+			_pathService = new TestJsonPathService();
+			_unitOfWork = new JsonContext(_pathService);
 			_asyncRepository = new AsyncJsonRepository(_unitOfWork);
 			_pointService = new JsonPointService(_asyncRepository);
 		}

@@ -3,10 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Demo.Net.Wpf.XmlPresenter.Views"
-             mc:Ignorable="d" 
+             xmlns:local="clr-namespace:Demo.Net.Wpf.XmlPresenter.Views" 
+			 xmlns:demoLib="clr-namespace:Demo.Net.Wpf.Shared;assembly=Demo.Net.Wpf.Shared"
+			 mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-		<TextBlock Text="You're at Xml view" />
+	<Grid>
+		<demoLib:DemoPlotControl Title="Home"
+                             Subtitle="Raman spectrum"
+                             Points="{Binding Points}" />
 	</Grid>
 </UserControl>

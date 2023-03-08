@@ -12,11 +12,13 @@ namespace Demo.Infrast.Impl.XmlService.Test
 	{
 		private readonly IUnitOfWork _unitOfWork;
 		private readonly IPointService _pointService;
+		private readonly IXmlPathService _pathService;
 		private readonly AsyncXmlRepository _asyncRepository;
 
 		public XmlContextFixture()
 		{
-			_unitOfWork = new XmlContext();
+			_pathService = new TestXmlPathService();
+			_unitOfWork = new XmlContext(_pathService);
 			_asyncRepository = new AsyncXmlRepository(_unitOfWork);
 			_pointService = new XmlPointService(_asyncRepository);
 		}
