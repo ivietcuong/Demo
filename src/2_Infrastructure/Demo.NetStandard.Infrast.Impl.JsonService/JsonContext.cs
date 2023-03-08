@@ -58,7 +58,11 @@ namespace Demo.NetStandard.Infrast.JsonService.Impl
 
 		public async Task<IEnumerable<Point>> ReadJsonDataAsync()
 		{
+#if TEST
 			var jsonPoints = await File.ReadAllTextAsync(@"..\..\..\..\..\..\DataSource\points.json");
+#else
+			var jsonPoints = await File.ReadAllTextAsync(@"..\DataSource\points.json");
+#endif
 			var result = JsonSerializer.Deserialize<List<Point>>(jsonPoints);
 			return result ?? Enumerable.Empty<Point>();
 		}

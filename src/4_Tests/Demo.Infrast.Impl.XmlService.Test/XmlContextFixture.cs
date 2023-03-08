@@ -1,6 +1,8 @@
 using Demo.NetStandard.Core.Data;
 using Demo.NetStandard.Core.Entities;
 using Demo.NetStandard.Core.Interfaces;
+using Demo.NetStandard.Core.Services;
+using Demo.NetStandard.Infrast.Impl.XmlService;
 using Demo.NetStandard.Infrast.XmlService.Impl;
 
 namespace Demo.Infrast.Impl.XmlService.Test
@@ -9,12 +11,14 @@ namespace Demo.Infrast.Impl.XmlService.Test
 	public class XmlContextFixture
 	{
 		private readonly IUnitOfWork _unitOfWork;
+		private readonly IPointService _pointService;
 		private readonly AsyncXmlRepository _asyncRepository;
 
 		public XmlContextFixture()
 		{
 			_unitOfWork = new XmlContext();
 			_asyncRepository = new AsyncXmlRepository(_unitOfWork);
+			_pointService = new XmlPointService(_asyncRepository);
 		}
 
 		[Test]
@@ -54,6 +58,13 @@ namespace Demo.Infrast.Impl.XmlService.Test
 		public void Throw_Exception_When_Call_AddAsync()
 		{
 			Assert.ThrowsAsync<NotImplementedException>(async () => { await _asyncRepository.AddAsync<Point>(new Point()); });
+		}
+
+		[Test]
+		public async Task GetPointsFromService()
+		{
+			var result = await _pointService.GetPointListAsync();
+			Assert.IsTrue(result.Any());
 		}
 	}
 }

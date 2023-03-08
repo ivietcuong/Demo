@@ -1,0 +1,10 @@
+<Project>
+    <PropertyGroup>
+		<AssemblyTitle>Demo</AssemblyTitle>
+		<AssemblyProduct>Demo</AssemblyProduct>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<AssemblyCompany>Le Viet Cuong</AssemblyCompany>
+		<AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+		<AssemblyCopyright>Copyright © Le Viet Cuong 2023</AssemblyCopyright>
+    </PropertyGroup>
+</Project>

@@ -31,6 +31,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Infrast.Impl.JsonServi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Infrast.Impl.XmlService.Test", "src\4_Tests\Demo.Infrast.Impl.XmlService.Test\Demo.Infrast.Impl.XmlService.Test.csproj", "{98978028-09D4-487C-9C34-AC76BA0A0F64}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E8ADD407-7D5A-4754-8E86-33547E76E240}"
+	ProjectSection(SolutionItems) = preProject
+		Demo.Version.props = Demo.Version.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

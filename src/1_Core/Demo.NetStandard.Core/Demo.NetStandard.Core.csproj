@@ -1,7 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
+	
+	<Import Project="$(SolutionDir)Demo.Version.props" />
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<IsPackable>false</IsPackable>
+		<Version>$(AssemblyVersion)</Version>
+		<Authors>$(AssemblyCompany)</Authors>
+		<Company>$(AssemblyCompany)</Company>
+		<Copyright>$(AssemblyCopyright)</Copyright>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+	</PropertyGroup>
 
 </Project>

@@ -1,6 +1,8 @@
 using Demo.NetStandard.Core.Data;
 using Demo.NetStandard.Core.Entities;
 using Demo.NetStandard.Core.Interfaces;
+using Demo.NetStandard.Core.Services;
+using Demo.NetStandard.Infrast.Impl.JsonService;
 using Demo.NetStandard.Infrast.JsonService.Impl;
 
 namespace Demo.Infrast.Impl.JsonSerivce.Test
@@ -8,12 +10,14 @@ namespace Demo.Infrast.Impl.JsonSerivce.Test
 	public class JsonContextFixture
 	{
 		private readonly IUnitOfWork _unitOfWork;
+		private readonly IPointService _pointService;
 		private readonly IAsyncRepository _asyncRepository;
 
 		public JsonContextFixture()
 		{
 			_unitOfWork = new JsonContext();
 			_asyncRepository = new AsyncJsonRepository(_unitOfWork);
+			_pointService = new JsonPointService(_asyncRepository);
 		}
 
 		[Fact]
@@ -56,6 +60,13 @@ namespace Demo.Infrast.Impl.JsonSerivce.Test
 			{
 				await _asyncRepository.AddAsync<Point>(new Point());
 			});
+		}
+
+		[Fact]
+		public async void GetPointsFromService()
+		{
+			var result = await _pointService.GetPointListAsync();
+			Assert.True(result.Any());
 		}
 	}
 }

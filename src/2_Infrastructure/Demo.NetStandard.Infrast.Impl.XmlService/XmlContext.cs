@@ -53,7 +53,12 @@ namespace Demo.NetStandard.Infrast.XmlService.Impl
 			var taskCompletionSource = new TaskCompletionSource<IEnumerable<Point>>();
 
 			XmlSerializer serializer = new XmlSerializer(typeof(List<Point>));
+#if TEST
 			Stream reader = new FileStream(@"..\..\..\..\..\..\DataSource\points.xml", FileMode.Open);
+#else
+			Stream reader = new FileStream(@"..\..\..\..\..\..\DataSource\points.xml", FileMode.Open);
+#endif
+
 			var result = (IEnumerable<Point>)serializer.Deserialize(reader);
 			reader.Close();
 

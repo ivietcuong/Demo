@@ -1,15 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	
+	<Import Project="$(SolutionDir)Demo.Version.props" />
+	
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<IsPackable>false</IsPackable>
+		<Version>$(AssemblyVersion)</Version>
+		<Authors>$(AssemblyCompany)</Authors>
+		<Company>$(AssemblyCompany)</Company>
+		<Copyright>$(AssemblyCopyright)</Copyright>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="7.0.2" />
-  </ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="System.Text.Json"
+						  Version="7.0.2" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\1_Core\Demo.NetStandard.Core\Demo.NetStandard.Core.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\1_Core\Demo.NetStandard.Core\Demo.NetStandard.Core.csproj" />
+	</ItemGroup>
 
 </Project>
