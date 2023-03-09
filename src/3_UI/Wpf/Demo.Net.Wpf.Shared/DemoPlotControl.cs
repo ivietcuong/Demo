@@ -17,14 +17,15 @@ namespace Demo.Net.Wpf.Shared
 	{
 		private const string PartPlotView = "PART_PlotView";
 
-		public static readonly DependencyProperty LineTitleProperty =
-			DependencyProperty.Register("LineTitle", typeof(string), typeof(DemoPlotControl), new PropertyMetadata(string.Empty));
-
+		
 		public static readonly DependencyProperty TitleProperty =
 			DependencyProperty.Register("Title", typeof(string), typeof(DemoPlotControl), new FrameworkPropertyMetadata(string.Empty, new PropertyChangedCallback(OnTitleChanged)));
 
 		public static readonly DependencyProperty SubtitleProperty =
 			DependencyProperty.Register("Subtitle", typeof(string), typeof(DemoPlotControl), new FrameworkPropertyMetadata(string.Empty, new PropertyChangedCallback(OnSubTitleChanged)));
+
+		public static readonly DependencyProperty LineTitleProperty =
+			DependencyProperty.Register("LineTitle", typeof(string), typeof(DemoPlotControl), new FrameworkPropertyMetadata(string.Empty, new PropertyChangedCallback(OnLineTitleChanged)));
 
 		public static readonly DependencyProperty ItemsSourceProperty =
 			DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(DemoPlotControl), new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnItemsSourceChanged)));
@@ -127,6 +128,16 @@ namespace Demo.Net.Wpf.Shared
 				return;
 		}
 
+		private static void OnLineTitleChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
+		{
+			var control = (DemoPlotControl)dependencyObject;
+
+			if (control == null || control._plotView == null || e.NewValue == null)
+				return;
+
+			control._plotView.Model.Series[0].Title = e.NewValue.ToString();
+		}
+
 		private static void OnItemsSourceChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
 		{
 			var control = (DemoPlotControl)dependencyObject;
@@ -136,6 +147,8 @@ namespace Demo.Net.Wpf.Shared
 
 			control.UpdateControl(control);
 		}
+
+
 
 	}
 }

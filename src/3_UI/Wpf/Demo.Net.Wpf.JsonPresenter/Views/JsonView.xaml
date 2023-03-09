@@ -16,10 +16,9 @@
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 		<demoLib:DemoPlotControl Grid.Row="0"
-								 Title="Home"
-								 LineTitle="Xml"
-								 Subtitle="Raman spectrum"
-								 ItemsSource="{Binding Points}" />
+								 Title="Json"
+								 ItemsSource="{Binding Points}"
+								 LineTitle="{Binding SelectedMathSerice.Name}" />
 		<Grid Grid.Row="1"
 			  Margin="50 0 20 10">
 			<Grid.ColumnDefinitions>

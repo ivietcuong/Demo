@@ -13,9 +13,9 @@ namespace Demo.Net.WpfApp.Services
 	{
 		private readonly ILogger _logger;
 
-		public string Name { get;  } = "Tangent";
+		public string Name { get; } = "Tangent";
 		public string Description { get; } = "y = tan(x)";
-        public TangentMathService(ILogger<ParabolaMathService> logger)
+		public TangentMathService(ILogger<ParabolaMathService> logger)
 		{
 			_logger = logger;
 		}
