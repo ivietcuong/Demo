@@ -22,7 +22,9 @@ namespace Demo.Net.WpfApp.Services
 
 		public IEnumerable<Point> Calculate(IEnumerable<Point> points, double coefficienta, double coefficientb, double coefficientc)
 		{
+			_logger.LogInformation($"{nameof(coefficienta)}: {coefficienta} - {nameof(coefficientb)}: {coefficientb} - {nameof(coefficientc)}: {coefficientc}");
 			var result = points.Select(p => new Point() { X = p.X, Y = Math.Log(p.X <= 0 ? -1 * p.X : p.X, coefficientb) });
+			_logger.LogTrace($"{nameof(Calculate)}");
 			return result;
 		}
 	}

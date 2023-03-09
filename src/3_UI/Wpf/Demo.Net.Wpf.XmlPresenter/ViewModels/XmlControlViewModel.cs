@@ -45,7 +45,6 @@ namespace Demo.Net.Wpf.XmlPresenter.ViewModels
 				var meanvalue = points.Count() / 2;
 				Points = new List<Point>(points.Select(p => new Point() { X = p.X - meanvalue, Y = p.Y }));
 				_logger.LogTrace($"{nameof(GetPoints)} {Points.Count}");
-
 			}
 			catch (Exception e)
 			{
