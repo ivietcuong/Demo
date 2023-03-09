@@ -3,31 +3,32 @@
                     xmlns:local="clr-namespace:Demo.Net.Wpf.Shared"
                     xmlns:oxy="http://oxyplot.org/wpf">
 
-	<Style TargetType="{x:Type local:DemoPlotControl}">
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type local:DemoPlotControl}">
-					<Border Background="{TemplateBinding Background}"
+    <Style TargetType="{x:Type local:DemoPlotControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:DemoPlotControl}">
+                    <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-						<oxy:PlotView x:Name="PART_PlotView" />
-					</Border>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
+                        <oxy:PlotView x:Name="PART_PlotView"
+                                      Background="{TemplateBinding Background}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-	<Style TargetType="{x:Type local:DemoMathBlock}">
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type local:DemoMathBlock}">
-					<Border Background="{TemplateBinding Background}"
-							BorderBrush="{TemplateBinding BorderBrush}"
-							BorderThickness="{TemplateBinding BorderThickness}">
-						<Canvas x:Name="PART_Canvas"></Canvas>
-					</Border>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
+    <Style TargetType="{x:Type local:DemoMathBlock}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:DemoMathBlock}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <Canvas x:Name="PART_Canvas"></Canvas>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

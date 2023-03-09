@@ -1,49 +1,64 @@
 ﻿<UserControl x:Class="Demo.Net.Wpf.XmlPresenter.Views.XmlView"
-			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:demoLib="clr-namespace:Demo.Net.Wpf.Shared;assembly=Demo.Net.Wpf.Shared"
-			 xmlns:viewmodels="clr-namespace:Demo.Net.Wpf.XmlPresenter.ViewModels"
-			 d:DataContext="{d:DesignInstance Type=viewmodels:XmlControlViewModel}"
-			 mc:Ignorable="d"
-			 d:DesignHeight="450"
-			 d:DesignWidth="800">
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="7*" />
-			<RowDefinition Height="2*" />
-			<RowDefinition Height="Auto" />
-		</Grid.RowDefinitions>
-		<demoLib:DemoPlotControl Grid.Row="0"
-								 Title="Xml"
-								 ItemsSource="{Binding Points}"
-								 LineTitle="{Binding SelectedMathSerice.Name}" />
-		<Grid Grid.Row="1"
-			  Margin="40 0 20 10">
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:demoLib="clr-namespace:Demo.Net.Wpf.Shared;assembly=Demo.Net.Wpf.Shared"
+             xmlns:viewmodels="clr-namespace:Demo.Net.Wpf.XmlPresenter.ViewModels"
+             d:DataContext="{d:DesignInstance Type=viewmodels:XmlControlViewModel}"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
 
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="3*" />
-				<ColumnDefinition Width="7*" />
-			</Grid.ColumnDefinitions>
+    <Grid Background="#FF333338">
 
-			<ComboBox VerticalAlignment="Top"
-					  ItemsSource="{Binding MathServices}"
-					  SelectedItem="{Binding SelectedMathSerice}">
-				<ComboBox.ItemTemplate>
-					<DataTemplate>
-						<demoLib:DemoMathBlock FontSize="16"
-											   Content="{Binding Description}" />
-					</DataTemplate>
-				</ComboBox.ItemTemplate>
-			</ComboBox>
-		</Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7.5*" />
+            <RowDefinition Height="2.5*" />
+        </Grid.RowDefinitions>
+        <demoLib:DemoPlotControl Grid.Row="0"
+                                 Title="Xml"
+                                 Background="White"
+                                 ItemsSource="{Binding Points}"
+                                 LineTitle="{Binding SelectedMathSerice.Name}" />
+        <Border Grid.Row="1"
+                BorderBrush="Lavender"
+                BorderThickness="1 0 0 0">
+            
+            <Grid>
 
-		<Button Grid.Row="2"
-				Padding="5"
-				FontSize="16"
-				Margin="5 5 20 5"
-				Content="Calculate"
-				HorizontalAlignment="Right" />
-	</Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="7*" />
+                </Grid.ColumnDefinitions>
+
+                <ComboBox Grid.Row="0"
+                          Margin="10"
+                          VerticalAlignment="Top"
+                          ItemsSource="{Binding MathServices}"
+                          SelectedItem="{Binding SelectedMathSerice}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <demoLib:DemoMathBlock FontSize="16"
+                                                   Content="{Binding Description}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <Button Grid.Row="1"
+                        Grid.Column="1"
+                        Padding="5"
+                        Margin="10"
+                        FontSize="16"
+                        Content="Calculate"
+                        HorizontalAlignment="Right" />
+            </Grid>
+
+        </Border>
+    </Grid>
 </UserControl>

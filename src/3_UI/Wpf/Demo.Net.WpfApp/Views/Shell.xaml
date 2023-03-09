@@ -8,7 +8,7 @@
         d:DataContext="{d:DesignInstance Type=viewmodels:ShellViewModel}"
         mc:Ignorable="d"
         Title="WPF with MVVM Toolkit"
-		FontFamily="Sitka Display Semibold"
+        FontFamily="Sitka Display Semibold"
         Height="720"
         Width="1280">
 
@@ -19,8 +19,9 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <ListBox x:Name="WorkSpaceListBox" Background="WhiteSmoke"
-                 BorderThickness="0 0 1 0"
+        <ListBox x:Name="WorkSpaceListBox"
+                 Background="#FF333338"
+                 BorderThickness="0"
                  ItemsSource="{Binding Workspaces}"
                  VerticalContentAlignment="Stretch"
                  HorizontalContentAlignment="Stretch"

@@ -12,6 +12,7 @@
 
 	<demoLib:DemoPlotControl Title="Home"
 							 LineTitle="Raw"
+                             Background="White"
                              Subtitle="Raman spectrum"
                              ItemsSource="{Binding Points}" />
 </UserControl>

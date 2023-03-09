@@ -9,41 +9,55 @@
 			 mc:Ignorable="d"
 			 d:DesignHeight="450"
 			 d:DesignWidth="800">
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="7*" />
-			<RowDefinition Height="2*" />
-			<RowDefinition Height="Auto" />
-		</Grid.RowDefinitions>
-		<demoLib:DemoPlotControl Grid.Row="0"
-								 Title="Json"
-								 ItemsSource="{Binding Points}"
-								 LineTitle="{Binding SelectedMathSerice.Name}" />
-		<Grid Grid.Row="1"
-			  Margin="50 0 20 10">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="3*" />
-				<ColumnDefinition Width="7*" />
+    <Grid Background="#FF333338">
 
-			</Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7.5*" />
+            <RowDefinition Height="2.5*" />
+        </Grid.RowDefinitions>
+        <demoLib:DemoPlotControl Grid.Row="0"
+                                 Title="Xml"
+                                 Background="White"
+                                 ItemsSource="{Binding Points}"
+                                 LineTitle="{Binding SelectedMathSerice.Name}" />
+        <Border Grid.Row="1"
+                BorderBrush="Lavender"
+                BorderThickness="1 0 0 0">
 
-			<ComboBox VerticalAlignment="Top"
-					  ItemsSource="{Binding MathServices}"
-					  SelectedItem="{Binding SelectedMathSerice}">
-				<ComboBox.ItemTemplate>
-					<DataTemplate>
-						<demoLib:DemoMathBlock FontSize="16"
-											   Content="{Binding Description}" />
-					</DataTemplate>
-				</ComboBox.ItemTemplate>
-			</ComboBox>
-		</Grid>
+            <Grid>
 
-		<Button Grid.Row="2"
-				Padding="5"
-				FontSize="16"
-				Margin="5 5 20 5"
-				Content="Calculate"
-				HorizontalAlignment="Right" />
-	</Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="7*" />
+                </Grid.ColumnDefinitions>
+
+                <ComboBox Grid.Row="0"
+                          Margin="10"
+                          VerticalAlignment="Top"
+                          ItemsSource="{Binding MathServices}"
+                          SelectedItem="{Binding SelectedMathSerice}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <demoLib:DemoMathBlock FontSize="16"
+                                                   Content="{Binding Description}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <Button Grid.Row="1"
+                        Grid.Column="1"
+                        Padding="5"
+                        FontSize="16"
+                        Margin="10"
+                        Content="Calculate"
+                        HorizontalAlignment="Right" />
+            </Grid>
+
+        </Border>
+    </Grid>
 </UserControl>

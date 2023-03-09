@@ -8,11 +8,11 @@
         <Setter Property="Margin"
                 Value="0" />
         <Setter Property="Background"
-                Value="WhiteSmoke" />
+                Value="#FF333338" />
         <Setter Property="VerticalContentAlignment"
                 Value="Center" />
         <Setter Property="Foreground"
-                Value="#FFCA0B0B" />
+                Value="White" />
         <Setter Property="FontFamily"
                 Value="Sitka Display Semibold" />
         <Setter Property="Template">
@@ -35,12 +35,12 @@
                             <Setter Property="Panel.Background"
                                     TargetName="Border">
                                 <Setter.Value>
-                                    <SolidColorBrush Color="Green" />
+                                    <SolidColorBrush Color="White" />
                                 </Setter.Value>
                             </Setter>
                             <Setter Property="TextElement.Foreground">
                                 <Setter.Value>
-                                    <SolidColorBrush Color="White" />
+                                    <SolidColorBrush Color="Red" />
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
