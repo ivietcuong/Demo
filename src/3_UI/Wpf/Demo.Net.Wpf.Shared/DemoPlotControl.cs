@@ -7,6 +7,9 @@ using System.Windows.Controls;
 using System.Linq;
 using System.Collections;
 using OxyPlot.Legends;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Diagnostics;
 
 namespace Demo.Net.Wpf.Shared
 {
@@ -27,8 +30,6 @@ namespace Demo.Net.Wpf.Shared
 
 		public static readonly DependencyProperty SubtitleProperty =
 			DependencyProperty.Register("Subtitle", typeof(string), typeof(DemoPlotControl), new FrameworkPropertyMetadata(string.Empty, new PropertyChangedCallback(OnSubTitleChanged)));
-
-
 		private PlotView _plotView = null!;
 		private LineSeries _lineSeries = null!;
 
@@ -53,6 +54,7 @@ namespace Demo.Net.Wpf.Shared
 			set { SetValue(ItemsSourceProperty, value); }
 		}
 
+
 		static DemoPlotControl()
 		{
 			DefaultStyleKeyProperty.OverrideMetadata(typeof(DemoPlotControl), new FrameworkPropertyMetadata(typeof(DemoPlotControl)));
@@ -60,38 +62,47 @@ namespace Demo.Net.Wpf.Shared
 
 		public override void OnApplyTemplate()
 		{
-			base.OnApplyTemplate();
-
-			if (Template == null)
-				return;
-
-			_plotView = (PlotView)Template.FindName(PartPlotView, this);
-
-			_plotView.Model = new PlotModel
+			try
 			{
-				Title = Title,
-				Subtitle = Subtitle,
-				TitleFont = "Sitka Display Semibold",
-				SubtitleFont = "Sitka Display Semibold"
-			};
+				base.OnApplyTemplate();
 
-			var legend = new Legend
+				if (Template == null)
+					return;
+
+				_plotView = (PlotView)Template.FindName(PartPlotView, this);
+
+				_plotView.Model = new PlotModel
+				{
+					Title = Title,
+					Subtitle = Subtitle,
+					TitleFont = "Sitka Display Semibold",
+					SubtitleFont = "Sitka Display Semibold"
+				};
+
+				var legend = new Legend
+				{
+					LegendBorder = OxyColors.Black,
+					LegendPosition = LegendPosition.RightTop,
+					LegendOrientation = LegendOrientation.Vertical,
+					LegendBackground = OxyColor.FromAColor(200, OxyColors.White)
+				};
+
+				_plotView.Model.Legends.Add(legend);
+
+				_lineSeries = new LineSeries() { Title = LineTitle };
+
+				if (ItemsSource != null)
+					_lineSeries.Points.AddRange(ItemsSource.Cast<DemoCore.Point>().Select(p => new DataPoint(p.X, p.Y)));
+
+				_plotView.Model.Series.Add(_lineSeries);
+				_plotView.Model.InvalidatePlot(true);
+
+			}
+			catch (Exception e)
 			{
-				LegendBorder = OxyColors.Black,
-				LegendPosition = LegendPosition.RightTop,
-				LegendOrientation = LegendOrientation.Vertical,
-				LegendBackground = OxyColor.FromAColor(200, OxyColors.White)
-			};
-
-			_plotView.Model.Legends.Add(legend);
-
-			_lineSeries = new LineSeries() { Title = LineTitle };
-
-			if (ItemsSource != null)
-				_lineSeries.Points.AddRange(ItemsSource.Cast<DemoCore.Point>().Select(p => new DataPoint(p.X, p.Y)));
-
-			_plotView.Model.Series.Add(_lineSeries);
-			_plotView.Model.InvalidatePlot(true);
+				Debug.WriteLine(e);
+				throw;
+			}
 		}
 
 		private static void OnPointsChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
