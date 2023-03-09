@@ -7,8 +7,8 @@ using Demo.NetStandard.Core.Services;
 using Microsoft.Extensions.Logging;
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,16 +16,23 @@ namespace Demo.Net.Wpf.JsonPresenter.ViewModels
 {
 	public partial class JsonControlViewModel : ObservableObject
 	{
-		private readonly ILogger<JsonControlViewModel> _logger;
+		private readonly ILogger _logger;
 		private readonly IPointService _pointService;
 
 		[ObservableProperty]
-		private ObservableCollection<Point> _points = new ObservableCollection<Point>();
+		private IMathService? _selectedMathSerice;
 
-		public JsonControlViewModel(IPointService pointService, ILogger<JsonControlViewModel> logger)
+		[ObservableProperty]
+		private ObservableCollection<Point> _points = new();
+
+		[ObservableProperty]
+		private ObservableCollection<IMathService> _mathServices = new();
+
+		public JsonControlViewModel(IPointService pointService, IEnumerable<IMathService> mathservices, ILogger<JsonControlViewModel> logger)
 		{
 			_logger = logger;
 			_pointService = pointService;
+			MathServices = new ObservableCollection<IMathService>(mathservices);
 
 			GetPoints().InitializeData(_logger);
 		}
@@ -34,15 +41,25 @@ namespace Demo.Net.Wpf.JsonPresenter.ViewModels
 		{
 			try
 			{
-				_logger.LogInformation($"{nameof(GetPoints)}");	
 				var points = await _pointService.GetPointListAsync();
-				Points = new ObservableCollection<Point>(points.Select(p => new Point() { X = p.X, Y = -2 * Math.Pow(p.X, 3) + 3 * Math.Pow(p.X, 2) - 4 * p.X + 1 }));
+				var meanvalue = points.Count() / 2;
+				Points = new ObservableCollection<Point>(points.Select(p => new Point() { X = p.X - meanvalue, Y = p.Y }));
+				_logger.LogTrace($"{nameof(GetPoints)} {Points.Count}");
 			}
 			catch (Exception e)
 			{
-				Debug.WriteLine(e.Message);
+				_logger.LogError(e.Message);
 				throw;
 			}
+		}
+		/// <summary>
+		/// https://learn.microsoft.com/en-us/dotnet/communitytoolkit/mvvm/generators/observableproperty
+		/// </summary>
+		/// <param name="value"></param>
+		partial void OnSelectedMathSericeChanged(IMathService? value)
+		{
+			if (SelectedMathSerice != null)
+				Points = new ObservableCollection<Point>(SelectedMathSerice.Calculate(Points, 3, 4, 5));
 		}
 	}
 }

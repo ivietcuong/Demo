@@ -13,7 +13,7 @@ namespace Demo.Net.Wpf.Shared
 			try
 			{
 				await task;
-				logger.LogInformation($"{nameof(InitializeData)} - {task.Id}");
+				logger.LogTrace($"{nameof(InitializeData)} - {task.Id}");
 			}
 			catch (Exception e)
 			{

@@ -17,7 +17,10 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 using Microsoft.Extensions.Logging;
-using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Configuration;
+using NLog;
+using NLog.Extensions.Logging;
+using Demo.Net.WpfApp.Services;
 
 namespace Demo.Net.WpfApp
 {
@@ -28,26 +31,30 @@ namespace Demo.Net.WpfApp
 		protected override void OnStartup(StartupEventArgs e)
 		{
 			base.OnStartup(e);
+			DispatcherUnhandledException += OnDemoDispatcherUnhandledException;
 			Initialize();
 		}
+
 		private void Initialize()
 		{
 			var serviceCollection = new ServiceCollection();
 
-			serviceCollection.AddLogging(configure => 
-			{
-				configure.ClearProviders(); 
-				configure.AddDebug(); 
-			});
-
+			RegisterLogger(serviceCollection);
 			RegisterServices(serviceCollection);
 			RegisterViewModels(serviceCollection);
 			RegisterViews(serviceCollection);
 			RegisterShell(serviceCollection);
 
 			ServiceProvider = serviceCollection.BuildServiceProvider();
+
 			MainWindow = ServiceProvider.GetService<Shell>();
 			MainWindow?.Show();
+		}
+
+		protected override void OnExit(ExitEventArgs e)
+		{
+			base.OnExit(e);
+			LogManager.Shutdown();
 		}
 
 		private void RegisterViews(ServiceCollection serviceCollection)
@@ -55,6 +62,22 @@ namespace Demo.Net.WpfApp
 			serviceCollection.AddTransient<IWorkspace, HomeView>();
 			serviceCollection.AddTransient<IWorkspace, XmlView>();
 			serviceCollection.AddTransient<IWorkspace, JsonView>();
+		}
+
+		private void RegisterLogger(ServiceCollection serviceCollection)
+		{
+			var configuratioroot = new ConfigurationBuilder().Build();
+
+			var logger = LogManager.Setup()
+								   .SetupExtensions(ext => ext.RegisterConfigSettings(configuratioroot))
+								   .GetCurrentClassLogger();
+
+			serviceCollection.AddLogging(configure =>
+			{
+				configure.ClearProviders();
+				configure.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+				configure.AddNLog(configuratioroot);
+			});
 		}
 
 		private static void RegisterViewModels(ServiceCollection serviceCollection)
@@ -80,6 +103,11 @@ namespace Demo.Net.WpfApp
 
 		private ServiceCollection RegisterServices(ServiceCollection serviceCollection)
 		{
+			serviceCollection.AddTransient<IMathService, TangentMathService>();
+			serviceCollection.AddTransient<IMathService, ParabolaMathService>();
+			serviceCollection.AddTransient<IMathService, LogarithmMathService>();
+			serviceCollection.AddTransient<IMathService, ExponentiationMathService>();
+
 			serviceCollection.AddTransient<IJsonPathService, JsonPathService>();
 			serviceCollection.AddTransient<IXmlPathService, XmlPathService>();
 
@@ -100,6 +128,12 @@ namespace Demo.Net.WpfApp
 			servicecollection.AddSingleton<ShellViewModel>();
 			servicecollection.AddSingleton<Shell>();
 			return servicecollection;
+		}
+
+		private void OnDemoDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+		{
+			var logger = LogManager.GetCurrentClassLogger();
+			logger.Error(e);
 		}
 	}
 }

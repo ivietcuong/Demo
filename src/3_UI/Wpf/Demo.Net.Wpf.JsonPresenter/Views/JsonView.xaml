@@ -3,7 +3,6 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:local="clr-namespace:Demo.Net.Wpf.JsonPresenter.Views"
 			 xmlns:demoLib="clr-namespace:Demo.Net.Wpf.Shared;assembly=Demo.Net.Wpf.Shared"
 			 xmlns:viewmodels="clr-namespace:Demo.Net.Wpf.JsonPresenter.ViewModels"
 			 d:DataContext="{d:DesignInstance Type=viewmodels:JsonControlViewModel}"
@@ -11,10 +10,41 @@
 			 d:DesignHeight="450"
 			 d:DesignWidth="800">
 	<Grid>
-
-		<demoLib:DemoPlotControl Title="Home"
-								 LineTitle="Json"
+		<Grid.RowDefinitions>
+			<RowDefinition Height="7*" />
+			<RowDefinition Height="2*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<demoLib:DemoPlotControl Grid.Row="0"
+								 Title="Home"
+								 LineTitle="Xml"
 								 Subtitle="Raman spectrum"
 								 ItemsSource="{Binding Points}" />
+		<Grid Grid.Row="1"
+			  Margin="50 0 20 10">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="3*" />
+				<ColumnDefinition Width="7*" />
+
+			</Grid.ColumnDefinitions>
+
+			<ComboBox VerticalAlignment="Top"
+					  ItemsSource="{Binding MathServices}"
+					  SelectedItem="{Binding SelectedMathSerice}">
+				<ComboBox.ItemTemplate>
+					<DataTemplate>
+						<demoLib:DemoMathBlock FontSize="16"
+											   Content="{Binding Description}" />
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
+		</Grid>
+
+		<Button Grid.Row="2"
+				Padding="5"
+				FontSize="16"
+				Margin="5 5 20 5"
+				Content="Calculate"
+				HorizontalAlignment="Right" />
 	</Grid>
 </UserControl>

@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,32 +16,48 @@ namespace Demo.Net.Wpf.XmlPresenter.ViewModels
 {
 	public partial class XmlControlViewModel : ObservableObject
 	{
+		private readonly ILogger _logger;
 		private readonly IPointService _pointService;
-		private readonly ILogger<XmlControlViewModel> _logger;
 
 		[ObservableProperty]
-		private List<Point> _points = new List<Point>();
+		private IMathService? _selectedMathSerice;
 
-		public XmlControlViewModel(IPointService pointService, ILogger<XmlControlViewModel> logger)
+		[ObservableProperty]
+		private List<Point> _points = new();
+
+		[ObservableProperty]
+		private List<IMathService> _mathServices = new();
+
+		public XmlControlViewModel(IPointService pointService, IEnumerable<IMathService> mathservices, ILogger<XmlControlViewModel> logger)
 		{
 			_logger = logger;
 			_pointService = pointService;
+			MathServices = mathservices.ToList();
+
 			GetPoints().InitializeData(_logger);
 		}
+
 		private async Task GetPoints()
 		{
 			try
 			{
 				var points = await _pointService.GetPointListAsync();
-				//Points = new List<Point>(points.Select(p => new Point() { X = p.X, Y = 3 * Math.Pow(p.X, 2) - 4 * p.X + 1 }));
-				Points = (from point in points
-						  select new Point() { X = point.X - points.Count() / 2, Y = Math.Pow(point.X - points.Count() / 2, 2) + 3 * point.X - points.Count() / 2 + 2 }).ToList();
+				var meanvalue = points.Count() / 2;
+				Points = new List<Point>(points.Select(p => new Point() { X = p.X - meanvalue, Y = p.Y }));
+				_logger.LogTrace($"{nameof(GetPoints)} {Points.Count}");
+
 			}
 			catch (Exception e)
 			{
-				Debug.WriteLine(e.Message);
+				_logger.LogError(e.Message);
 				throw;
 			}
+		}
+
+		partial void OnSelectedMathSericeChanged(IMathService? value)
+		{
+			if (SelectedMathSerice != null)
+				Points = new List<Point>(SelectedMathSerice.Calculate(Points, 2, 3, 4));
 		}
 	}
 }

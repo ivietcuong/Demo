@@ -7,6 +7,8 @@ using System.Windows.Controls;
 using System.Linq;
 using System.Collections;
 using OxyPlot.Legends;
+using System;
+using System.Diagnostics;
 
 namespace Demo.Net.Wpf.Shared
 {
@@ -15,12 +17,8 @@ namespace Demo.Net.Wpf.Shared
 	{
 		private const string PartPlotView = "PART_PlotView";
 
-		public static readonly DependencyProperty ItemsSourceProperty =
-			DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(DemoPlotControl), new PropertyMetadata(null));
-
 		public static readonly DependencyProperty LineTitleProperty =
 			DependencyProperty.Register("LineTitle", typeof(string), typeof(DemoPlotControl), new PropertyMetadata(string.Empty));
-
 
 		public static readonly DependencyProperty TitleProperty =
 			DependencyProperty.Register("Title", typeof(string), typeof(DemoPlotControl), new FrameworkPropertyMetadata(string.Empty, new PropertyChangedCallback(OnTitleChanged)));
@@ -28,8 +26,11 @@ namespace Demo.Net.Wpf.Shared
 		public static readonly DependencyProperty SubtitleProperty =
 			DependencyProperty.Register("Subtitle", typeof(string), typeof(DemoPlotControl), new FrameworkPropertyMetadata(string.Empty, new PropertyChangedCallback(OnSubTitleChanged)));
 
+		public static readonly DependencyProperty ItemsSourceProperty =
+			DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(DemoPlotControl), new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnItemsSourceChanged)));
 
 		private PlotView _plotView = null!;
+
 		private LineSeries _lineSeries = null!;
 
 		public string? Title
@@ -60,46 +61,54 @@ namespace Demo.Net.Wpf.Shared
 
 		public override void OnApplyTemplate()
 		{
-			base.OnApplyTemplate();
-
-			if (Template == null)
-				return;
-
-			_plotView = (PlotView)Template.FindName(PartPlotView, this);
-
-			_plotView.Model = new PlotModel
+			try
 			{
-				Title = Title,
-				Subtitle = Subtitle,
-				TitleFont = "Sitka Display Semibold",
-				SubtitleFont = "Sitka Display Semibold"
-			};
+				base.OnApplyTemplate();
 
-			var legend = new Legend
+				if (Template == null)
+					return;
+
+				_plotView = (PlotView)Template.FindName(PartPlotView, this);
+
+				_plotView.Model = new PlotModel
+				{
+					Title = Title,
+					Subtitle = Subtitle,
+					TitleFont = "Sitka Display Semibold",
+					SubtitleFont = "Sitka Display Semibold"
+				};
+
+				var legend = new Legend
+				{
+					LegendBorder = OxyColors.Black,
+					LegendPosition = LegendPosition.RightTop,
+					LegendOrientation = LegendOrientation.Vertical,
+					LegendBackground = OxyColor.FromAColor(200, OxyColors.White)
+				};
+
+				_plotView.Model.Legends.Add(legend);
+
+				UpdateControl(this);
+
+			}
+			catch (Exception e)
 			{
-				LegendBorder = OxyColors.Black,
-				LegendPosition = LegendPosition.RightTop,
-				LegendOrientation = LegendOrientation.Vertical,
-				LegendBackground = OxyColor.FromAColor(200, OxyColors.White)
-			};
-
-			_plotView.Model.Legends.Add(legend);
-
-			_lineSeries = new LineSeries() { Title = LineTitle };
-
-			if (ItemsSource != null)
-				_lineSeries.Points.AddRange(ItemsSource.Cast<DemoCore.Point>().Select(p => new DataPoint(p.X, p.Y)));
-
-			_plotView.Model.Series.Add(_lineSeries);
-			_plotView.Model.InvalidatePlot(true);
+				Debug.WriteLine(e);
+				throw;
+			}
 		}
 
-		private static void OnPointsChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
+		private void UpdateControl(DemoPlotControl control)
 		{
-			var control = (DemoPlotControl)dependencyObject;
+			control._plotView.Model.Series.Clear();
+			control._lineSeries = new LineSeries() { Title = control.LineTitle };
 
-			if (control == null || control._plotView == null || e.NewValue == null)
-				return;
+			if (control.ItemsSource != null)
+				control._lineSeries.Points.AddRange(control.ItemsSource.Cast<DemoCore.Point>().Select(p => new DataPoint(p.X, p.Y)));
+
+			control._plotView.Model.Series.Add(control._lineSeries);
+
+			control._plotView.Model.InvalidatePlot(true);
 		}
 
 		private static void OnTitleChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
@@ -118,12 +127,15 @@ namespace Demo.Net.Wpf.Shared
 				return;
 		}
 
-		private static void OnSeriesTitleChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
+		private static void OnItemsSourceChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
 		{
 			var control = (DemoPlotControl)dependencyObject;
 
-			if (control == null || control._plotView == null || control._lineSeries == null || e.NewValue == null)
+			if (control == null || control._plotView == null || e.NewValue == null)
 				return;
+
+			control.UpdateControl(control);
 		}
+
 	}
 }

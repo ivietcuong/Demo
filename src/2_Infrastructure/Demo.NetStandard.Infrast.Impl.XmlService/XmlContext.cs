@@ -19,8 +19,8 @@ namespace Demo.NetStandard.Infrast.XmlService.Impl
 {
 	public class XmlContext : IUnitOfWork
 	{
+		private readonly ILogger _logger;
 		private readonly IPathService _pathService;
-		private readonly ILogger<XmlContext> _logger;
 
 		public IEnumerable<Point> Points { get; set; }
 
@@ -46,14 +46,14 @@ namespace Demo.NetStandard.Infrast.XmlService.Impl
 		{
 			try
 			{
-				_logger.LogInformation($"{nameof(SetAsync)}");
-
 				if (Points == null || !Points.Any())
 					Points = await ReadXmlDataAsync();
 
 				PropertyInfo propertyInfo = GetType().GetProperties().FirstOrDefault(p => p.PropertyType == typeof(IEnumerable<T>));
 				var set = propertyInfo?.GetValue(this);
 				IEnumerable<T> result = (IEnumerable<T>)set;
+
+				_logger.LogTrace($"{nameof(SetAsync)} {set.GetType().Name} {result.Count()}");
 
 				return result ?? Enumerable.Empty<T>();
 			}
@@ -73,8 +73,6 @@ namespace Demo.NetStandard.Infrast.XmlService.Impl
 		{
 			try
 			{
-				_logger.LogInformation($"{nameof(ReadXmlDataAsync)}");
-
 				var taskCompletionSource = new TaskCompletionSource<IEnumerable<Point>>();
 
 				XmlSerializer serializer = new XmlSerializer(typeof(List<Point>));
@@ -84,6 +82,9 @@ namespace Demo.NetStandard.Infrast.XmlService.Impl
 				reader.Close();
 
 				taskCompletionSource.SetResult(result ?? Enumerable.Empty<Point>());
+
+				_logger.LogTrace($"{nameof(ReadXmlDataAsync)} {_pathService.GetPath()} {result.Count()}");
+
 				return await taskCompletionSource.Task;
 			}
 			catch (Exception e)
