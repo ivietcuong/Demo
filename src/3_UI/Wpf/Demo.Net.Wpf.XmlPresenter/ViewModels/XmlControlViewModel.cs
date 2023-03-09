@@ -56,8 +56,6 @@ namespace Demo.Net.Wpf.XmlPresenter.ViewModels
 		{
 			if (SelectedMathSerice != null)
 				Points = new List<Point>(SelectedMathSerice.Calculate(Points, 2, 3, 4));
-
-			OnPropertyChanged(nameof(SelectedMathSerice.Name));
 		}
 	}
 }

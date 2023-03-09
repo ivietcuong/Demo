@@ -60,7 +60,6 @@ namespace Demo.Net.Wpf.JsonPresenter.ViewModels
 		{
 			if (SelectedMathSerice != null)
 				Points = new ObservableCollection<Point>(SelectedMathSerice.Calculate(Points, 3, 4, 5));
-			OnPropertyChanged(nameof(SelectedMathSerice.Name));
 		}
 	}
 }

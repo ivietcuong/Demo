@@ -136,6 +136,7 @@ namespace Demo.Net.Wpf.Shared
 				return;
 
 			control._plotView.Model.Series[0].Title = e.NewValue.ToString();
+			control._plotView.Model.InvalidatePlot(true);
 		}
 
 		private static void OnItemsSourceChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
@@ -147,7 +148,6 @@ namespace Demo.Net.Wpf.Shared
 
 			control.UpdateControl(control);
 		}
-
 
 
 	}
