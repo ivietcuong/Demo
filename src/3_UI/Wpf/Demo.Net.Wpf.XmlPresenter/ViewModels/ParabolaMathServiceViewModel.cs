@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-
-using Demo.Net.Wpf.Shared.ViewModels;
+﻿using Demo.Net.Wpf.Shared.ViewModels;
 using Demo.NetStandard.Core.Services;
 
 using Microsoft.Extensions.Logging;
