@@ -107,20 +107,20 @@ namespace Demo.Net.WpfApp
                 return (ExponentiationMathServiceViewModel)ActivatorUtilities.CreateInstance(provider, typeof(ExponentiationMathServiceViewModel), mathservice);
             });
 
-            serviceCollection.AddTransient<XmlControlViewModel>(provider =>
+            serviceCollection.AddTransient<XmlViewModel>(provider =>
             {
                 var xmlcontext = ActivatorUtilities.CreateInstance(provider, typeof(XmlContext));
                 var xmlrepository = ActivatorUtilities.CreateInstance(provider, typeof(AsyncXmlRepository), xmlcontext);
                 var service = ActivatorUtilities.CreateInstance(provider, typeof(XmlPointService), xmlrepository);
-                return (XmlControlViewModel)ActivatorUtilities.CreateInstance(provider, typeof(XmlControlViewModel), service);
+                return (XmlViewModel)ActivatorUtilities.CreateInstance(provider, typeof(XmlViewModel), service);
             });
 
-            serviceCollection.AddTransient<JsonControlViewModel>(provider =>
+            serviceCollection.AddTransient<JsonViewModel>(provider =>
             {
                 var jsoncontext = ActivatorUtilities.CreateInstance(provider, typeof(JsonContext));
                 var jsonrepository = ActivatorUtilities.CreateInstance(provider, typeof(AsyncJsonRepository), jsoncontext);
                 var service = ActivatorUtilities.CreateInstance(provider, typeof(JsonPointService), jsonrepository);
-                return (JsonControlViewModel)ActivatorUtilities.CreateInstance(provider, typeof(JsonControlViewModel), service);
+                return (JsonViewModel)ActivatorUtilities.CreateInstance(provider, typeof(JsonViewModel), service);
             });
         }
 

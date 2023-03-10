@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Demo.Net.Wpf.XmlPresenter.ViewModels
 {
-    public partial class XmlControlViewModel : ObservableObject
+    public partial class XmlViewModel : ObservableObject
     {
         private readonly ILogger _logger;
         private readonly IPointService _pointService;
@@ -28,7 +28,7 @@ namespace Demo.Net.Wpf.XmlPresenter.ViewModels
         [ObservableProperty]
         private List<MathServiceViewModel> _mathServices = new();
 
-        public XmlControlViewModel(IPointService pointService, IEnumerable<MathServiceViewModel> mathServiceViewModels, ILogger<XmlControlViewModel> logger)
+        public XmlViewModel(IPointService pointService, IEnumerable<MathServiceViewModel> mathServiceViewModels, ILogger<XmlViewModel> logger)
         {
             _logger = logger;
             _pointService = pointService;

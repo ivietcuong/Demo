@@ -15,7 +15,7 @@ namespace Demo.Net.Wpf.JsonPresenter.Views
 		{
 			InitializeComponent();
 		}
-		public JsonView(JsonControlViewModel viewModel)
+		public JsonView(JsonViewModel viewModel)
 			: this()
 		{
 			DataContext = viewModel;

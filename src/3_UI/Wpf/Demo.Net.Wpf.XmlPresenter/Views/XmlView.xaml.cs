@@ -17,7 +17,7 @@ namespace Demo.Net.Wpf.XmlPresenter.Views
 			InitializeComponent();
 		}
 
-		public XmlView(XmlControlViewModel viewModel)
+		public XmlView(XmlViewModel viewModel)
 			: this()
 		{
 			DataContext = viewModel;

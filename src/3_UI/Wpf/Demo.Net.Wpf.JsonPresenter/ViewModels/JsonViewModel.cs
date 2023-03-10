@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Demo.Net.Wpf.JsonPresenter.ViewModels
 {
-    public partial class JsonControlViewModel : ObservableObject
+    public partial class JsonViewModel : ObservableObject
     {
         private readonly ILogger _logger;
         private readonly IPointService _pointService;
@@ -29,7 +29,7 @@ namespace Demo.Net.Wpf.JsonPresenter.ViewModels
         [ObservableProperty]
         private ObservableCollection<MathServiceViewModel> _mathServices = new();
 
-        public JsonControlViewModel(IPointService pointService, IEnumerable<MathServiceViewModel> mathServiceViewModels, ILogger<JsonControlViewModel> logger)
+        public JsonViewModel(IPointService pointService, IEnumerable<MathServiceViewModel> mathServiceViewModels, ILogger<JsonViewModel> logger)
         {
             _logger = logger;
             _pointService = pointService;
