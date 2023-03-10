@@ -9,7 +9,7 @@ namespace Demo.Net.Wpf.JsonPresenter.ViewModels
     {
         public TangentMathServiceViewModel(IMathService mathService, ILogger<TangentMathServiceViewModel> logger)
         {
-            _logger = logger;
+            Logger = logger;
             MathService = mathService;
         }
     }

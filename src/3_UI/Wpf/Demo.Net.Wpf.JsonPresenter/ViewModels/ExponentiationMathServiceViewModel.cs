@@ -9,7 +9,7 @@ namespace Demo.Net.Wpf.JsonPresenter.ViewModels
     {        
         public ExponentiationMathServiceViewModel(IMathService mathService, ILogger<ExponentiationMathServiceViewModel> logger)
         {
-            _logger = logger;
+            Logger = logger;
             MathService = mathService;
         }
     }

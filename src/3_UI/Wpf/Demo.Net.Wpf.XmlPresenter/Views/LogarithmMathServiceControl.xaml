@@ -48,6 +48,7 @@
                  Grid.Column="0"
                  Padding="5"
                  FontSize="16"
+                 IsEnabled="False"
                  Margin="0 5 10 10 "
                  VerticalAlignment="Top"
                  Text="{Binding CoefficientA}" />
@@ -55,7 +56,7 @@
         <TextBox Grid.Row="1"
                  Grid.Column="1"
                  Padding="5"
-                 FontSize="16"
+                 FontSize="16"                 
                  Margin="0 5 10 10 "
                  VerticalAlignment="Top"
                  Text="{Binding CoefficientB}" />
@@ -64,6 +65,7 @@
                  Grid.Column="2"
                  Padding="5"
                  FontSize="16"
+                 IsEnabled="False"
                  Margin="0 5 0 10"
                  VerticalAlignment="Top"
                  Text="{Binding CoefficientC}" />
@@ -74,8 +76,9 @@
                    Padding="5"
                    FontSize="16"
                    Margin="0 5 0 10"
+                   Foreground="White"
                    VerticalAlignment="Top"
-                   Text="{Binding Message}" />
+                   Text="{Binding Message,Mode=OneWay}" />
 
     </Grid>
 </UserControl>

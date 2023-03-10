@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
+using Demo.Net.Wpf.JsonPresenter.Services;
 using Demo.Net.Wpf.Shared;
 using Demo.Net.Wpf.Shared.ViewModels;
 using Demo.NetStandard.Core.Entities;
@@ -10,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,7 +23,6 @@ namespace Demo.Net.Wpf.JsonPresenter.ViewModels
         private readonly ILogger _logger;
         private readonly IPointService _pointService;
 
-        [ObservableProperty]
         private MathServiceViewModel? _selectedMathService;
 
         [ObservableProperty]
@@ -29,6 +31,23 @@ namespace Demo.Net.Wpf.JsonPresenter.ViewModels
         [ObservableProperty]
         private ObservableCollection<MathServiceViewModel> _mathServices = new();
 
+        public MathServiceViewModel? SelectedMathService
+        {
+            get => _selectedMathService;
+            set
+            {
+                if (value == null)
+                    return;
+
+                if (_selectedMathService != null)
+                    _selectedMathService.ErrorsChanged -= OnSelectedMathServiceErrorsChanged;
+
+                SetProperty(ref _selectedMathService, value);
+                CalculateCommand.NotifyCanExecuteChanged();
+                _selectedMathService.ErrorsChanged += OnSelectedMathServiceErrorsChanged;
+            }
+        }
+
         public JsonViewModel(IPointService pointService, IEnumerable<MathServiceViewModel> mathServiceViewModels, ILogger<JsonViewModel> logger)
         {
             _logger = logger;
@@ -36,6 +55,20 @@ namespace Demo.Net.Wpf.JsonPresenter.ViewModels
             MathServices = new ObservableCollection<MathServiceViewModel>(mathServiceViewModels);
 
             GetPoints().InitializeData(_logger);
+        }
+
+        [RelayCommand(CanExecute = nameof(CanExecute))]
+        private void Calculate()
+        {
+            if (SelectedMathService != null)
+                Points = new ObservableCollection<Point>(SelectedMathService.Calculate(Points, SelectedMathService.CoefficientA, SelectedMathService.CoefficientB, SelectedMathService.CoefficientC));
+        }
+
+        private bool CanExecute()
+        {
+            return SelectedMathService != null && 
+                   !SelectedMathService.HasErrors && 
+                   (SelectedMathService is ExponentiationMathServiceViewModel || SelectedMathService is TangentMathServiceViewModel);
         }
 
         private async Task GetPoints()
@@ -54,11 +87,11 @@ namespace Demo.Net.Wpf.JsonPresenter.ViewModels
             }
         }
 
-        partial void OnSelectedMathServiceChanged(MathServiceViewModel? value)
+        private void OnSelectedMathServiceErrorsChanged(object? sender, DataErrorsChangedEventArgs e)
         {
-            if (SelectedMathService != null)
-                Points = new ObservableCollection<Point>(SelectedMathService.Calculate(Points, 3, 4, 5));
+            CalculateCommand.NotifyCanExecuteChanged();
         }
+
     }
 }
 

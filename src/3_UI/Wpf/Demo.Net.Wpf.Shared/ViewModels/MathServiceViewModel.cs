@@ -5,38 +5,31 @@ using Demo.NetStandard.Core.Services;
 
 using Microsoft.Extensions.Logging;
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Demo.Net.Wpf.Shared.ViewModels
 {
     public abstract partial class MathServiceViewModel : ObservableValidator
-    {
-        [ObservableProperty]
-        private double _coefficientA;
-
-        [ObservableProperty]
-        private double _coefficientB;
-
-        [ObservableProperty]
-        private double _coefficientC;
-
-        [ObservableProperty]
-        private string? _message;
-
-        protected ILogger? _logger;
-        public IMathService? MathService { get; protected set; }
+    {        
+        protected ILogger? Logger;
 
         public string? Name
         {
             get => MathService?.Name;
             set
             {
-                if (MathService == null) 
+                if (MathService == null)
                     return;
 
                 MathService.Name = value;
                 OnPropertyChanged();
             }
+        }
+        public string Message 
+        {
+            get => string.Join(Environment.NewLine, GetErrors().Select(e => e.ErrorMessage));
         }
         public string? Description
         {
@@ -50,10 +43,25 @@ namespace Demo.Net.Wpf.Shared.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        public virtual bool IsValidated(double coefficienta, double coefficientb, double coefficientc)
+        public IMathService? MathService
         {
-            return true;
+            get; 
+            protected set; 
+        }
+        public virtual double CoefficientA
+        {
+            get; 
+            set; 
+        }
+        public virtual double CoefficientB
+        {
+            get; 
+            set; 
+        }
+        public virtual double CoefficientC
+        { 
+            get; 
+            set; 
         }
         public virtual IEnumerable<Point> Calculate(IEnumerable<Point> points, double coefficienta, double coefficientb, double coefficientc)
         {

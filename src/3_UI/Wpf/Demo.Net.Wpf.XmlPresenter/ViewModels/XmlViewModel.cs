@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 using Demo.Net.Wpf.Shared;
 using Demo.Net.Wpf.Shared.ViewModels;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Logging;
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,11 +21,27 @@ namespace Demo.Net.Wpf.XmlPresenter.ViewModels
         private readonly ILogger _logger;
         private readonly IPointService _pointService;
 
-        [ObservableProperty]
         private MathServiceViewModel? _selectedMathService;
 
         [ObservableProperty]
         private List<Point> _points = new();
+
+        public MathServiceViewModel? SelectedMathService
+        {
+            get => _selectedMathService;
+            set
+            {
+                if (value == null)
+                    return;
+
+                if (_selectedMathService != null)
+                    _selectedMathService.ErrorsChanged -= OnSelectedMathServiceErrorsChanged;
+
+                SetProperty(ref _selectedMathService, value);
+                CalculateCommand.NotifyCanExecuteChanged();
+                _selectedMathService.ErrorsChanged += OnSelectedMathServiceErrorsChanged;
+            }
+        }
 
         [ObservableProperty]
         private List<MathServiceViewModel> _mathServices = new();
@@ -35,6 +53,18 @@ namespace Demo.Net.Wpf.XmlPresenter.ViewModels
             MathServices = mathServiceViewModels.ToList();
 
             GetPoints().InitializeData(_logger);
+        }
+
+        [RelayCommand(CanExecute = nameof(CanExecute))]
+        private void Calculate()
+        {
+            if (SelectedMathService != null)
+                Points = new List<Point>(SelectedMathService.Calculate(Points, SelectedMathService.CoefficientA, SelectedMathService.CoefficientB, SelectedMathService.CoefficientC));
+        }
+
+        private bool CanExecute()
+        {
+            return SelectedMathService != null && !SelectedMathService.HasErrors && (SelectedMathService is ParabolaMathServiceViewModel || SelectedMathService is LogarithmMathServiceViewModel);
         }
 
         private async Task GetPoints()
@@ -53,10 +83,9 @@ namespace Demo.Net.Wpf.XmlPresenter.ViewModels
             }
         }
 
-        partial void OnSelectedMathServiceChanged(MathServiceViewModel? value)
+        private void OnSelectedMathServiceErrorsChanged(object? sender, DataErrorsChangedEventArgs e)
         {
-            if (SelectedMathService != null)
-                Points = new List<Point>(SelectedMathService.Calculate(Points, 1, 2, 3));
+            CalculateCommand.NotifyCanExecuteChanged();
         }
     }
 }

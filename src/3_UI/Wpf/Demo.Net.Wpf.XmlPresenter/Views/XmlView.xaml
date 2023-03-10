@@ -80,7 +80,8 @@
                         Margin="10"
                         FontSize="16"
                         Content="Calculate"
-                        HorizontalAlignment="Right" />
+                        HorizontalAlignment="Right" 
+                        Command="{Binding CalculateCommand}"/>
             </Grid>
 
         </Border>

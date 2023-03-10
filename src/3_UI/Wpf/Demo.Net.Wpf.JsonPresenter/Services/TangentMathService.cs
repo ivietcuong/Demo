@@ -19,6 +19,7 @@ namespace Demo.Net.Wpf.JsonPresenter.Services
         {
             _logger = logger;
         }
+
         public IEnumerable<Point> Calculate(IEnumerable<Point> points, double coefficienta, double coefficientb, double coefficientc)
         {
             _logger.LogInformation($"{nameof(coefficienta)}: {coefficienta} - {nameof(coefficientb)}: {coefficientb} - {nameof(coefficientc)}: {coefficientc}");
