@@ -11,6 +11,18 @@ namespace Demo.Net.Wpf.Shared.ViewModels
 {
     public abstract partial class MathServiceViewModel : ObservableValidator
     {
+        [ObservableProperty]
+        private double _coefficientA;
+
+        [ObservableProperty]
+        private double _coefficientB;
+
+        [ObservableProperty]
+        private double _coefficientC;
+
+        [ObservableProperty]
+        private string? _message;
+
         protected ILogger? _logger;
         public IMathService? MathService { get; protected set; }
 
