@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-using Demo.Net.Wpf.Shared;
+using Demo.Net.Wpf.JsonPresenter;
+using Demo.Net.Wpf.JsonPresenter.ViewModels;
+using Demo.Net.Wpf.Shared.ViewModels;
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

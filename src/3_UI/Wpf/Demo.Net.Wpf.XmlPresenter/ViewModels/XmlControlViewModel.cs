@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Demo.Net.Wpf.XmlPresenter.ViewModels
 {
-	public partial class XmlControlViewModel : ObservableObject
+    public partial class XmlControlViewModel : ObservableObject
 	{
 		private readonly ILogger _logger;
 		private readonly IPointService _pointService;

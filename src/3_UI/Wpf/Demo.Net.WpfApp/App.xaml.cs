@@ -1,5 +1,4 @@
-﻿using Demo.Net.Wpf.Shared;
-using Demo.Net.Wpf.JsonPresenter.ViewModels;
+﻿using Demo.Net.Wpf.JsonPresenter.ViewModels;
 using Demo.Net.Wpf.JsonPresenter.Views;
 using Demo.Net.Wpf.XmlPresenter.ViewModels;
 using Demo.Net.Wpf.XmlPresenter.Views;
@@ -20,11 +19,13 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using NLog;
 using NLog.Extensions.Logging;
-using Demo.Net.WpfApp.Services;
+using Demo.Net.Wpf.JsonPresenter.Services;
+using Demo.Net.Wpf.XmlPresenter.Services;
+using Demo.Net.Wpf.Shared.ViewModels;
 
 namespace Demo.Net.WpfApp
 {
-	public partial class App : Application
+    public partial class App : Application
 	{
 		public IServiceProvider? ServiceProvider { get; private set; }
 

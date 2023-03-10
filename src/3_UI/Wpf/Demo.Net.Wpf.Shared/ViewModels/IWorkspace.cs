@@ -1,4 +1,4 @@
-namespace Demo.Net.Wpf.Shared
+namespace Demo.Net.Wpf.Shared.ViewModels
 {
 	public interface IWorkspace
 	{

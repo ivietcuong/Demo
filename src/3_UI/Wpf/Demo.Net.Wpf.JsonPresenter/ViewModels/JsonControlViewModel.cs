@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Demo.Net.Wpf.JsonPresenter.ViewModels
 {
-	public partial class JsonControlViewModel : ObservableObject
+    public partial class JsonControlViewModel : ObservableObject
 	{
 		private readonly ILogger _logger;
 		private readonly IPointService _pointService;

@@ -1,4 +1,5 @@
 ﻿using Demo.Net.Wpf.Shared;
+using Demo.Net.Wpf.Shared.ViewModels;
 using Demo.Net.WpfApp.ViewModels;
 
 using System.Windows.Controls;
