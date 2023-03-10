@@ -15,11 +15,11 @@
     <UserControl.Resources>
 
         <DataTemplate DataType="{x:Type viewmodels:LogarithmMathServiceViewModel}">
-            <views:LogarithmMathServiceView Background="Red" />
+            <views:LogarithmMathServiceControl />
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type viewmodels:ParabolaMathServiceViewModel}">
-            <views:LogarithmMathServiceView Background="Blue" />
+            <views:ParabolaMathServiceControl />
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type viewmodelbase:MathServiceViewModel}">
@@ -70,6 +70,7 @@
 
                 <ContentControl Grid.Row="0"
                                 Grid.Column="1"
+                                Margin="10"
                                 Content="{Binding SelectedMathService}" />
 
                 <Button Grid.Row="1"
