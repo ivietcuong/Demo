@@ -9,6 +9,9 @@ using System.Linq;
 
 namespace Demo.Net.Wpf.XmlPresenter.Services
 {
+    /// <summary>
+    /// a not equals 0
+    /// </summary>
     public class ParabolaMathService : IMathService
     {
         private readonly ILogger _logger;

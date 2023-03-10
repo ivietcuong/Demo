@@ -63,7 +63,7 @@
                           SelectedItem="{Binding SelectedMathService}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <demoLib:DemoMathBlock FontSize="16"
+                            <demoLib:DemoMathBlock FontSize="18"
                                                    Content="{Binding Description}" />
                         </DataTemplate>
                     </ComboBox.ItemTemplate>

@@ -9,6 +9,9 @@ using System.Linq;
 
 namespace Demo.Net.Wpf.XmlPresenter.Services
 {
+    /// <summary>
+    /// b > 0, b not equals 1
+    /// </summary>
     public class LogarithmMathService : IMathService
     {
         private readonly ILogger _logger;

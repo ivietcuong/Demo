@@ -56,7 +56,7 @@ namespace Demo.Net.Wpf.XmlPresenter.ViewModels
         partial void OnSelectedMathServiceChanged(MathServiceViewModel? value)
         {
             if (SelectedMathService != null)
-                Points = new List<Point>(SelectedMathService.Calculate(Points, 2, 3, 4));
+                Points = new List<Point>(SelectedMathService.Calculate(Points, 1, 2, 3));
         }
     }
 }
