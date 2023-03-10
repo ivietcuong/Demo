@@ -59,7 +59,7 @@ namespace Demo.Net.Wpf.XmlPresenter.ViewModels
         private void Calculate()
         {
             if (SelectedMathService != null)
-                Points = new List<Point>(SelectedMathService.Calculate(Points, SelectedMathService.CoefficientA, SelectedMathService.CoefficientB, SelectedMathService.CoefficientC));
+                Points = new List<Point>(SelectedMathService.Calculate(Points));
         }
 
         private bool CanExecute()

@@ -63,12 +63,12 @@ namespace Demo.Net.Wpf.Shared.ViewModels
             get; 
             set; 
         }
-        public virtual IEnumerable<Point> Calculate(IEnumerable<Point> points, double coefficienta, double coefficientb, double coefficientc)
+        public virtual IEnumerable<Point> Calculate(IEnumerable<Point> points)
         {
             if (MathService == null)
                 return points;
 
-            return MathService.Calculate(points, coefficienta, coefficientb, coefficientc);
+            return MathService.Calculate(points, CoefficientA, CoefficientB, CoefficientB);
         }
     }
 }
