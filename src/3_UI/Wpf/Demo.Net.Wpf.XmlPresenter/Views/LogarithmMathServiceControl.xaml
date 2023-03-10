@@ -56,10 +56,10 @@
         <TextBox Grid.Row="1"
                  Grid.Column="1"
                  Padding="5"
-                 FontSize="16"                 
+                 FontSize="16"
                  Margin="0 5 10 10 "
                  VerticalAlignment="Top"
-                 Text="{Binding CoefficientB}" />
+                 Text="{Binding CoefficientB,UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBox Grid.Row="1"
                  Grid.Column="2"
