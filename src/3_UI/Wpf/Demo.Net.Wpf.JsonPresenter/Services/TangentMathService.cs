@@ -13,8 +13,8 @@ namespace Demo.Net.Wpf.JsonPresenter.Services
     {
         private readonly ILogger _logger;
 
-        public string Name { get; } = "Tangent";
-        public string Description { get; } = "y = tan(x)";
+        public string Name { get; set; } = "Tangent";
+        public string Description { get; set; } = "y = tan(x)";
         public TangentMathService(ILogger<TangentMathService> logger)
         {
             _logger = logger;

@@ -26,115 +26,137 @@ using Demo.Net.Wpf.Shared.ViewModels;
 namespace Demo.Net.WpfApp
 {
     public partial class App : Application
-	{
-		public IServiceProvider? ServiceProvider { get; private set; }
+    {
+        public IServiceProvider? ServiceProvider { get; private set; }
 
-		protected override void OnStartup(StartupEventArgs e)
-		{
-			base.OnStartup(e);
-			DispatcherUnhandledException += OnDemoDispatcherUnhandledException;
-			Initialize();
-		}
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            DispatcherUnhandledException += OnDemoDispatcherUnhandledException;
+            Initialize();
+        }
 
-		private void Initialize()
-		{
-			var serviceCollection = new ServiceCollection();
+        private void Initialize()
+        {
+            var serviceCollection = new ServiceCollection();
 
-			RegisterLogger(serviceCollection);
-			RegisterServices(serviceCollection);
-			RegisterViewModels(serviceCollection);
-			RegisterViews(serviceCollection);
-			RegisterShell(serviceCollection);
+            RegisterLogger(serviceCollection);
+            RegisterServices(serviceCollection);
+            RegisterViewModels(serviceCollection);
+            RegisterViews(serviceCollection);
+            RegisterShell(serviceCollection);
 
-			ServiceProvider = serviceCollection.BuildServiceProvider();
+            ServiceProvider = serviceCollection.BuildServiceProvider();
 
-			MainWindow = ServiceProvider.GetService<Shell>();
-			MainWindow?.Show();
-		}
+            MainWindow = ServiceProvider.GetService<Shell>();
+            MainWindow?.Show();
+        }
 
-		protected override void OnExit(ExitEventArgs e)
-		{
-			base.OnExit(e);
-			LogManager.Shutdown();
-		}
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+            LogManager.Shutdown();
+        }
 
-		private void RegisterViews(ServiceCollection serviceCollection)
-		{
-			serviceCollection.AddTransient<IWorkspace, HomeView>();
-			serviceCollection.AddTransient<IWorkspace, XmlView>();
-			serviceCollection.AddTransient<IWorkspace, JsonView>();
-		}
+        private void RegisterViews(ServiceCollection serviceCollection)
+        {
+            serviceCollection.AddTransient<IWorkspace, HomeView>();
+            serviceCollection.AddTransient<IWorkspace, XmlView>();
+            serviceCollection.AddTransient<IWorkspace, JsonView>();
+        }
 
-		private void RegisterLogger(ServiceCollection serviceCollection)
-		{
-			var configuratioroot = new ConfigurationBuilder().Build();
+        private void RegisterLogger(ServiceCollection serviceCollection)
+        {
+            var configuratioroot = new ConfigurationBuilder().Build();
 
-			var logger = LogManager.Setup()
-								   .SetupExtensions(ext => ext.RegisterConfigSettings(configuratioroot))
-								   .GetCurrentClassLogger();
+            var logger = LogManager.Setup()
+                                   .SetupExtensions(ext => ext.RegisterConfigSettings(configuratioroot))
+                                   .GetCurrentClassLogger();
 
-			serviceCollection.AddLogging(configure =>
-			{
-				configure.ClearProviders();
-				configure.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
-				configure.AddNLog(configuratioroot);
-			});
-		}
+            serviceCollection.AddLogging(configure =>
+            {
+                configure.ClearProviders();
+                configure.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+                configure.AddNLog(configuratioroot);
+            });
+        }
 
-		private static void RegisterViewModels(ServiceCollection serviceCollection)
-		{
-			serviceCollection.AddTransient<HomeViewModel>();
+        private static void RegisterViewModels(ServiceCollection serviceCollection)
+        {
+            serviceCollection.AddTransient<HomeViewModel>();
 
-			serviceCollection.AddTransient<XmlControlViewModel>(provider =>
-			{
-				var xmlcontext = ActivatorUtilities.CreateInstance(provider, typeof(XmlContext));
-				var xmlrepository = ActivatorUtilities.CreateInstance(provider, typeof(AsyncXmlRepository), xmlcontext);
-				var service = ActivatorUtilities.CreateInstance(provider, typeof(XmlPointService), xmlrepository);
-				return (XmlControlViewModel)ActivatorUtilities.CreateInstance(provider, typeof(XmlControlViewModel), service);
-			});
+            serviceCollection.AddTransient<MathServiceViewModel, ParabolaMathServiceViewModel>(provider => 
+            {
+                var mathservice = ActivatorUtilities.CreateInstance(provider, typeof(ParabolaMathService));
+                return (ParabolaMathServiceViewModel)ActivatorUtilities.CreateInstance(provider, typeof(ParabolaMathServiceViewModel), mathservice);
+            });
 
-			serviceCollection.AddTransient<JsonControlViewModel>(provider =>
-			{
-				var jsoncontext = ActivatorUtilities.CreateInstance(provider, typeof(JsonContext));
-				var jsonrepository = ActivatorUtilities.CreateInstance(provider, typeof(AsyncJsonRepository), jsoncontext);
-				var service = ActivatorUtilities.CreateInstance(provider, typeof(JsonPointService), jsonrepository);
-				return (JsonControlViewModel)ActivatorUtilities.CreateInstance(provider, typeof(JsonControlViewModel), service);
-			});
-		}
+            serviceCollection.AddTransient<MathServiceViewModel, LogarithmMathServiceViewModel>(provider =>
+            {
+                var mathservice = ActivatorUtilities.CreateInstance(provider, typeof(LogarithmMathService));
+                return (LogarithmMathServiceViewModel)ActivatorUtilities.CreateInstance(provider, typeof(LogarithmMathServiceViewModel), mathservice);
+            });
+            serviceCollection.AddTransient<MathServiceViewModel, TangentMathServiceViewModel>(provider =>
+            {
+                var mathservice = ActivatorUtilities.CreateInstance(provider, typeof(TangentMathService));
+                return (TangentMathServiceViewModel)ActivatorUtilities.CreateInstance(provider, typeof(TangentMathServiceViewModel), mathservice);
+            });
+            serviceCollection.AddTransient<MathServiceViewModel, ExponentiationMathServiceViewModel>(provider =>
+            {
+                var mathservice = ActivatorUtilities.CreateInstance(provider, typeof(ExponentiationMathService));
+                return (ExponentiationMathServiceViewModel)ActivatorUtilities.CreateInstance(provider, typeof(ExponentiationMathServiceViewModel), mathservice);
+            });
 
-		private ServiceCollection RegisterServices(ServiceCollection serviceCollection)
-		{
-			serviceCollection.AddTransient<IMathService, TangentMathService>();
-			serviceCollection.AddTransient<IMathService, ParabolaMathService>();
-			serviceCollection.AddTransient<IMathService, LogarithmMathService>();
-			serviceCollection.AddTransient<IMathService, ExponentiationMathService>();
+            serviceCollection.AddTransient<XmlControlViewModel>(provider =>
+            {
+                var xmlcontext = ActivatorUtilities.CreateInstance(provider, typeof(XmlContext));
+                var xmlrepository = ActivatorUtilities.CreateInstance(provider, typeof(AsyncXmlRepository), xmlcontext);
+                var service = ActivatorUtilities.CreateInstance(provider, typeof(XmlPointService), xmlrepository);
+                return (XmlControlViewModel)ActivatorUtilities.CreateInstance(provider, typeof(XmlControlViewModel), service);
+            });
 
-			serviceCollection.AddTransient<IJsonPathService, JsonPathService>();
-			serviceCollection.AddTransient<IXmlPathService, XmlPathService>();
+            serviceCollection.AddTransient<JsonControlViewModel>(provider =>
+            {
+                var jsoncontext = ActivatorUtilities.CreateInstance(provider, typeof(JsonContext));
+                var jsonrepository = ActivatorUtilities.CreateInstance(provider, typeof(AsyncJsonRepository), jsoncontext);
+                var service = ActivatorUtilities.CreateInstance(provider, typeof(JsonPointService), jsonrepository);
+                return (JsonControlViewModel)ActivatorUtilities.CreateInstance(provider, typeof(JsonControlViewModel), service);
+            });
+        }
 
-			serviceCollection.AddTransient<IUnitOfWork, JsonContext>();
-			serviceCollection.AddTransient<IUnitOfWork, XmlContext>();
+        private ServiceCollection RegisterServices(ServiceCollection serviceCollection)
+        {
+            serviceCollection.AddTransient<IMathService, TangentMathService>();
+            serviceCollection.AddTransient<IMathService, ParabolaMathService>();
+            serviceCollection.AddTransient<IMathService, LogarithmMathService>();
+            serviceCollection.AddTransient<IMathService, ExponentiationMathService>();
 
-			serviceCollection.AddTransient<IAsyncRepository, AsyncXmlRepository>();
-			serviceCollection.AddTransient<IAsyncRepository, AsyncJsonRepository>();
+            serviceCollection.AddTransient<IJsonPathService, JsonPathService>();
+            serviceCollection.AddTransient<IXmlPathService, XmlPathService>();
 
-			serviceCollection.AddTransient<IPointService, JsonPointService>();
-			serviceCollection.AddTransient<IPointService, XmlPointService>();
+            serviceCollection.AddTransient<IUnitOfWork, JsonContext>();
+            serviceCollection.AddTransient<IUnitOfWork, XmlContext>();
 
-			return serviceCollection;
-		}
+            serviceCollection.AddTransient<IAsyncRepository, AsyncXmlRepository>();
+            serviceCollection.AddTransient<IAsyncRepository, AsyncJsonRepository>();
 
-		private static ServiceCollection RegisterShell(ServiceCollection servicecollection)
-		{
-			servicecollection.AddSingleton<ShellViewModel>();
-			servicecollection.AddSingleton<Shell>();
-			return servicecollection;
-		}
+            serviceCollection.AddTransient<IPointService, JsonPointService>();
+            serviceCollection.AddTransient<IPointService, XmlPointService>();
 
-		private void OnDemoDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
-		{
-			var logger = LogManager.GetCurrentClassLogger();
-			logger.Error(e);
-		}
-	}
+            return serviceCollection;
+        }
+
+        private static ServiceCollection RegisterShell(ServiceCollection servicecollection)
+        {
+            servicecollection.AddSingleton<ShellViewModel>();
+            servicecollection.AddSingleton<Shell>();
+            return servicecollection;
+        }
+
+        private void OnDemoDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            var logger = LogManager.GetCurrentClassLogger();
+            logger.Error(e);
+        }
+    }
 }

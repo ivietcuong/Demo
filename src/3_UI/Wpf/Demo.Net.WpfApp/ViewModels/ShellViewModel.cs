@@ -1,8 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-using Demo.Net.Wpf.JsonPresenter;
-using Demo.Net.Wpf.JsonPresenter.ViewModels;
 using Demo.Net.Wpf.Shared.ViewModels;
 
 using System.Collections.Generic;
@@ -12,7 +10,7 @@ using System.Linq;
 namespace Demo.Net.WpfApp.ViewModels
 {
 
-	public partial class ShellViewModel : ObservableObject
+    public partial class ShellViewModel : ObservableObject
 	{
 
 		[ObservableProperty]

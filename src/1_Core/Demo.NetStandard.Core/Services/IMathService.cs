@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace Demo.NetStandard.Core.Services
 {
-	public interface IMathService
-	{
-		string Name { get; }
-		string Description { get; }
-		IEnumerable<Point> Calculate(IEnumerable<Point> points, double coefficienta, double coefficientb, double coefficientc);
-	}
+    public interface IMathService
+    {
+        string Name { get; set; }
+        string Description { get; set; }
+        IEnumerable<Point> Calculate(IEnumerable<Point> points, double coefficienta, double coefficientb, double coefficientc);
+    }
 }

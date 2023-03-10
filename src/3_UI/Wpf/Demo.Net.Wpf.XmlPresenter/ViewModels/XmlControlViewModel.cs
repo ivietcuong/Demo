@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 using Demo.Net.Wpf.Shared;
+using Demo.Net.Wpf.Shared.ViewModels;
 using Demo.NetStandard.Core.Entities;
 using Demo.NetStandard.Core.Services;
 
@@ -14,48 +15,48 @@ using System.Threading.Tasks;
 namespace Demo.Net.Wpf.XmlPresenter.ViewModels
 {
     public partial class XmlControlViewModel : ObservableObject
-	{
-		private readonly ILogger _logger;
-		private readonly IPointService _pointService;
+    {
+        private readonly ILogger _logger;
+        private readonly IPointService _pointService;
 
-		[ObservableProperty]
-		private IMathService? _selectedMathSerice;
+        [ObservableProperty]
+        private MathServiceViewModel? _selectedMathService;
 
-		[ObservableProperty]
-		private List<Point> _points = new();
+        [ObservableProperty]
+        private List<Point> _points = new();
 
-		[ObservableProperty]
-		private List<IMathService> _mathServices = new();
+        [ObservableProperty]
+        private List<MathServiceViewModel> _mathServices = new();
 
-		public XmlControlViewModel(IPointService pointService, IEnumerable<IMathService> mathservices, ILogger<XmlControlViewModel> logger)
-		{
-			_logger = logger;
-			_pointService = pointService;
-			MathServices = mathservices.ToList();
+        public XmlControlViewModel(IPointService pointService, IEnumerable<MathServiceViewModel> mathServiceViewModels, ILogger<XmlControlViewModel> logger)
+        {
+            _logger = logger;
+            _pointService = pointService;
+            MathServices = mathServiceViewModels.ToList();
 
-			GetPoints().InitializeData(_logger);
-		}
+            GetPoints().InitializeData(_logger);
+        }
 
-		private async Task GetPoints()
-		{
-			try
-			{
-				var points = await _pointService.GetPointListAsync();
-				var meanvalue = points.Count() / 2;
-				Points = new List<Point>(points.Select(p => new Point() { X = p.X - meanvalue, Y = p.Y }));
-				_logger.LogTrace($"{nameof(GetPoints)} {Points.Count}");
-			}
-			catch (Exception e)
-			{
-				_logger.LogError(e.Message);
-				throw;
-			}
-		}
+        private async Task GetPoints()
+        {
+            try
+            {
+                var points = await _pointService.GetPointListAsync();
+                var meanvalue = points.Count() / 2;
+                Points = new List<Point>(points.Select(p => new Point() { X = p.X - meanvalue, Y = p.Y }));
+                _logger.LogTrace($"{nameof(GetPoints)} {Points.Count}");
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+                throw;
+            }
+        }
 
-		partial void OnSelectedMathSericeChanged(IMathService? value)
-		{
-			if (SelectedMathSerice != null)
-				Points = new List<Point>(SelectedMathSerice.Calculate(Points, 2, 3, 4));
-		}
-	}
+        partial void OnSelectedMathServiceChanged(MathServiceViewModel? value)
+        {
+            if (SelectedMathService != null)
+                Points = new List<Point>(SelectedMathService.Calculate(Points, 2, 3, 4));
+        }
+    }
 }

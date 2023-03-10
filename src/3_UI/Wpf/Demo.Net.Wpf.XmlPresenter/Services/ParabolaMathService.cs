@@ -12,7 +12,7 @@ namespace Demo.Net.Wpf.XmlPresenter.Services
     public class ParabolaMathService : IMathService
     {
         private readonly ILogger _logger;
-        public string Name { get; } = "Parabola";
+        public string Name { get; set; } = "Parabola";
         public string Description { get; set; } = "y = a.x^{2} + b.x + c";
 
         public ParabolaMathService(ILogger<ParabolaMathService> logger)

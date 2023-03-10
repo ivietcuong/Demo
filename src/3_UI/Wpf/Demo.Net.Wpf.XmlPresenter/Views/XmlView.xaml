@@ -41,7 +41,7 @@
                           Margin="10"
                           VerticalAlignment="Top"
                           ItemsSource="{Binding MathServices}"
-                          SelectedItem="{Binding SelectedMathSerice}">
+                          SelectedItem="{Binding SelectedMathService}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <demoLib:DemoMathBlock FontSize="16"

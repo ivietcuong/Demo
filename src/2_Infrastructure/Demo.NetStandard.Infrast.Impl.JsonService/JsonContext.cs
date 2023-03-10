@@ -47,7 +47,6 @@ namespace Demo.NetStandard.Infrast.JsonService.Impl
 		{
 			try
 			{
-
 				if (Points == null || !Points.Any())
 					Points = await ReadJsonDataAsync();
 

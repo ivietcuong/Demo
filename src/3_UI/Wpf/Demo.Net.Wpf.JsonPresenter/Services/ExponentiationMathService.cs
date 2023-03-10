@@ -12,8 +12,8 @@ namespace Demo.Net.Wpf.JsonPresenter.Services
     public class ExponentiationMathService : IMathService
     {
         private readonly ILogger _logger;
-        public string Name { get; } = "Exponentiation";
-        public string Description { get; } = "y = b^{n}";
+        public string Name { get; set; } = "Exponentiation";
+        public string Description { get; set; } = "y = b^{n}";
 
         public ExponentiationMathService(ILogger<ExponentiationMathService> logger)
         {

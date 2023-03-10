@@ -19,7 +19,7 @@
                                  Title="Xml"
                                  Background="White"
                                  ItemsSource="{Binding Points}"
-                                 LineTitle="{Binding SelectedMathSerice.Name}" />
+                                 LineTitle="{Binding SelectedMathService.Name}" />
         <Border Grid.Row="1"
                 BorderBrush="Lavender"
                 BorderThickness="1 0 0 0">
@@ -40,7 +40,7 @@
                           Margin="10"
                           VerticalAlignment="Top"
                           ItemsSource="{Binding MathServices}"
-                          SelectedItem="{Binding SelectedMathSerice}">
+                          SelectedItem="{Binding SelectedMathService}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <demoLib:DemoMathBlock FontSize="16"
