@@ -72,6 +72,7 @@
                 <ContentControl Grid.Row="0"
                                 Grid.Column="1"
                                 Margin="10"
+                                Validation.ErrorTemplate="{x:Null}"
                                 Content="{Binding SelectedMathService}" />
 
                 <Button Grid.Row="1"
