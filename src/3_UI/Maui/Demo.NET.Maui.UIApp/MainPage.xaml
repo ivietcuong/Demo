@@ -28,9 +28,10 @@
     <FlyoutPage.Detail>
         <NavigationPage>
             <x:Arguments>
-                <views:HomeView>
+                <!--<views:HomeView>
                     <ContentView Content="{Binding Workspace}"/>
-                </views:HomeView>
+                </views:HomeView>-->
+                <views:HomeView Content="{Binding Workspace}"/>
             </x:Arguments>
         </NavigationPage>
 
