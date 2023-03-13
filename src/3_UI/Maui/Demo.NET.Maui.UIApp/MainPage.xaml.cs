@@ -1,24 +1,21 @@
 ﻿namespace Demo.NET.Maui.UIApp
 {
-    public partial class MainPage : ContentPage
+    public partial class MainPage : FlyoutPage
     {
-        int count = 0;
-
         public MainPage()
         {
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        public MainPage(MainPageViewModel viewModel)
+            : this()
         {
-            count++;
+            BindingContext = viewModel;
+        }
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+        private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            IsPresented = false;
         }
     }
 }

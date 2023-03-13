@@ -5,8 +5,12 @@
         public App()
         {
             InitializeComponent();
+        }
 
-            MainPage = new AppShell();
+        public App(MainPage mainPage)
+            : this()
+        {
+            MainPage = mainPage;
         }
     }
 }
