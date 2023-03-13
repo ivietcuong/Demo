@@ -1,8 +1,8 @@
 namespace Demo.NET.Maui.UIApp.Views;
 
-public partial class NewContent1 : ContentView
+public partial class AppShell : ContentPage
 {
-	public NewContent1()
+	public AppShell()
 	{
 		InitializeComponent();
 	}

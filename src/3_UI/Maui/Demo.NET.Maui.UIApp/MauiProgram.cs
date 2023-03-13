@@ -5,28 +5,27 @@ using Microsoft.Extensions.Logging;
 
 namespace Demo.NET.Maui.UIApp
 {
-    public static class MauiProgram
-    {
-        public static MauiApp CreateMauiApp()
-        {
-            var builder = MauiApp.CreateBuilder();
-            builder
-                .UseMauiApp<App>()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+	public static class MauiProgram
+	{
+		public static MauiApp CreateMauiApp()
+		{
+			var builder = MauiApp.CreateBuilder();
+			builder.UseMauiApp<App>().ConfigureFonts(fonts =>
+				{
+					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+					fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+				});
 
 #if DEBUG
-            builder.Logging.AddDebug();
+			builder.Logging.AddDebug();
 #endif
-            builder.Services.AddSingleton<HomeViewModel>();
-            builder.Services.AddSingleton<HomeView>();
-            builder.Services.AddSingleton<MainPageViewModel>();
-            builder.Services.AddSingleton<MainPage>();
 
-            return builder.Build();
-        }
-    }
+			builder.Services.AddSingleton<HomeViewModel>();
+			builder.Services.AddSingleton<AppShell>();
+			builder.Services.AddSingleton<MainPageViewModel>();
+			builder.Services.AddSingleton<MainPage>();
+
+			return builder.Build();
+		}
+	}
 }

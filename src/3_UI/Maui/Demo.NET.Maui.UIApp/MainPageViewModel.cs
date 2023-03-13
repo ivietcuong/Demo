@@ -29,11 +29,10 @@ namespace Demo.NET.Maui.UIApp
                 new Person() { Name = "Jane", Age = 30 ,Location = "UK" }
             };
 
-            Workspace = new NewContent1();
+            Workspace = new HomeView();
         }
         partial void OnSelectedPersonChanged(Person value)
         {
-            Workspace = new NewContent2();
         }
     }
 }

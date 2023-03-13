@@ -28,9 +28,7 @@
     <FlyoutPage.Detail>
         <NavigationPage>
             <x:Arguments>
-                <views:HomeView>
-                    <ContentView Content="{Binding Workspace}"/>
-                </views:HomeView>
+				<views:AppShell Content="{Binding Workspace}"/>
             </x:Arguments>
         </NavigationPage>
 
