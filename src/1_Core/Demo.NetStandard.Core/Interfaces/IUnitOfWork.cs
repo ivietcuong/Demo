@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace Demo.Net.Core.Interfaces
+namespace Demo.NetStandard.Core.Interfaces
 {
 	public interface IUnitOfWork
 	{

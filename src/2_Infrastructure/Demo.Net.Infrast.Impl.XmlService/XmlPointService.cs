@@ -1,6 +1,6 @@
-﻿using Demo.Net.Core.Entities;
-using Demo.Net.Core.Interfaces;
-using Demo.Net.Core.Services;
+﻿using Demo.NetStandard.Core.Entities;
+using Demo.NetStandard.Core.Interfaces;
+using Demo.NetStandard.Core.Services;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;

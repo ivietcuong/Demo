@@ -1,4 +1,4 @@
-﻿using Demo.Net.Core.Services;
+﻿using Demo.NetStandard.Core.Services;
 
 namespace Demo.Net.Infrast.Impl.XmlService
 {

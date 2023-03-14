@@ -4,8 +4,8 @@ using Demo.Net.Wpf.XmlPresenter.ViewModels;
 using Demo.Net.Wpf.XmlPresenter.Views;
 using Demo.Net.WpfApp.ViewModels;
 using Demo.Net.WpfApp.Views;
-using Demo.Net.Core.Interfaces;
-using Demo.Net.Core.Services;
+using Demo.NetStandard.Core.Interfaces;
+using Demo.NetStandard.Core.Services;
 
 using Microsoft.Extensions.DependencyInjection;
 

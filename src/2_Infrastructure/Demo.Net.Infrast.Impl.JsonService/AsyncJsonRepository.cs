@@ -1,4 +1,4 @@
-﻿using Demo.Net.Core.Interfaces;
+﻿using Demo.NetStandard.Core.Interfaces;
 
 using System;
 using System.Collections.Generic;

@@ -1,12 +1,10 @@
-using Demo.Net.Core.DataSource;
-using Demo.Net.Core.Entities;
-using Demo.Net.Core.Interfaces;
-using Demo.Net.Core.Services;
+using Demo.NetStandard.Core.DataSource;
+using Demo.NetStandard.Core.Entities;
+using Demo.NetStandard.Core.Interfaces;
+using Demo.NetStandard.Core.Services;
 using Demo.Net.Infrast.Impl.SQLiteService;
 
 using Microsoft.EntityFrameworkCore;
-
-using System.Diagnostics;
 
 namespace Demo.Infrast.Impl.SQLiteService.Test
 {

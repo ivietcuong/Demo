@@ -1,8 +1,8 @@
-﻿using Demo.Net.Core.Entities;
+﻿using Demo.NetStandard.Core.Entities;
 
 using System.Collections.Generic;
 
-namespace Demo.Net.Core.DataSource
+namespace Demo.NetStandard.Core.DataSource
 {
 	public static class Data
 	{

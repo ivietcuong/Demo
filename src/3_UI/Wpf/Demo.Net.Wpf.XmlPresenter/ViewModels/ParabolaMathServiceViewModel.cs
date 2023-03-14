@@ -1,5 +1,5 @@
 ﻿using Demo.Net.Wpf.Shared.ViewModels;
-using Demo.Net.Core.Services;
+using Demo.NetStandard.Core.Services;
 
 using Microsoft.Extensions.Logging;
 

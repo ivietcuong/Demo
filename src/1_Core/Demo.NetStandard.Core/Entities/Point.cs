@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using System.Xml.Serialization;
 
-namespace Demo.Net.Core.Entities
+namespace Demo.NetStandard.Core.Entities
 {
 	public class Point
 	{

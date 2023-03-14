@@ -1,5 +1,5 @@
-﻿using Demo.Net.Core.Entities;
-using Demo.Net.Core.Interfaces;
+﻿using Demo.NetStandard.Core.Entities;
+using Demo.NetStandard.Core.Interfaces;
 
 using Microsoft.EntityFrameworkCore;
 
