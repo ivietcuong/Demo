@@ -1,6 +1,4 @@
-﻿using OxyPlot;
-
-namespace Demo.Net.Maui.UIApp
+﻿namespace Demo.Net.Maui.UIApp
 {
 	public partial class MainPage : FlyoutPage
 	{

@@ -1,6 +1,6 @@
 ﻿namespace Demo.Net.Infrast.Impl.EfCoreService
 {
-	public class JsonPathService : IJsonPathService
+	public class EfCorePathService : IEfCorePathService
 	{
 		public string GetPath()
 		{

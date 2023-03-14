@@ -6,7 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Demo.Net.Infrast.XmlService.Impl
+namespace Demo.Net.Infrast.Impl.XmlService
 {
 	public class AsyncXmlRepository : IAsyncRepository
 	{

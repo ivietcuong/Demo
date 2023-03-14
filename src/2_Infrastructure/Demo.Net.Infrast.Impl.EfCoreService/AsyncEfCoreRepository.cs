@@ -1,14 +1,10 @@
 ﻿using Demo.Net.Core.Interfaces;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace Demo.Net.Infrast.Impl.EfCoreService
 {
-	public class AsyncJsonRepository : IAsyncRepository
+	public class AsyncEfCoreRepository : IAsyncRepository
 	{
 		private readonly IUnitOfWork _context;
 
@@ -17,7 +13,7 @@ namespace Demo.Net.Infrast.Impl.EfCoreService
 			get => _context; 
 		}
 
-		public AsyncJsonRepository(IUnitOfWork unitOfWork)
+		public AsyncEfCoreRepository(IUnitOfWork unitOfWork)
 		{
 			_context = unitOfWork;
 		}

@@ -2,7 +2,7 @@
 
 namespace Demo.Net.Infrast.Impl.EfCoreService
 {
-	public interface IJsonPathService : IPathService
+	public interface IEfCorePathService : IPathService
 	{
 	}
 }

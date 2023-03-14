@@ -1,6 +1,4 @@
-﻿using OxyPlot.Maui.Skia.Effects;
-
-namespace OxyPlot.Maui.Skia;
+﻿namespace OxyPlot.Maui.Skia;
 
 public static class AppHostBuilderExtensions
 {

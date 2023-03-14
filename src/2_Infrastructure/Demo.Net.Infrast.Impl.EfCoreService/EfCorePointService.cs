@@ -2,16 +2,13 @@
 using Demo.Net.Core.Interfaces;
 using Demo.Net.Core.Services;
 
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace Demo.Net.Infrast.Impl.EfCoreService
 {
-	public class JsonPointService : IPointService
+	public class EfCorePointService : IPointService
 	{
 		private readonly IAsyncRepository _repository;
 
-		public JsonPointService(IAsyncRepository repository)
+		public EfCorePointService(IAsyncRepository repository)
 		{
 			_repository = repository;
 		}

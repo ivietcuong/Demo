@@ -4,20 +4,19 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System.IO;
-
 namespace OxyPlot.Maui.Skia
 {
-    using global::SkiaSharp;
-    using global::SkiaSharp.HarfBuzz;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+	using global::SkiaSharp;
+	using global::SkiaSharp.HarfBuzz;
 
-    /// <summary>
-    /// Implements <see cref="IRenderContext" /> based on SkiaSharp.
-    /// </summary>
-    internal class SkiaRenderContext : IRenderContext, IDisposable
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+
+	/// <summary>
+	/// Implements <see cref="IRenderContext" /> based on SkiaSharp.
+	/// </summary>
+	internal class SkiaRenderContext : IRenderContext, IDisposable
     {
         private readonly Dictionary<FontDescriptor, SKShaper> shaperCache = new Dictionary<FontDescriptor, SKShaper>();
         private readonly Dictionary<FontDescriptor, SKTypeface> typefaceCache = new Dictionary<FontDescriptor, SKTypeface>();

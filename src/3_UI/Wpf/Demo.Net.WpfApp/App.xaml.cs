@@ -18,14 +18,12 @@ using NLog.Extensions.Logging;
 using Demo.Net.Wpf.JsonPresenter.Services;
 using Demo.Net.Wpf.XmlPresenter.Services;
 using Demo.Net.Wpf.Shared.ViewModels;
-using Demo.Net.Infrast.XmlService.Impl;
 using Demo.Net.Infrast.Impl.XmlService;
-using Demo.Net.Infrast.JsonService.Impl;
-using Demo.Net.Infrast.Impl.JsonService;
+using Demo.Net.Infrast.Impl.EfCoreService;
 
 namespace Demo.Net.WpfApp
 {
-    public partial class App : Application
+	public partial class App : Application
     {
         public IServiceProvider? ServiceProvider { get; private set; }
 

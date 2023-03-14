@@ -2,7 +2,6 @@
 using Demo.Net.Core.Entities;
 using Demo.Net.Core.Interfaces;
 using Demo.Net.Core.Services;
-using Demo.Net.Infrast.Impl.XmlService;
 
 using Microsoft.Extensions.Logging;
 
@@ -15,7 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace Demo.Net.Infrast.XmlService.Impl
+namespace Demo.Net.Infrast.Impl.XmlService
 {
 	public class XmlContext : IUnitOfWork
 	{

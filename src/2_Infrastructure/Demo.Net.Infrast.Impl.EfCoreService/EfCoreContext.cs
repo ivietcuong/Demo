@@ -3,27 +3,22 @@ using Demo.Net.Core.Entities;
 using Demo.Net.Core.Interfaces;
 using Demo.Net.Core.Services;
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Demo.Net.Infrast.Impl.EfCoreService
 {
-	public class JsonContext : IUnitOfWork
+	public class EfCoreContext : DbContext, IUnitOfWork
 	{
 		private readonly ILogger _logger;
 		private readonly IPathService _pathService;
 
 		public IEnumerable<Point> Points { get; set; }
 
-		public JsonContext(IJsonPathService pathService, ILogger<JsonContext> logger = null)
+		public EfCoreContext(IEfCorePathService pathService, ILogger<EfCoreContext> logger = null)
 		{
 			_logger = logger;
 			_pathService = pathService;

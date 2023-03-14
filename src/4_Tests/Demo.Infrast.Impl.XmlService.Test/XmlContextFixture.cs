@@ -3,7 +3,6 @@ using Demo.Net.Core.Entities;
 using Demo.Net.Core.Interfaces;
 using Demo.Net.Core.Services;
 using Demo.Net.Infrast.Impl.XmlService;
-using Demo.Net.Infrast.XmlService.Impl;
 
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;

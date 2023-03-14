@@ -42,6 +42,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Net.Infrast.Impl.JsonS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Net.Infrast.Impl.XmlService", "src\2_Infrastructure\Demo.Net.Infrast.Impl.XmlService\Demo.Net.Infrast.Impl.XmlService.csproj", "{136B6997-23A4-41C8-9B5A-2A1D619E91BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Net.Infrast.Impl.EfCoreService", "src\2_Infrastructure\Demo.Net.Infrast.Impl.EfCoreService\Demo.Net.Infrast.Impl.EfCoreService.csproj", "{421B86E4-6837-447A-817C-F2360843D493}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -94,6 +96,10 @@ Global
 		{136B6997-23A4-41C8-9B5A-2A1D619E91BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{136B6997-23A4-41C8-9B5A-2A1D619E91BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{136B6997-23A4-41C8-9B5A-2A1D619E91BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{421B86E4-6837-447A-817C-F2360843D493}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{421B86E4-6837-447A-817C-F2360843D493}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{421B86E4-6837-447A-817C-F2360843D493}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{421B86E4-6837-447A-817C-F2360843D493}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,6 +118,7 @@ Global
 		{3E05883A-EA7B-43B5-8A3F-16CD119BDAAF} = {CAA74E2A-3294-4B7B-9373-0DEC2F7AF49C}
 		{78D16BEB-70E6-4241-88D2-C54F94D67274} = {E50D5BE9-56A9-4D09-B53B-9F82B621D03A}
 		{136B6997-23A4-41C8-9B5A-2A1D619E91BE} = {E50D5BE9-56A9-4D09-B53B-9F82B621D03A}
+		{421B86E4-6837-447A-817C-F2360843D493} = {E50D5BE9-56A9-4D09-B53B-9F82B621D03A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {42BF3B49-E541-4E42-BE64-26F1528C71D5}
