@@ -1,6 +1,6 @@
 ﻿namespace Demo.Net.Infrast.Impl.SQLiteService
 {
-	public class JsonPathService : IJsonPathService
+	public class SQLitePathService : ISQLitePathService
 	{
 		public string GetPath()
 		{

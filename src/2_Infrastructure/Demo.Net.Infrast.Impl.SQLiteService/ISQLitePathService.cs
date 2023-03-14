@@ -2,7 +2,7 @@
 
 namespace Demo.Net.Infrast.Impl.SQLiteService
 {
-	public interface IJsonPathService : IPathService
+	public interface ISQLitePathService : IPathService
 	{
 	}
 }

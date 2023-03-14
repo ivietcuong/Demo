@@ -3,7 +3,7 @@ using Demo.Net.Core.DataSource;
 using Demo.Net.Core.Entities;
 using Demo.Net.Core.Interfaces;
 using Demo.Net.Core.Services;
-using Demo.Net.Infrast.Impl.EfCoreService;
+using Demo.Net.Infrast.Impl.SQLiteService;
 
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;

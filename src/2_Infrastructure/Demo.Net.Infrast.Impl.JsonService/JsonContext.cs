@@ -14,7 +14,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Demo.Net.Infrast.Impl.EfCoreService
+namespace Demo.Net.Infrast.Impl.SQLiteService
 {
 	public class JsonContext : IUnitOfWork
 	{
@@ -42,7 +42,7 @@ namespace Demo.Net.Infrast.Impl.EfCoreService
 			await filestream.DisposeAsync();
 		}
 
-		public async Task<IEnumerable<T>> SetAsync<T>()
+		public async Task<IEnumerable<T>> SetAsync<T>() where T : class
 		{
 			try
 			{

@@ -41,7 +41,7 @@ namespace Demo.Net.Infrast.Impl.XmlService
 			await taskCompletionSource.Task;
 		}
 
-		public async Task<IEnumerable<T>> SetAsync<T>()
+		public async Task<IEnumerable<T>> SetAsync<T>() where T : class
 		{
 			try
 			{
