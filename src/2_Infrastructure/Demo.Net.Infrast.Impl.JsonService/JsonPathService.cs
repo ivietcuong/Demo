@@ -1,4 +1,4 @@
-﻿namespace Demo.Net.Infrast.Impl.EfCoreService
+﻿namespace Demo.Net.Infrast.Impl.SQLiteService
 {
 	public class JsonPathService : IJsonPathService
 	{

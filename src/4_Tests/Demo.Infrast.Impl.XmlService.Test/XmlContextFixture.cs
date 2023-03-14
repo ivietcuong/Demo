@@ -12,11 +12,11 @@ namespace Demo.Infrast.Impl.XmlService.Test
 	[TestFixture]
 	public class XmlContextFixture
 	{
-		private readonly IUnitOfWork _unitOfWork;
-		private readonly IPointService _pointService;
-		private readonly ILogger<XmlContext> _logger;
-		private readonly IXmlPathService _pathService;
-		private readonly AsyncXmlRepository _asyncRepository;
+		private IUnitOfWork _unitOfWork;
+		private IPointService _pointService;
+		private ILogger<XmlContext> _logger;
+		private IXmlPathService _pathService;
+		private AsyncXmlRepository _asyncRepository;
 
 		public XmlContextFixture()
 		{
@@ -31,7 +31,7 @@ namespace Demo.Infrast.Impl.XmlService.Test
 		public async Task IsWrittingXmlFile_Successful()
 		{
 			await ((XmlContext)_unitOfWork).WriteXmlDataAsync();
-			var result = File.Exists(@"..\..\..\..\..\..\DataSource\points.xml");
+			var result = File.Exists(_pathService.GetPath());
 			Assert.True(result);
 		}
 

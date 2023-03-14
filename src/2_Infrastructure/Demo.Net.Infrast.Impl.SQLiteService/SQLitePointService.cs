@@ -2,13 +2,13 @@
 using Demo.Net.Core.Interfaces;
 using Demo.Net.Core.Services;
 
-namespace Demo.Net.Infrast.Impl.EfCoreService
+namespace Demo.Net.Infrast.Impl.SQLiteService
 {
-	public class EfCorePointService : IPointService
+	public class SQLitePointService : IPointService
 	{
 		private readonly IAsyncRepository _repository;
 
-		public EfCorePointService(IAsyncRepository repository)
+		public SQLitePointService(IAsyncRepository repository)
 		{
 			_repository = repository;
 		}

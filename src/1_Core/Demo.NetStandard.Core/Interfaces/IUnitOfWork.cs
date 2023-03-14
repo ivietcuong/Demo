@@ -6,8 +6,8 @@ namespace Demo.Net.Core.Interfaces
 {
 	public interface IUnitOfWork
 	{
-		Task<IEnumerable<T>> SetAsync<T>();
 		int SaveChanges(bool acceptAllChangesOnSuccess);
+		Task<IEnumerable<T>> SetAsync<T>() where T : class;
 		Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 	}
 }

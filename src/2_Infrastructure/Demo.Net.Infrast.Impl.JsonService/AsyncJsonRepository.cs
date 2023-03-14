@@ -6,7 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Demo.Net.Infrast.Impl.EfCoreService
+namespace Demo.Net.Infrast.Impl.SQLiteService
 {
 	public class AsyncJsonRepository : IAsyncRepository
 	{
@@ -42,7 +42,7 @@ namespace Demo.Net.Infrast.Impl.EfCoreService
 			throw new NotImplementedException();
 		}
 
-		public async Task<IEnumerable<T>> GetAsync<T>(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null)
+		public async Task<IEnumerable<T>> GetAsync<T>(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null) where T : class
 		{
 			IEnumerable<T> set = await _context.SetAsync<T>();
 

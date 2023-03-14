@@ -3,7 +3,7 @@ using Demo.Net.Core.DataSource;
 using Demo.Net.Core.Entities;
 using Demo.Net.Core.Interfaces;
 using Demo.Net.Core.Services;
-using Demo.Net.Infrast.Impl.EfCoreService;
+using Demo.Net.Infrast.Impl.SQLiteService;
 
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -12,11 +12,11 @@ namespace Demo.Infrast.Impl.JsonSerivce.Test
 {
 	public class JsonContextFixture
 	{
-		private readonly IUnitOfWork _unitOfWork;
-		private readonly IPointService _pointService;
-		private readonly ILogger<JsonContext> _logger;
-		private readonly IJsonPathService _pathService;
-		private readonly IAsyncRepository _asyncRepository;
+		private IUnitOfWork _unitOfWork;
+		private IPointService _pointService;
+		private ILogger<JsonContext> _logger;
+		private IJsonPathService _pathService;
+		private IAsyncRepository _asyncRepository;
 
 		public JsonContextFixture()
 		{
@@ -31,7 +31,7 @@ namespace Demo.Infrast.Impl.JsonSerivce.Test
 		public async void IsWrittingJsonFile_Successful()
 		{
 			await ((JsonContext)_unitOfWork).WriteJsonDataAsync();
-			var result = File.Exists(@"..\..\..\..\..\..\DataSource\points.json");
+			var result = File.Exists(_pathService.GetPath());
 			Assert.True(result);
 		}
 

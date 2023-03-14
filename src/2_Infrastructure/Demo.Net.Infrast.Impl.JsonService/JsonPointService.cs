@@ -5,7 +5,7 @@ using Demo.Net.Core.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Demo.Net.Infrast.Impl.EfCoreService
+namespace Demo.Net.Infrast.Impl.SQLiteService
 {
 	public class JsonPointService : IPointService
 	{

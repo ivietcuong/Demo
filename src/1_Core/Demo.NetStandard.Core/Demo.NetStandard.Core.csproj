@@ -9,6 +9,10 @@
 		<Authors>$(AssemblyCompany)</Authors>
 		<Company>$(AssemblyCompany)</Company>
 		<Copyright>$(AssemblyCopyright)</Copyright>
-	</PropertyGroup>	
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="System.Text.Json" Version="7.0.2" />
+	</ItemGroup>	
 	
 </Project>

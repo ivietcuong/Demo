@@ -2,9 +2,9 @@
 
 using System.Linq.Expressions;
 
-namespace Demo.Net.Infrast.Impl.EfCoreService
+namespace Demo.Net.Infrast.Impl.SQLiteService
 {
-	public class AsyncEfCoreRepository : IAsyncRepository
+	public class AsyncSQLiteRepository : IAsyncRepository
 	{
 		private readonly IUnitOfWork _context;
 
@@ -13,7 +13,7 @@ namespace Demo.Net.Infrast.Impl.EfCoreService
 			get => _context; 
 		}
 
-		public AsyncEfCoreRepository(IUnitOfWork unitOfWork)
+		public AsyncSQLiteRepository(IUnitOfWork unitOfWork)
 		{
 			_context = unitOfWork;
 		}
@@ -38,7 +38,7 @@ namespace Demo.Net.Infrast.Impl.EfCoreService
 			throw new NotImplementedException();
 		}
 
-		public async Task<IEnumerable<T>> GetAsync<T>(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null)
+		public async Task<IEnumerable<T>> GetAsync<T>(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null) where T : class
 		{
 			IEnumerable<T> set = await _context.SetAsync<T>();
 
