@@ -1,11 +1,11 @@
-using Demo.NET.Maui.UIApp.ViewModels;
-using Demo.NetStandard.Core.DataSource;
+using Demo.Net.Maui.UIApp.ViewModels;
+using Demo.Net.Core.DataSource;
 
 using OxyPlot;
 using OxyPlot.Legends;
 using OxyPlot.Series;
 
-namespace Demo.NET.Maui.UIApp.Views;
+namespace Demo.Net.Maui.UIApp.Views;
 
 public partial class HomeView : ContentView
 {
@@ -28,7 +28,7 @@ public partial class HomeView : ContentView
 
 		PlotView.Model.Legends.Add(legend);
 
-		var points = Data.Points.Cast<NetStandard.Core.Entities.Point>().Select(p => new DataPoint(p.X, p.Y));
+		var points = Data.Points.Cast<Net.Core.Entities.Point>().Select(p => new DataPoint(p.X, p.Y));
 		var lineseries = new LineSeries() { Title = "LineSeries" };
 		lineseries.Points.AddRange(points);
 		PlotView.Model.Series.Add(lineseries);

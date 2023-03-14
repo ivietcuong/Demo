@@ -1,4 +1,4 @@
-﻿using DemoCore = Demo.NetStandard.Core.Entities;
+﻿using DemoCore = Demo.Net.Core.Entities;
 using OxyPlot;
 using OxyPlot.Series;
 using OxyPlot.Wpf;

@@ -1,8 +1,9 @@
-﻿using Demo.NetStandard.Infrast.Impl.XmlService;
+﻿
+using Demo.Net.Infrast.Impl.XmlService;
 
 namespace Demo.Infrast.Impl.XmlService.Test
 {
-	internal class TestXmlPathService : IXmlPathService
+	public class TestXmlPathService : IXmlPathService
 	{
 		public string GetPath()
 		{

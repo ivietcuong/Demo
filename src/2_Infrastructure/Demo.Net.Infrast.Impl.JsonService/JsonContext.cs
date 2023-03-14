@@ -1,8 +1,8 @@
-﻿using Demo.NetStandard.Core.DataSource;
-using Demo.NetStandard.Core.Entities;
-using Demo.NetStandard.Core.Interfaces;
-using Demo.NetStandard.Core.Services;
-using Demo.NetStandard.Infrast.Impl.JsonService;
+﻿using Demo.Net.Core.DataSource;
+using Demo.Net.Core.Entities;
+using Demo.Net.Core.Interfaces;
+using Demo.Net.Core.Services;
+using Demo.Net.Infrast.Impl.JsonService;
 
 using Microsoft.Extensions.Logging;
 
@@ -15,7 +15,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Demo.NetStandard.Infrast.JsonService.Impl
+namespace Demo.Net.Infrast.JsonService.Impl
 {
 	public class JsonContext : IUnitOfWork
 	{

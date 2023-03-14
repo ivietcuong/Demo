@@ -26,9 +26,9 @@
 		</PackageReference>
 		<PackageReference Include="xunit.extensibility.core" Version="2.4.2" />
 	</ItemGroup>
-
+	
 	<ItemGroup>
-		<ProjectReference Include="..\..\2_Infrastructure\Demo.NetStandard.Infrast.Impl.XmlService\Demo.NetStandard.Infrast.Impl.XmlService.csproj" />
+	  <ProjectReference Include="..\..\2_Infrastructure\Demo.Net.Infrast.Impl.XmlService\Demo.Net.Infrast.Impl.XmlService.csproj" />
 	</ItemGroup>
 
 </Project>

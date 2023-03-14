@@ -1,8 +1,8 @@
-﻿using Demo.NetStandard.Core.Entities;
+﻿using Demo.Net.Core.Entities;
 
 using System.Collections.Generic;
 
-namespace Demo.NetStandard.Core.Services
+namespace Demo.Net.Core.Services
 {
     public interface IMathService
     {

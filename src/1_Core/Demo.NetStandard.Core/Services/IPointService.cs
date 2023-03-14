@@ -1,9 +1,9 @@
-﻿using Demo.NetStandard.Core.Entities;
+﻿using Demo.Net.Core.Entities;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Demo.NetStandard.Core.Services
+namespace Demo.Net.Core.Services
 {
 	public interface IPointService
 	{

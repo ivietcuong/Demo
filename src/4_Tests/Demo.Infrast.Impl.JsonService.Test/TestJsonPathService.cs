@@ -1,4 +1,4 @@
-﻿using Demo.NetStandard.Infrast.Impl.JsonService;
+﻿using Demo.Net.Infrast.Impl.JsonService;
 
 namespace Demo.Infrast.Impl.JsonService.Test
 {

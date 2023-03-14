@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-using Demo.NetStandard.Core.Entities;
-using Demo.NetStandard.Core.Services;
+using Demo.Net.Core.Entities;
+using Demo.Net.Core.Services;
 
 using Microsoft.Extensions.Logging;
 

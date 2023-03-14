@@ -3,7 +3,7 @@ using Microsoft.Maui.Hosting;
 
 using System;
 
-namespace Demo.NET.Maui.UIApp
+namespace Demo.Net.Maui.UIApp
 {
     internal class Program : MauiApplication
     {

@@ -1,4 +1,4 @@
-﻿namespace Demo.NET.Maui.UIApp
+﻿namespace Demo.Net.Maui.UIApp
 {
     public partial class App : Application
     {

@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-using Demo.NetStandard.Core.DataSource;
-using Demo.NetStandard.Core.Entities;
+using Demo.Net.Core.DataSource;
+using Demo.Net.Core.Entities;
 
 using OxyPlot;
 

@@ -1,4 +1,4 @@
-﻿namespace Demo.NetStandard.Infrast.Impl.JsonService
+﻿namespace Demo.Net.Infrast.Impl.JsonService
 {
 	public class JsonPathService : IJsonPathService
 	{

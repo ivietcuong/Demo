@@ -1,9 +1,12 @@
-using Demo.NetStandard.Core.DataSource;
-using Demo.NetStandard.Core.Entities;
-using Demo.NetStandard.Core.Interfaces;
-using Demo.NetStandard.Core.Services;
-using Demo.NetStandard.Infrast.Impl.XmlService;
-using Demo.NetStandard.Infrast.XmlService.Impl;
+using Demo.Net.Core.DataSource;
+using Demo.Net.Core.Entities;
+using Demo.Net.Core.Interfaces;
+using Demo.Net.Core.Services;
+using Demo.Net.Infrast.Impl.XmlService;
+using Demo.Net.Infrast.XmlService.Impl;
+
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Demo.Infrast.Impl.XmlService.Test
 {
@@ -12,13 +15,15 @@ namespace Demo.Infrast.Impl.XmlService.Test
 	{
 		private readonly IUnitOfWork _unitOfWork;
 		private readonly IPointService _pointService;
+		private readonly ILogger<XmlContext> _logger;
 		private readonly IXmlPathService _pathService;
 		private readonly AsyncXmlRepository _asyncRepository;
 
 		public XmlContextFixture()
 		{
+			_logger = new NullLogger<XmlContext>();
 			_pathService = new TestXmlPathService();
-			_unitOfWork = new XmlContext(_pathService);
+			_unitOfWork = new XmlContext(_pathService, _logger);
 			_asyncRepository = new AsyncXmlRepository(_unitOfWork);
 			_pointService = new XmlPointService(_asyncRepository);
 		}

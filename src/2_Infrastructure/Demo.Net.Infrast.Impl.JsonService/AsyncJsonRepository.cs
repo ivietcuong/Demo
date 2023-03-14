@@ -1,4 +1,4 @@
-﻿using Demo.NetStandard.Core.Interfaces;
+﻿using Demo.Net.Core.Interfaces;
 
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Demo.NetStandard.Infrast.JsonService.Impl
+namespace Demo.Net.Infrast.JsonService.Impl
 {
 	public class AsyncJsonRepository : IAsyncRepository
 	{

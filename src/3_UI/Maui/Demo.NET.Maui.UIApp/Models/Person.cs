@@ -1,4 +1,4 @@
-﻿namespace Demo.NET.Maui.UIApp.Models
+﻿namespace Demo.Net.Maui.UIApp.Models
 {
     public class Person
     {

@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Demo.NET.Maui.UIApp.ViewModels
+namespace Demo.Net.Maui.UIApp.ViewModels
 {
     public partial class HomeViewModel : ObservableObject
     {

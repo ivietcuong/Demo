@@ -1,11 +1,11 @@
-﻿using Demo.NetStandard.Core.Entities;
-using Demo.NetStandard.Core.Interfaces;
-using Demo.NetStandard.Core.Services;
+﻿using Demo.Net.Core.Entities;
+using Demo.Net.Core.Interfaces;
+using Demo.Net.Core.Services;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Demo.NetStandard.Infrast.Impl.XmlService
+namespace Demo.Net.Infrast.Impl.XmlService
 {
 	public class XmlPointService : IPointService
 	{

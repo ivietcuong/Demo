@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Demo.NetStandard.Core.Interfaces
+namespace Demo.Net.Core.Interfaces
 {
 	public interface IAsyncRepository
 	{

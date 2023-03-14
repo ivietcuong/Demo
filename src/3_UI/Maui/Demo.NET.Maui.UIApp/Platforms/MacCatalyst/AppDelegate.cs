@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace Demo.NET.Maui.UIApp
+namespace Demo.Net.Maui.UIApp
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

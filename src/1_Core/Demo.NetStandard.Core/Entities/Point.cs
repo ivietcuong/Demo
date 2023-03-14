@@ -1,4 +1,4 @@
-﻿namespace Demo.NetStandard.Core.Entities
+﻿namespace Demo.Net.Core.Entities
 {
 	public class Point
 	{

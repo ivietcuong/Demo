@@ -1,4 +1,4 @@
-namespace Demo.NET.Maui.UIApp.Views;
+namespace Demo.Net.Maui.UIApp.Views;
 
 public partial class AppShell : ContentPage
 {

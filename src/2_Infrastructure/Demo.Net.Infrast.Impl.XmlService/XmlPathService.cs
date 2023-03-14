@@ -1,4 +1,4 @@
-﻿namespace Demo.NetStandard.Infrast.Impl.XmlService
+﻿namespace Demo.Net.Infrast.Impl.XmlService
 {
 	public class XmlPathService : IXmlPathService
 	{

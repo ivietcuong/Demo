@@ -4,12 +4,8 @@ using Demo.Net.Wpf.XmlPresenter.ViewModels;
 using Demo.Net.Wpf.XmlPresenter.Views;
 using Demo.Net.WpfApp.ViewModels;
 using Demo.Net.WpfApp.Views;
-using Demo.NetStandard.Core.Interfaces;
-using Demo.NetStandard.Core.Services;
-using Demo.NetStandard.Infrast.Impl.JsonService;
-using Demo.NetStandard.Infrast.Impl.XmlService;
-using Demo.NetStandard.Infrast.JsonService.Impl;
-using Demo.NetStandard.Infrast.XmlService.Impl;
+using Demo.Net.Core.Interfaces;
+using Demo.Net.Core.Services;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,6 +18,10 @@ using NLog.Extensions.Logging;
 using Demo.Net.Wpf.JsonPresenter.Services;
 using Demo.Net.Wpf.XmlPresenter.Services;
 using Demo.Net.Wpf.Shared.ViewModels;
+using Demo.Net.Infrast.XmlService.Impl;
+using Demo.Net.Infrast.Impl.XmlService;
+using Demo.Net.Infrast.JsonService.Impl;
+using Demo.Net.Infrast.Impl.JsonService;
 
 namespace Demo.Net.WpfApp
 {

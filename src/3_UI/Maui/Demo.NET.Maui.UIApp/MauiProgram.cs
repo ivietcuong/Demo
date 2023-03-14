@@ -1,5 +1,5 @@
-﻿using Demo.NET.Maui.UIApp.ViewModels;
-using Demo.NET.Maui.UIApp.Views;
+﻿using Demo.Net.Maui.UIApp.ViewModels;
+using Demo.Net.Maui.UIApp.Views;
 
 using Microsoft.Extensions.Logging;
 
@@ -7,7 +7,7 @@ using OxyPlot.Maui.Skia;
 
 using SkiaSharp.Views.Maui.Controls.Hosting;
 
-namespace Demo.NET.Maui.UIApp
+namespace Demo.Net.Maui.UIApp
 {
 	public static class MauiProgram
 	{

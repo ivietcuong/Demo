@@ -29,7 +29,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\1_Core\Demo.NetStandard.Core\Demo.NetStandard.Core.csproj" />
-		<ProjectReference Include="..\..\2_Infrastructure\Demo.NetStandard.Infrast.Impl.JsonService\Demo.NetStandard.Infrast.Impl.JsonService.csproj" />
+		<ProjectReference Include="..\..\2_Infrastructure\Demo.Net.Infrast.Impl.JsonService\Demo.Net.Infrast.Impl.JsonService.csproj" />
 	</ItemGroup>
 
 </Project>

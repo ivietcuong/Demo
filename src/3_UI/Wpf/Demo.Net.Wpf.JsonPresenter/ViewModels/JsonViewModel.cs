@@ -3,8 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 
 using Demo.Net.Wpf.Shared;
 using Demo.Net.Wpf.Shared.ViewModels;
-using Demo.NetStandard.Core.Entities;
-using Demo.NetStandard.Core.Services;
+using Demo.Net.Core.Entities;
+using Demo.Net.Core.Services;
 
 using Microsoft.Extensions.Logging;
 

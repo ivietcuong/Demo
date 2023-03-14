@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <FlyoutPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:models="clr-namespace:Demo.NET.Maui.UIApp"
-            xmlns:views="clr-namespace:Demo.NET.Maui.UIApp.Views"
+            xmlns:models="clr-namespace:Demo.Net.Maui.UIApp"
+            xmlns:views="clr-namespace:Demo.Net.Maui.UIApp.Views"
 			xmlns:oxy="clr-namespace:OxyPlot.Maui.Skia;assembly=Demo.NET.Maui.Shared"
-            x:Class="Demo.NET.Maui.UIApp.MainPage" 
+            x:Class="Demo.Net.Maui.UIApp.MainPage" 
             FlyoutLayoutBehavior="Split">
 
     <FlyoutPage.Flyout>

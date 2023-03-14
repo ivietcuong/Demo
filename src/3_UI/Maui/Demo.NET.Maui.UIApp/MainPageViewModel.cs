@@ -1,10 +1,10 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 
-using Demo.NET.Maui.UIApp.Models;
-using Demo.NET.Maui.UIApp.Views;
+using Demo.Net.Maui.UIApp.Models;
+using Demo.Net.Maui.UIApp.Views;
 
-namespace Demo.NET.Maui.UIApp
+namespace Demo.Net.Maui.UIApp
 {
 	public partial class MainPageViewModel : ObservableObject
 	{

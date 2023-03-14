@@ -1,4 +1,4 @@
-﻿namespace Demo.NetStandard.Core.Services
+﻿namespace Demo.Net.Core.Services
 {
 	public interface IPathService
 	{
