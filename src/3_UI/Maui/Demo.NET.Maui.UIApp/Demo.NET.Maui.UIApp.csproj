@@ -55,7 +55,9 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\1_Core\Demo.NetStandard.Core\Demo.NetStandard.Core.csproj" />
+	  <ProjectReference Include="..\..\..\2_Infrastructure\Demo.Net.Infrast.Impl.SQLiteService\Demo.Net.Infrast.Impl.SQLiteService.csproj" />
 	  <ProjectReference Include="..\Demo.NET.Maui.Shared\Demo.Net.Maui.Shared.csproj" />
+	  <ProjectReference Include="..\Demo.Net.Maui.SQLitePresenter\Demo.Net.Maui.SQLitePresenter.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
