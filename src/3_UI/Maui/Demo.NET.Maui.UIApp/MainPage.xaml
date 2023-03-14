@@ -3,8 +3,9 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:models="clr-namespace:Demo.NET.Maui.UIApp"
             xmlns:views="clr-namespace:Demo.NET.Maui.UIApp.Views"
+			xmlns:oxy="clr-namespace:OxyPlot.Maui.Skia;assembly=Demo.NET.Maui.Shared"
             x:Class="Demo.NET.Maui.UIApp.MainPage" 
-            FlyoutLayoutBehavior="Popover">
+            FlyoutLayoutBehavior="Split">
 
     <FlyoutPage.Flyout>
         <ContentPage Title="Demo with MAUI">
@@ -26,12 +27,11 @@
     </FlyoutPage.Flyout>
 
     <FlyoutPage.Detail>
-        <NavigationPage>
-            <x:Arguments>
-				<views:AppShell Content="{Binding Workspace}"/>
-            </x:Arguments>
-        </NavigationPage>
-
-    </FlyoutPage.Detail>
+		<NavigationPage>
+			<x:Arguments>
+				<views:AppShell Content="{Binding Workspace}" />
+			</x:Arguments>
+		</NavigationPage>
+	</FlyoutPage.Detail>
 
 </FlyoutPage>

@@ -54,6 +54,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\..\1_Core\Demo.NetStandard.Core\Demo.NetStandard.Core.csproj" />
+	  <ProjectReference Include="..\Demo.NET.Maui.Shared\Demo.NET.Maui.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Update="Views\AppShell.xaml.cs">
 	    <DependentUpon>AppShell.xaml</DependentUpon>
 	  </Compile>

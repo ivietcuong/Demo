@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-namespace Demo.NetStandard.Core.Data
+namespace Demo.NetStandard.Core.DataSource
 {
 	public static class Data
 	{

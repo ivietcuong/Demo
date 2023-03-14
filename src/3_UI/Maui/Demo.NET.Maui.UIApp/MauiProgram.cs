@@ -3,6 +3,10 @@ using Demo.NET.Maui.UIApp.Views;
 
 using Microsoft.Extensions.Logging;
 
+using OxyPlot.Maui.Skia;
+
+using SkiaSharp.Views.Maui.Controls.Hosting;
+
 namespace Demo.NET.Maui.UIApp
 {
 	public static class MauiProgram
@@ -10,11 +14,14 @@ namespace Demo.NET.Maui.UIApp
 		public static MauiApp CreateMauiApp()
 		{
 			var builder = MauiApp.CreateBuilder();
-			builder.UseMauiApp<App>().ConfigureFonts(fonts =>
-				{
-					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-					fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-				});
+			builder.UseMauiApp<App>()
+					.UseSkiaSharp()
+					.UseOxyPlotSkia()
+					.ConfigureFonts(fonts =>
+					{
+						fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+						fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+					});
 
 #if DEBUG
 			builder.Logging.AddDebug();

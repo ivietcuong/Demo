@@ -1,10 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 x:Class="Demo.NET.Maui.UIApp.Views.AppShell">
-    <VerticalStackLayout>
-        <Label Text="Welcome to LE VIET CUONG!"
-               VerticalOptions="Center"
-               HorizontalOptions="Center" />
-    </VerticalStackLayout>
-</ContentPage>
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 x:Class="Demo.NET.Maui.UIApp.Views.AppShell" />
