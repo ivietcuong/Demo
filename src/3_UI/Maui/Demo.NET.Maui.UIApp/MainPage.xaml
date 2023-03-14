@@ -9,10 +9,10 @@
 
     <FlyoutPage.Flyout>
         <ContentPage Title="Demo with MAUI">
-            <CollectionView ItemsSource="{Binding People}" 
+			<CollectionView ItemsSource="{Binding MathServices}" 
                             SelectionMode="Single"
-                            SelectedItem="{Binding SelectedPerson}"
-                            SelectionChanged="OnSelectionChanged">
+							SelectedItem="{Binding SelectedMathService}"
+							SelectionChanged="OnSelectionChanged">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Label Text="{Binding Name}"

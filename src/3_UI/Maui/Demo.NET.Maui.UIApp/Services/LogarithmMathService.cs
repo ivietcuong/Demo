@@ -7,8 +7,8 @@ namespace Demo.Net.Maui.UIApp.Services
 	public class LogarithmMathService : IMathService
 	{
 		private readonly ILogger _logger;
-		public string Name { get; set; }
-		public string Description { get; set; }
+		public string Name { get; set; } = "Logarithm";
+		public string Description { get; set; } = "y = log_{b}x";
 
 		public LogarithmMathService(ILogger<LogarithmMathService> logger)
 		{

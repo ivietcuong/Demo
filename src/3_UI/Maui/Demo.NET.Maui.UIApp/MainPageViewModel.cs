@@ -3,36 +3,27 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 using Demo.Net.Maui.UIApp.Models;
 using Demo.Net.Maui.UIApp.Views;
+using Demo.NetStandard.Core.Services;
+
+using System.Collections.ObjectModel;
 
 namespace Demo.Net.Maui.UIApp
 {
 	public partial class MainPageViewModel : ObservableObject
 	{
 		[ObservableProperty]
-		private List<Person> _people = new List<Person>();
+		private ObservableCollection<IMathService> _mathServices = new ObservableCollection<IMathService>();
 
 		[ObservableProperty]
-		private Person _selectedPerson;
+		private IMathService _selectedMathService;
 
 		[ObservableProperty]
 		private object _workspace;
 
-		public MainPageViewModel()
+		public MainPageViewModel(IEnumerable<IMathService> mathservices)
 		{
-
-			People = new List<Person>()
-			{
-				new Person() { Name = "Steve", Age = 21, Location = "USA"  },
-				new Person() { Name = "John", Age = 37, Location = "USA"  },
-				new Person() { Name = "Tom", Age = 42 ,Location = "UK" } ,
-				new Person() { Name = "Lucas", Age = 39 ,Location = "Germany" } ,
-				new Person() { Name = "Jane", Age = 30 ,Location = "UK" }
-			};
-
+			MathServices = new ObservableCollection<IMathService>(mathservices);
 			Workspace = new HomeView();
-		}
-		partial void OnSelectedPersonChanged(Person value)
-		{
 		}
 	}
 }
