@@ -38,7 +38,7 @@ namespace Demo.Net.Infrast.Impl.SQLiteService
 			throw new NotImplementedException();
 		}
 
-		public async Task<IEnumerable<T>> GetAsync<T>(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null) where T : class
+		public async Task<IEnumerable<T>> GetAsync<T>(Expression<Func<T, bool>>? predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null) where T : class
 		{
 			IEnumerable<T> set = await _context.SetAsync<T>();
 

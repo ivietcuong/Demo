@@ -13,6 +13,6 @@ namespace Demo.NetStandard.Core.Interfaces
 		Task UpdateAsync<T>(T entity);
 		Task<T> GetByIdAsync<T>(int id);
 		Task<int> DeleteAsync<T>(T entity);
-		Task<IEnumerable<T>> GetAsync<T>(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = default) where T : class;
+		Task<IEnumerable<T>> GetAsync<T>(Expression<Func<T, bool>> predicate = default, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = default) where T : class;
 	}
 }
