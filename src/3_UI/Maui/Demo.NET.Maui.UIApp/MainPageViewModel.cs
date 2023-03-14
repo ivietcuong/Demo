@@ -1,7 +1,6 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 
-using Demo.Net.Maui.UIApp.Models;
 using Demo.Net.Maui.UIApp.Views;
 using Demo.NetStandard.Core.Services;
 
