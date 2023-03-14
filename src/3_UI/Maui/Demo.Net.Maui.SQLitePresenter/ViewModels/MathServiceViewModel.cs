@@ -4,9 +4,9 @@ using Demo.NetStandard.Core.Services;
 
 using Microsoft.Extensions.Logging;
 
-namespace Demo.Net.Maui.Shared.ViewModels
+namespace Demo.Net.Maui.SQLitePresenter.ViewModels
 {
-	public abstract partial class MathServiceViewModel : ObservableValidator
+	public partial class MathServiceViewModel : ObservableValidator
 	{
 		protected ILogger? Logger;
 

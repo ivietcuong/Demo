@@ -26,4 +26,10 @@
 	  <ProjectReference Include="..\Demo.NET.Maui.Shared\Demo.Net.Maui.Shared.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="Views\MathServiceView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

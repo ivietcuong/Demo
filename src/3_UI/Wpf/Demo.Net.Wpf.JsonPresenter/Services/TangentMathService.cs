@@ -9,23 +9,23 @@ using System.Linq;
 
 namespace Demo.Net.Wpf.JsonPresenter.Services
 {
-    public class TangentMathService : IMathService
-    {
-        private readonly ILogger _logger;
+	public class TangentMathService : IMathService
+	{
+		private readonly ILogger _logger;
 
-        public string Name { get; set; } = "Tangent";
-        public string Description { get; set; } = "y = tan(x)";
-        public TangentMathService(ILogger<TangentMathService> logger)
-        {
-            _logger = logger;
-        }
+		public string Name { get; set; } = "Tangent";
+		public string Description { get; set; } = "y = tan(x)";
+		public TangentMathService(ILogger<TangentMathService> logger)
+		{
+			_logger = logger;
+		}
 
-        public IEnumerable<Point> Calculate(IEnumerable<Point> points, double coefficienta, double coefficientb, double coefficientc)
-        {
-            _logger.LogInformation($"{nameof(coefficienta)}: {coefficienta} - {nameof(coefficientb)}: {coefficientb} - {nameof(coefficientc)}: {coefficientc}");
-            var result = points.Select(p => new Point() { X = p.X, Y = Math.Tan(p.X) });
-            _logger.LogTrace($"{nameof(Calculate)}");
-            return result;
-        }
-    }
+		public IEnumerable<Point> Calculate(IEnumerable<Point> points, double coefficienta, double coefficientb, double coefficientc)
+		{
+			_logger.LogInformation($"{nameof(coefficienta)}: {coefficienta} - {nameof(coefficientb)}: {coefficientb} - {nameof(coefficientc)}: {coefficientc}");
+			var result = points.Select(p => new Point() { X = p.X, Y = Math.Tan(p.X) });
+			_logger.LogTrace($"{nameof(Calculate)}");
+			return result;
+		}
+	}
 }
