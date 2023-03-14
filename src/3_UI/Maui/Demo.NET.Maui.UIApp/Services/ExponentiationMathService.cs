@@ -8,14 +8,13 @@ namespace Demo.Net.Maui.UIApp.Services
 	{
 		private readonly ILogger _logger;
 		public string Name { get; set; } = "Exponentiation";
-		public string Description { get; set; } = "y = x^{a}";
+		public string Description { get; set; } = "power.png";
 
 		public ExponentiationMathService(ILogger<ExponentiationMathService> logger)
 		{
 			_logger = logger;
 		}
 		
-
 		public IEnumerable<NetStandard.Core.Entities.Point> Calculate(IEnumerable<NetStandard.Core.Entities.Point> points, double coefficienta, double coefficientb, double coefficientc)
 		{
 			_logger.LogInformation($"{nameof(coefficienta)}: {coefficienta} - {nameof(coefficientb)}: {coefficientb} - {nameof(coefficientc)}: {coefficientc}");

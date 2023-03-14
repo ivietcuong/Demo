@@ -7,31 +7,29 @@
     {
         public PlotView()
         {
-            this.Controller = new PlotController();
+            Controller = new PlotController();
         }
 
         /// <summary>
         /// Gets the SkiaRenderContext.
         /// </summary>
-        private SkiaRenderContext SkiaRenderContext => (SkiaRenderContext)this.renderContext;
+        private SkiaRenderContext? SkiaRenderContext => renderContext as SkiaRenderContext;
 
         /// <inheritdoc/>
         protected override void ClearBackground()
         {
-            var color = this.ActualModel?.Background.IsVisible() == true
-                ? this.ActualModel.Background.ToSKColor()
-                : SKColors.Empty;
+            var color = ActualModel?.Background.IsVisible() == true ? ActualModel.Background.ToSKColor() : SKColors.Empty;
 
-            this.SkiaRenderContext.SkCanvas.Clear(color);
+            SkiaRenderContext?.SkCanvas?.Clear(color);
         }
 
-        private SKCanvasView _plotPresenter;
+        private SKCanvasView? _plotPresenter;
 
         /// <inheritdoc/>
         protected override View CreatePlotPresenter()
         {
             _plotPresenter = new SKCanvasView();
-            _plotPresenter.PaintSurface += this.SkElement_PaintSurface;
+            _plotPresenter.PaintSurface += OnPaintSurface;
             return _plotPresenter;
         }
 
@@ -48,7 +46,7 @@
             // Actual rendering is done in SkElement_PaintSurface.
             try
             {
-                _plotPresenter.InvalidateSurface();
+                _plotPresenter?.InvalidateSurface();
             }
             catch (Exception e)
             {
@@ -60,7 +58,10 @@
         protected override double UpdateDpi()
         {
             var scale = base.UpdateDpi();
-            this.SkiaRenderContext.DpiScale = (float)scale;
+
+            if (SkiaRenderContext != null)
+                SkiaRenderContext.DpiScale = (float)scale;
+
             return scale;
         }
 
@@ -69,11 +70,14 @@
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The surface paint event args.</param>
-        private void SkElement_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
+        private void OnPaintSurface(object? sender, SKPaintSurfaceEventArgs e)
         {
-            this.SkiaRenderContext.SkCanvas = e.Surface.Canvas;
+            if (SkiaRenderContext == null)
+                return;
+
+            SkiaRenderContext.SkCanvas = e.Surface.Canvas;
             base.RenderOverride();
-            this.SkiaRenderContext.SkCanvas = null;
+            SkiaRenderContext.SkCanvas = null;
         }
     }
 }

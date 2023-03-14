@@ -40,7 +40,7 @@
                             </Setter>
                             <Setter Property="TextElement.Foreground">
                                 <Setter.Value>
-                                    <SolidColorBrush Color="Red" />
+                                    <SolidColorBrush Color="Maroon" />
                                 </Setter.Value>
                             </Setter>
                         </Trigger>

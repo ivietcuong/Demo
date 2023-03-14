@@ -13,7 +13,7 @@
         /// </summary>
         /// <param name="currentTouches">The current touches.</param>
         /// <param name="previousTouches">The previous touches.</param>
-        public XamarinOxyTouchEventArgs(ScreenPoint[] currentTouches, ScreenPoint[] previousTouches)
+        public XamarinOxyTouchEventArgs(ScreenPoint[] currentTouches, ScreenPoint[]? previousTouches)
         : base(currentTouches, previousTouches)
         {
             PointerCount = currentTouches.Length;

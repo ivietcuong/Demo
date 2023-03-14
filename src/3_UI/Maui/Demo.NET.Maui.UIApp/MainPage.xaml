@@ -3,23 +3,39 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:models="clr-namespace:Demo.Net.Maui.UIApp"
             xmlns:views="clr-namespace:Demo.Net.Maui.UIApp.Views"
-			xmlns:oxy="clr-namespace:OxyPlot.Maui.Skia;assembly=Demo.NET.Maui.Shared"
-            x:Class="Demo.Net.Maui.UIApp.MainPage" 
+            xmlns:oxy="clr-namespace:OxyPlot.Maui.Skia;assembly=Demo.NET.Maui.Shared"
+            x:Class="Demo.Net.Maui.UIApp.MainPage"
             FlyoutLayoutBehavior="Split">
 
     <FlyoutPage.Flyout>
         <ContentPage Title="Demo with MAUI">
-			<CollectionView ItemsSource="{Binding MathServices}" 
-                            SelectionMode="Single"
-							SelectedItem="{Binding SelectedMathService}"
-							SelectionChanged="OnSelectionChanged">
+            <CollectionView SelectionMode="Single"
+                            ItemsSource="{Binding MathServices}"
+                            SelectionChanged="OnSelectionChanged"
+                            SelectedItem="{Binding SelectedMathService}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Label Text="{Binding Name}"
-                               Padding="5"
-                               Margin="5"
-                               TextColor="White"
-                               Background="Darkred" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Column="0"
+                                   HeightRequest="48"
+                                   WidthRequest="48"
+                                   Background="Maroon"
+                                   Margin="0, 0, 0, 1"
+                                   Source="{Binding Description}" />
+
+                            <Label Grid.Column="1"
+                                   Text="{Binding Name}"
+                                   Padding="20, 14"
+                                   Margin="0, 0, 0, 1"
+                                   TextColor="White"
+                                   Background="Maroon"
+                                   HorizontalOptions="FillAndExpand" />
+                        </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
@@ -27,11 +43,11 @@
     </FlyoutPage.Flyout>
 
     <FlyoutPage.Detail>
-		<NavigationPage>
-			<x:Arguments>
-				<views:AppShell Content="{Binding Workspace}" />
-			</x:Arguments>
-		</NavigationPage>
-	</FlyoutPage.Detail>
+        <NavigationPage>
+            <x:Arguments>
+                <views:AppShell Content="{Binding Workspace}" />
+            </x:Arguments>
+        </NavigationPage>
+    </FlyoutPage.Detail>
 
 </FlyoutPage>

@@ -8,7 +8,7 @@ namespace OxyPlot.Maui.Skia
 
         protected override void OnControlInitialized(Grid control)
         {
-            this.grid = control;
+            grid = control;
             mainThreadId = Thread.CurrentThread.ManagedThreadId;
             ApplyTemplate();
             AddTouchEffect();
@@ -17,17 +17,17 @@ namespace OxyPlot.Maui.Skia
         /// <summary>
         /// The grid.
         /// </summary>
-        protected Grid grid;
+        protected Grid? grid;
 
         /// <summary>
         /// The plot presenter.
         /// </summary>
-        protected View plotPresenter;
+        protected View? plotPresenter;
 
         /// <summary>
         /// The render context
         /// </summary>
-        protected IRenderContext renderContext;
+        protected IRenderContext? renderContext;
 
         /// <summary>
         /// The model lock.
@@ -37,17 +37,17 @@ namespace OxyPlot.Maui.Skia
         /// <summary>
         /// The current tracker.
         /// </summary>
-        private View currentTracker;
+        private View? currentTracker;
 
         /// <summary>
         /// The current tracker template.
         /// </summary>
-        private ControlTemplate currentTrackerTemplate;
+        private ControlTemplate? currentTrackerTemplate;
 
         /// <summary>
         /// The default plot controller.
         /// </summary>
-        private IPlotController defaultController;
+        private IPlotController? defaultController;
 
         /// <summary>
         /// Indicates whether the <see cref="PlotViewBase"/> was in the visual tree the last time <see cref="Render"/> was called.
@@ -57,19 +57,19 @@ namespace OxyPlot.Maui.Skia
         /// <summary>
         /// The overlays.
         /// </summary>
-        private AbsoluteLayout overlays;
+        private AbsoluteLayout? overlays;
 
         /// <summary>
         /// The zoom control.
         /// </summary>
-        private ContentView zoomControl;
+        private ContentView? zoomControl;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlotViewBase" /> class.
         /// </summary>
         protected PlotViewBase()
         {
-            this.TrackerDefinitions = new ObservableCollection<TrackerDefinition>();
+            TrackerDefinitions = new ObservableCollection<TrackerDefinition>();
 
             DefaultTrackerTemplate = new ControlTemplate(() =>
             {
@@ -79,31 +79,31 @@ namespace OxyPlot.Maui.Skia
                 tc.Content = TrackerControl.DefaultTrackerTemplateContentProvider();
                 return tc;
             });
-            this.LayoutChanged += this.OnLayoutUpdated;
+            LayoutChanged += OnLayoutUpdated;
         }
 
         /// <summary>
         /// Gets the actual PlotView controller.
         /// </summary>
         /// <value>The actual PlotView controller.</value>
-        public IPlotController ActualController => this.Controller ?? (this.defaultController ??= new OxyPlot.PlotController());
+        public IPlotController ActualController => Controller ?? (defaultController ??= new OxyPlot.PlotController());
 
         /// <inheritdoc/>
-        IController IView.ActualController => this.ActualController;
+        IController IView.ActualController => ActualController;
 
         /// <summary>
         /// Gets the actual model.
         /// </summary>
         /// <value>The actual model.</value>
-        public PlotModel ActualModel { get; private set; }
+        public PlotModel? ActualModel { get; private set; }
 
         /// <inheritdoc/>
-        Model IView.ActualModel => this.ActualModel;
+        Model? IView.ActualModel => ActualModel;
 
         /// <summary>
         /// Gets the coordinates of the client area of the view.
         /// </summary>
-        public OxyRect ClientArea => new OxyRect(0, 0, this.Width, this.Height);
+        public OxyRect ClientArea => new OxyRect(0, 0, Width, Height);
 
         /// <summary>
         /// Gets the tracker definitions.
@@ -116,11 +116,11 @@ namespace OxyPlot.Maui.Skia
         /// </summary>
         public void HideTracker()
         {
-            if (this.currentTracker != null)
+            if (currentTracker != null)
             {
-                this.overlays.Children.Remove(this.currentTracker);
-                this.currentTracker = null;
-                this.currentTrackerTemplate = null;
+                overlays?.Children.Remove(currentTracker);
+                currentTracker = null;
+                currentTrackerTemplate = null;
             }
         }
 
@@ -129,7 +129,8 @@ namespace OxyPlot.Maui.Skia
         /// </summary>
         public void HideZoomRectangle()
         {
-            this.zoomControl.IsVisible = false;
+            if (zoomControl != null)
+                zoomControl.IsVisible = false;
         }
 
         /// <summary>
@@ -138,36 +139,34 @@ namespace OxyPlot.Maui.Skia
         /// <param name="updateData">The update Data.</param>
         public void InvalidatePlot(bool updateData = true)
         {
-            if (this.ActualModel == null)
-            {
+            if (ActualModel == null)
                 return;
-            }
 
-            lock (this.ActualModel.SyncRoot)
+            lock (ActualModel.SyncRoot)
             {
-                ((IPlotModel)this.ActualModel).Update(updateData);
+                ((IPlotModel)ActualModel).Update(updateData);
             }
 
-            this.BeginInvoke(this.Render);
+            BeginInvoke(Render);
         }
 
         private void ApplyTemplate()
         {
-            if (this.grid == null)
+            if (grid == null)
             {
                 return;
             }
 
-            this.plotPresenter = this.CreatePlotPresenter();
-            this.grid.Children.Add(this.plotPresenter);
+            plotPresenter = CreatePlotPresenter();
+            grid.Children.Add(plotPresenter);
 
-            this.renderContext = this.CreateRenderContext();
+            renderContext = CreateRenderContext();
 
-            this.overlays = new AbsoluteLayout();
-            this.grid.Children.Add(this.overlays);
+            overlays = new AbsoluteLayout();
+            grid.Children.Add(overlays);
 
-            this.zoomControl = new ContentView();
-            this.overlays.Children.Add(this.zoomControl);
+            zoomControl = new ContentView();
+            overlays.Children.Add(zoomControl);
         }
 
         /// <summary>
@@ -175,12 +174,12 @@ namespace OxyPlot.Maui.Skia
         /// </summary>
         public void PanAllAxes(double deltaX, double deltaY)
         {
-            if (this.ActualModel != null)
+            if (ActualModel != null)
             {
-                this.ActualModel.PanAllAxes(deltaX, deltaY);
+                ActualModel.PanAllAxes(deltaX, deltaY);
             }
 
-            this.InvalidatePlot(false);
+            InvalidatePlot(false);
         }
 
         /// <summary>
@@ -188,12 +187,12 @@ namespace OxyPlot.Maui.Skia
         /// </summary>
         public void ResetAllAxes()
         {
-            if (this.ActualModel != null)
+            if (ActualModel != null)
             {
-                this.ActualModel.ResetAllAxes();
+                ActualModel.ResetAllAxes();
             }
 
-            this.InvalidatePlot(false);
+            InvalidatePlot(false);
         }
 
         /// <summary>
@@ -221,14 +220,14 @@ namespace OxyPlot.Maui.Skia
         {
             if (trackerHitResult == null)
             {
-                this.HideTracker();
+                HideTracker();
                 return;
             }
 
-            var trackerTemplate = this.DefaultTrackerTemplate;
+            var trackerTemplate = DefaultTrackerTemplate;
             if (trackerHitResult.Series != null && !string.IsNullOrEmpty(trackerHitResult.Series.TrackerKey))
             {
-                var match = this.TrackerDefinitions.FirstOrDefault(t => t.TrackerKey == trackerHitResult.Series.TrackerKey);
+                var match = TrackerDefinitions.FirstOrDefault(t => t.TrackerKey == trackerHitResult.Series.TrackerKey);
                 if (match != null)
                 {
                     trackerTemplate = match.TrackerTemplate;
@@ -237,25 +236,26 @@ namespace OxyPlot.Maui.Skia
 
             if (trackerTemplate == null)
             {
-                this.HideTracker();
+                HideTracker();
                 return;
             }
 
-            if (!ReferenceEquals(trackerTemplate, this.currentTrackerTemplate))
+            if (!ReferenceEquals(trackerTemplate, currentTrackerTemplate))
             {
-                this.HideTracker();
+                HideTracker();
 
                 var tracker = (ContentView)trackerTemplate.CreateContent();
-                this.overlays.Children.Add(tracker);
-                AbsoluteLayout.SetLayoutBounds(tracker, new Rect(0, 0, 0, 0));
-                this.currentTracker = tracker;
-                this.currentTrackerTemplate = trackerTemplate;
+                if (overlays != null)
+                {
+                    overlays.Children.Add(tracker);
+                    AbsoluteLayout.SetLayoutBounds(tracker, new Rect(0, 0, 0, 0));
+                    currentTracker = tracker;
+                    currentTrackerTemplate = trackerTemplate;
+                }
             }
 
-            if (this.currentTracker != null)
-            {
-                this.currentTracker.BindingContext = trackerHitResult;
-            }
+            if (currentTracker != null)
+                currentTracker.BindingContext = trackerHitResult;
         }
 
         /// <summary>
@@ -264,14 +264,17 @@ namespace OxyPlot.Maui.Skia
         /// <param name="r">The rectangle.</param>
         public void ShowZoomRectangle(OxyRect r)
         {
-            this.zoomControl.WidthRequest = r.Width;
-            this.zoomControl.HeightRequest = r.Height;
+            if (zoomControl == null)
+                return;
+
+            zoomControl.WidthRequest = r.Width;
+            zoomControl.HeightRequest = r.Height;
 
             AbsoluteLayout.SetLayoutBounds(zoomControl,
                 new Rect(r.Left, r.Top, r.Width, r.Height));
 
-            this.zoomControl.ControlTemplate = this.ZoomRectangleTemplate;
-            this.zoomControl.IsVisible = true;
+            zoomControl.ControlTemplate = ZoomRectangleTemplate;
+            zoomControl.IsVisible = true;
         }
 
         /// <summary>
@@ -280,12 +283,10 @@ namespace OxyPlot.Maui.Skia
         /// <param name="factor">The zoom factor.</param>
         public void ZoomAllAxes(double factor)
         {
-            if (this.ActualModel != null)
-            {
-                this.ActualModel.ZoomAllAxes(factor);
-            }
+            if (ActualModel != null)
+                ActualModel.ZoomAllAxes(factor);
 
-            this.InvalidatePlot(false);
+            InvalidatePlot(false);
         }
 
         /// <summary>
@@ -310,18 +311,18 @@ namespace OxyPlot.Maui.Skia
         /// </summary>
         protected void OnModelChanged()
         {
-            lock (this.modelLock)
+            lock (modelLock)
             {
-                if (this.ActualModel != null)
+                if (ActualModel != null)
                 {
-                    ((IPlotModel)this.ActualModel).AttachPlotView(null);
-                    this.ActualModel = null;
+                    ((IPlotModel)ActualModel).AttachPlotView(null);
+                    ActualModel = null;
                 }
 
-                if (this.Model != null)
+                if (Model != null)
                 {
-                    IPlotModel plotModel = this.Model;
-                    var oldPlotView = this.Model.PlotView;
+                    IPlotModel plotModel = Model;
+                    var oldPlotView = Model.PlotView;
                     if (!ReferenceEquals(oldPlotView, null) &&
                         !ReferenceEquals(oldPlotView, this))
                     {
@@ -330,11 +331,11 @@ namespace OxyPlot.Maui.Skia
                     }
 
                     plotModel.AttachPlotView(this);
-                    this.ActualModel = this.Model;
+                    ActualModel = Model;
                 }
             }
 
-            this.InvalidatePlot();
+            InvalidatePlot();
         }
 
         /// <summary>
@@ -342,12 +343,10 @@ namespace OxyPlot.Maui.Skia
         /// </summary>
         protected void Render()
         {
-            if (this.plotPresenter == null || this.renderContext == null || !(this.isInVisualTree = this.IsInVisualTree()))
-            {
+            if (plotPresenter == null || renderContext == null || !(isInVisualTree = IsInVisualTree()))
                 return;
-            }
 
-            this.RenderOverride();
+            RenderOverride();
         }
 
         /// <summary>
@@ -355,20 +354,20 @@ namespace OxyPlot.Maui.Skia
         /// </summary>
         protected virtual void RenderOverride()
         {
-            var dpiScale = this.UpdateDpi();
-            this.ClearBackground();
+            var dpiScale = UpdateDpi();
+            ClearBackground();
 
-            this.HideTracker();
+            HideTracker();
 
-            if (this.ActualModel != null)
+            if (ActualModel != null && plotPresenter != null)
             {
                 // round width and height to full device pixels
-                var width = (int)(this.plotPresenter.Width * dpiScale) / dpiScale;
-                var height = (int)(this.plotPresenter.Height * dpiScale) / dpiScale;
+                var width = (int)(plotPresenter.Width * dpiScale) / dpiScale;
+                var height = (int)(plotPresenter.Height * dpiScale) / dpiScale;
 
-                lock (this.ActualModel.SyncRoot)
+                lock (ActualModel.SyncRoot)
                 {
-                    ((IPlotModel)this.ActualModel).Render(this.renderContext, new OxyRect(0, 0, width, height));
+                    ((IPlotModel)ActualModel).Render(renderContext, new OxyRect(0, 0, width, height));
                 }
             }
         }
@@ -398,13 +397,9 @@ namespace OxyPlot.Maui.Skia
         private void BeginInvoke(Action action)
         {
             if (!CheckAccess())
-            {
-                this.Dispatcher.Dispatch(action);
-            }
+                Dispatcher.Dispatch(action);
             else
-            {
                 action();
-            }
         }
 
         /// <summary>
@@ -424,12 +419,8 @@ namespace OxyPlot.Maui.Skia
         {
             Microsoft.Maui.Controls.Element dpObject = this;
             while ((dpObject = dpObject.Parent) != null)
-            {
                 if (dpObject is Page)
-                {
                     return true;
-                }
-            }
 
             return false;
         }
@@ -439,13 +430,11 @@ namespace OxyPlot.Maui.Skia
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
-        private void OnLayoutUpdated(object sender, EventArgs e)
+        private void OnLayoutUpdated(object? sender, EventArgs e)
         {
             // if we were not in the visual tree the last time we tried to render but are now, we have to render
-            if (!this.isInVisualTree && this.IsInVisualTree())
-            {
-                this.Render();
-            }
+            if (!isInVisualTree && IsInVisualTree())
+                Render();
         }
     }
 }

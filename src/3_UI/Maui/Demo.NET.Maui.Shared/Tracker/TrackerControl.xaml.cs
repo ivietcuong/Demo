@@ -1,11 +1,12 @@
 ﻿using Microsoft.Maui.Controls.Shapes;
+
 using Path = Microsoft.Maui.Controls.Shapes.Path;
 
 namespace OxyPlot.Maui.Skia
 {
     public partial class TrackerControl
     {
-        private System.Timers.Timer updateTimer;
+        private System.Timers.Timer? updateTimer;
 
         public TrackerControl()
         {
@@ -143,27 +144,27 @@ namespace OxyPlot.Maui.Skia
         /// <summary>
         /// The content.
         /// </summary>
-        private ContentPresenter content;
+        private ContentPresenter? content;
 
         /// <summary>
         /// The horizontal line.
         /// </summary>
-        private Line horizontalLine;
+        private Line? horizontalLine;
 
         /// <summary>
         /// The path.
         /// </summary>
-        private Path path;
+        private Path? path;
 
         /// <summary>
         /// The content container.
         /// </summary>
-        private Grid contentContainer;
+        private Grid? contentContainer;
 
         /// <summary>
         /// The vertical line.
         /// </summary>
-        private Line verticalLine;
+        private Line? verticalLine;
 
         /// <summary>
         /// Gets or sets HorizontalLineVisibility.
@@ -288,11 +289,11 @@ namespace OxyPlot.Maui.Skia
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            path = GetTemplateChild(PartPath) as Path;
-            content = GetTemplateChild(PartContent) as ContentPresenter;
-            contentContainer = GetTemplateChild(PartContentContainer) as Grid;
-            horizontalLine = GetTemplateChild(PartHorizontalLine) as Line;
-            verticalLine = GetTemplateChild(PartVerticalLine) as Line;
+            path = (Path)GetTemplateChild(PartPath);
+            content = (ContentPresenter)GetTemplateChild(PartContent);
+            contentContainer = (Grid)GetTemplateChild(PartContentContainer);
+            horizontalLine = (Line)GetTemplateChild(PartHorizontalLine);
+            verticalLine = (Line)GetTemplateChild(PartVerticalLine);
 
             if (contentContainer == null)
             {
@@ -309,11 +310,11 @@ namespace OxyPlot.Maui.Skia
                 throw new InvalidOperationException($"The TrackerControl template must contain a ContentPresenter with name +'{PartContent}'");
             }
 
-            content.SizeChanged += Content_SizeChanged;
+            content.SizeChanged += OnContentSizeChanged;
             UpdatePositionAndBorder();
         }
 
-        private void Content_SizeChanged(object sender, EventArgs e)
+        private void OnContentSizeChanged(object? sender, EventArgs e)
         {
             UpdatePositionAndBorderDelay();
         }
@@ -359,16 +360,12 @@ namespace OxyPlot.Maui.Skia
         /// </summary>
         private void UpdatePositionAndBorder()
         {
-            if (contentContainer == null || BindingContext == null)
-            {
+            if (contentContainer == null || BindingContext == null || content == null)
                 return;
-            }
 
             var parent = Parent as View;
             if (parent == null)
-            {
                 return;
-            }
 
             var canvasWidth = parent.Width;
             var canvasHeight = parent.Height;
@@ -433,6 +430,9 @@ namespace OxyPlot.Maui.Skia
             var dx = ha == HorizontalAlignment.Center ? -0.5 : ha == HorizontalAlignment.Left ? 0 : -1;
             var dy = va == VerticalAlignment.Middle ? -0.5 : va == VerticalAlignment.Top ? 0 : -1;
 
+            if (path == null)
+                return;
+
             path.Data = ShowPointer
                 ? CreatePointerBorderGeometry(ha, va, (float)contentWidth, (float)contentHeight, out var margin)
                 : CreateBorderGeometry(ha, va, contentWidth, contentHeight, out margin);
@@ -444,8 +444,7 @@ namespace OxyPlot.Maui.Skia
             contentContainer.TranslationX = dx * contentContainerSize.Width;
             contentContainer.TranslationY = dy * contentContainerSize.Height;
 
-            AbsoluteLayout.SetLayoutBounds(contentContainer,
-                new Rect(Position.X, Position.Y, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
+            AbsoluteLayout.SetLayoutBounds(contentContainer, new Rect(Position.X, Position.Y, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
 
             if (horizontalLine != null)
             {
@@ -673,7 +672,7 @@ namespace OxyPlot.Maui.Skia
             return pathGeometryCircle;
         }
 
-        protected override void OnPropertyChanged(string propertyName = null)
+        protected override void OnPropertyChanged(string? propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
 

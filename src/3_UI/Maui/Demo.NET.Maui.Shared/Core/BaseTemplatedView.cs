@@ -2,15 +2,18 @@
 {
     public abstract class BaseTemplatedView<TControl> : TemplatedView where TControl : View, new()
     {
-        protected TControl Control { get; private set; }
+        protected TControl? Control { get; private set; }
 
         public BaseTemplatedView()
-            => ControlTemplate = new ControlTemplate(typeof(TControl));
+        {
+            ControlTemplate = new ControlTemplate(typeof(TControl));
+        }
 
         protected override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
-            Control.BindingContext = BindingContext;
+            if (Control != null)
+                Control.BindingContext = BindingContext;
         }
 
         /// <inheritdoc />

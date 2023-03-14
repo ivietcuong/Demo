@@ -16,13 +16,13 @@ namespace OxyPlot.Maui.Skia
         /// <summary>
         /// The touch points of the previous touch event.
         /// </summary>
-        private ScreenPoint[] previousTouchPoints;
+        private ScreenPoint[]? previousTouchPoints;
 
         private void AddTouchEffect()
         {
             var touchEffect = new MyTouchEffect();
             touchEffect.TouchAction += TouchEffect_TouchAction;
-            this.Effects.Add(touchEffect);
+            Effects.Add(touchEffect);
         }
 
         private void TouchEffect_TouchAction(object sender, TouchActionEventArgs e)
@@ -54,8 +54,8 @@ namespace OxyPlot.Maui.Skia
         private bool OnTouchDownEvent(TouchActionEventArgs e)
         {
             var args = ToTouchEventArgs(e, Scale);
-            var handled = this.ActualController.HandleTouchStarted(this, args);
-            this.previousTouchPoints = GetTouchPoints(e, Scale);
+            var handled = ActualController.HandleTouchStarted(this, args);
+            previousTouchPoints = GetTouchPoints(e, Scale);
             return handled;
         }
 
@@ -67,9 +67,9 @@ namespace OxyPlot.Maui.Skia
         private bool OnTouchMoveEvent(TouchActionEventArgs e)
         {
             var currentTouchPoints = GetTouchPoints(e, Scale);
-            var args = new XamarinOxyTouchEventArgs(currentTouchPoints, this.previousTouchPoints);
-            var handled = this.ActualController.HandleTouchDelta(this, args);
-            this.previousTouchPoints = currentTouchPoints;
+            var args = new XamarinOxyTouchEventArgs(currentTouchPoints, previousTouchPoints);
+            var handled = ActualController.HandleTouchDelta(this, args);
+            previousTouchPoints = currentTouchPoints;
             return handled;
         }
 
@@ -80,7 +80,7 @@ namespace OxyPlot.Maui.Skia
         /// <returns><c>true</c> if the event was handled.</returns>
         private bool OnTouchUpEvent(TouchActionEventArgs e)
         {
-            return this.ActualController.HandleTouchCompleted(this, ToTouchEventArgs(e, Scale));
+            return ActualController.HandleTouchCompleted(this, ToTouchEventArgs(e, Scale));
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace OxyPlot.Maui.Skia
                 Delta = e.MouseWheelDelta,
                 ModifierKeys = e.ModifierKeys
             };
-            return this.ActualController.HandleMouseWheel(this, args);
+            return ActualController.HandleMouseWheel(this, args);
         }
 
         /// <summary>

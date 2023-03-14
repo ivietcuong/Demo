@@ -8,7 +8,7 @@ namespace Demo.Net.Maui.UIApp.Services
 	{
 		private readonly ILogger _logger;
 		public string Name { get; set; } = "Logarithm";
-		public string Description { get; set; } = "y = log_{b}x";
+		public string Description { get; set; } = "logarithm.png";
 
 		public LogarithmMathService(ILogger<LogarithmMathService> logger)
 		{

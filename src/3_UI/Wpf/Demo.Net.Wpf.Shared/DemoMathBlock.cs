@@ -31,12 +31,8 @@ namespace Demo.Net.Wpf.Shared
         /// </summary>
         static DemoMathBlock()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(
-                typeof(DemoMathBlock),
-                new FrameworkPropertyMetadata(typeof(DemoMathBlock)));
-            ContentProperty.OverrideMetadata(
-                typeof(DemoMathBlock),
-                new FrameworkPropertyMetadata(typeof(DemoMathBlock), (s, e) => ((DemoMathBlock)s).ContentChanged()));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(DemoMathBlock), new FrameworkPropertyMetadata(typeof(DemoMathBlock)));
+            ContentProperty.OverrideMetadata(typeof(DemoMathBlock), new FrameworkPropertyMetadata(typeof(DemoMathBlock), (s, e) => ((DemoMathBlock)s).ContentChanged()));
         }
 
         /// <summary>
@@ -55,18 +51,15 @@ namespace Demo.Net.Wpf.Shared
         protected override Size MeasureOverride(Size constraint)
         {
             if (Content == null)
-            {
                 return base.MeasureOverride(constraint);
-            }
 
             var text = Content.ToString();
 
             double fontWeight = FontWeight.ToOpenTypeWeight();
             string fontFamily = string.Empty;
+
             if (FontFamily != null)
-            {
                 fontFamily = FontFamily.Source;
-            }
 
             var size = renderContext.MeasureMathText(text, fontFamily, FontSize, fontWeight);
             return new Size(size.Width + Padding.Left + Padding.Right, size.Height + Padding.Top + Padding.Bottom);

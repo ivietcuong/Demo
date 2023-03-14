@@ -2,7 +2,7 @@
 {
     public class MyTouchEffect : RoutingEffect
     {
-        public event TouchActionEventHandler TouchAction;
+        public event TouchActionEventHandler? TouchAction;
 
         public void OnTouchAction(Microsoft.Maui.Controls.Element element, TouchActionEventArgs args)
         {

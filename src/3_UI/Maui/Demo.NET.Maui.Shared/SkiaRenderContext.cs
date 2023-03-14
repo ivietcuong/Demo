@@ -6,22 +6,23 @@
 
 namespace OxyPlot.Maui.Skia
 {
-	using global::SkiaSharp;
-	using global::SkiaSharp.HarfBuzz;
+    using global::SkiaSharp;
+    using global::SkiaSharp.HarfBuzz;
 
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
-	/// <summary>
-	/// Implements <see cref="IRenderContext" /> based on SkiaSharp.
-	/// </summary>
-	internal class SkiaRenderContext : IRenderContext, IDisposable
+    /// <summary>
+    /// Implements <see cref="IRenderContext" /> based on SkiaSharp.
+    /// </summary>
+    internal class SkiaRenderContext : IRenderContext, IDisposable
     {
         private readonly Dictionary<FontDescriptor, SKShaper> shaperCache = new Dictionary<FontDescriptor, SKShaper>();
         private readonly Dictionary<FontDescriptor, SKTypeface> typefaceCache = new Dictionary<FontDescriptor, SKTypeface>();
-        private SKPaint paint = new SKPaint();
-        private SKPath path = new SKPath();
+        private SKPaint? paint = new SKPaint();
+        private SKPath? path = new SKPath();
 
         /// <summary>
         /// Gets or sets the DPI scaling factor. A value of 1 corresponds to 96 DPI (dots per inch).
@@ -29,7 +30,7 @@ namespace OxyPlot.Maui.Skia
         public float DpiScale { get; set; } = 1;
 
         /// <inheritdoc />
-        public bool RendersToScreen => this.RenderTarget == RenderTarget.Screen;
+        public bool RendersToScreen => RenderTarget == RenderTarget.Screen;
 
         /// <summary>
         /// Gets or sets the render target.
@@ -39,7 +40,7 @@ namespace OxyPlot.Maui.Skia
         /// <summary>
         /// Gets or sets the <see cref="SKCanvas"/> the <see cref="SkiaRenderContext"/> renders to. This must be set before any draw calls.
         /// </summary>
-        public SKCanvas SkCanvas { get; set; }
+        public SKCanvas? SkCanvas { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether text shaping should be used when rendering text.
@@ -55,10 +56,10 @@ namespace OxyPlot.Maui.Skia
         /// Gets a value indicating whether the context renders to pixels.
         /// </summary>
         /// <value><c>true</c> if the context renders to pixels; otherwise, <c>false</c>.</value>
-        private bool RendersToPixels => this.RenderTarget != RenderTarget.VectorGraphic;
+        private bool RendersToPixels => RenderTarget != RenderTarget.VectorGraphic;
 
         /// <inheritdoc/>
-        public int ClipCount => this.SkCanvas?.SaveCount - 1 ?? 0;
+        public int ClipCount => SkCanvas?.SaveCount - 1 ?? 0;
 
         /// <inheritdoc/>
         public void CleanUp()
@@ -68,7 +69,7 @@ namespace OxyPlot.Maui.Skia
         /// <inheritdoc />
         public void Dispose()
         {
-            this.Dispose(true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
 
@@ -76,22 +77,20 @@ namespace OxyPlot.Maui.Skia
         public void DrawEllipse(OxyRect extents, OxyColor fill, OxyColor stroke, double thickness, EdgeRenderingMode edgeRenderingMode)
         {
             if (!fill.IsVisible() && !(stroke.IsVisible() || thickness <= 0))
-            {
                 return;
-            }
 
-            var actualRect = this.Convert(extents);
+            var actualRect = Convert(extents);
 
             if (fill.IsVisible())
             {
-                var paint = this.GetFillPaint(fill, edgeRenderingMode);
-                this.SkCanvas.DrawOval(actualRect, paint);
+                var paint = GetFillPaint(fill, edgeRenderingMode);
+                SkCanvas?.DrawOval(actualRect, paint);
             }
 
             if (stroke.IsVisible() && thickness > 0)
             {
-                var paint = this.GetStrokePaint(stroke, thickness, edgeRenderingMode);
-                this.SkCanvas.DrawOval(actualRect, paint);
+                var paint = GetStrokePaint(stroke, thickness, edgeRenderingMode);
+                SkCanvas?.DrawOval(actualRect, paint);
             }
         }
 
@@ -99,26 +98,22 @@ namespace OxyPlot.Maui.Skia
         public void DrawEllipses(IList<OxyRect> extents, OxyColor fill, OxyColor stroke, double thickness, EdgeRenderingMode edgeRenderingMode)
         {
             if (!fill.IsVisible() && (!stroke.IsVisible() || thickness <= 0))
-            {
                 return;
-            }
 
-            var path = this.GetPath();
+            var path = GetPath();
             foreach (var extent in extents)
-            {
-                path.AddOval(this.Convert(extent));
-            }
+                path?.AddOval(Convert(extent));
 
             if (fill.IsVisible())
             {
-                var paint = this.GetFillPaint(fill, edgeRenderingMode);
-                this.SkCanvas.DrawPath(path, paint);
+                var paint = GetFillPaint(fill, edgeRenderingMode);
+                SkCanvas?.DrawPath(path, paint);
             }
 
             if (stroke.IsVisible() && thickness > 0)
             {
-                var paint = this.GetStrokePaint(stroke, thickness, edgeRenderingMode);
-                this.SkCanvas.DrawPath(path, paint);
+                var paint = GetStrokePaint(stroke, thickness, edgeRenderingMode);
+                SkCanvas?.DrawPath(path, paint);
             }
         }
 
@@ -137,18 +132,16 @@ namespace OxyPlot.Maui.Skia
             bool interpolate)
         {
             if (source == null)
-            {
                 return;
-            }
 
             var bytes = source.GetData();
             var image = SKBitmap.Decode(bytes);
 
             var src = new SKRect((float)srcX, (float)srcY, (float)(srcX + srcWidth), (float)(srcY + srcHeight));
-            var dest = new SKRect(this.Convert(destX), this.Convert(destY), this.Convert(destX + destWidth), this.Convert(destY + destHeight));
+            var dest = new SKRect(Convert(destX), Convert(destY), Convert(destX + destWidth), Convert(destY + destHeight));
 
-            var paint = this.GetImagePaint(opacity, interpolate);
-            this.SkCanvas.DrawBitmap(image, src, dest, paint);
+            var paint = GetImagePaint(opacity, interpolate);
+            SkCanvas?.DrawBitmap(image, src, dest, paint);
         }
 
         /// <inheritdoc/>
@@ -157,20 +150,18 @@ namespace OxyPlot.Maui.Skia
             OxyColor stroke,
             double thickness,
             EdgeRenderingMode edgeRenderingMode,
-            double[] dashArray = null,
+            double[]? dashArray = null,
             LineJoin lineJoin = LineJoin.Miter)
         {
             if (points.Count < 2 || !stroke.IsVisible() || thickness <= 0)
-            {
                 return;
-            }
 
-            var path = this.GetPath();
-            var paint = this.GetLinePaint(stroke, thickness, edgeRenderingMode, dashArray, lineJoin);
-            var actualPoints = this.GetActualPoints(points, thickness, edgeRenderingMode);
+            var path = GetPath();
+            var paint = GetLinePaint(stroke, thickness, edgeRenderingMode, dashArray, lineJoin);
+            var actualPoints = GetActualPoints(points, thickness, edgeRenderingMode);
             AddPoints(actualPoints, path);
 
-            this.SkCanvas.DrawPath(path, paint);
+            SkCanvas?.DrawPath(path, paint);
         }
 
         /// <inheritdoc/>
@@ -179,36 +170,34 @@ namespace OxyPlot.Maui.Skia
             OxyColor stroke,
             double thickness,
             EdgeRenderingMode edgeRenderingMode,
-            double[] dashArray = null,
+            double[]? dashArray = null,
             LineJoin lineJoin = LineJoin.Miter)
         {
             if (points.Count < 2 || !stroke.IsVisible() || thickness <= 0)
-            {
                 return;
-            }
 
-            var paint = this.GetLinePaint(stroke, thickness, edgeRenderingMode, dashArray, lineJoin);
+            var paint = GetLinePaint(stroke, thickness, edgeRenderingMode, dashArray, lineJoin);
 
             var skPoints = new SKPoint[points.Count];
             switch (edgeRenderingMode)
             {
-                case EdgeRenderingMode.Automatic when this.RendersToPixels:
-                case EdgeRenderingMode.Adaptive when this.RendersToPixels:
-                case EdgeRenderingMode.PreferSharpness when this.RendersToPixels:
-                    var snapOffset = this.GetSnapOffset(thickness, edgeRenderingMode);
+                case EdgeRenderingMode.Automatic when RendersToPixels:
+                case EdgeRenderingMode.Adaptive when RendersToPixels:
+                case EdgeRenderingMode.PreferSharpness when RendersToPixels:
+                    var snapOffset = GetSnapOffset(thickness, edgeRenderingMode);
                     for (var i = 0; i < points.Count - 1; i += 2)
                     {
                         var p1 = points[i];
                         var p2 = points[i + 1];
                         if (RenderContextBase.IsStraightLine(p1, p2))
                         {
-                            skPoints[i] = this.ConvertSnap(p1, snapOffset);
-                            skPoints[i + 1] = this.ConvertSnap(p2, snapOffset);
+                            skPoints[i] = ConvertSnap(p1, snapOffset);
+                            skPoints[i + 1] = ConvertSnap(p2, snapOffset);
                         }
                         else
                         {
-                            skPoints[i] = this.Convert(p1);
-                            skPoints[i + 1] = this.Convert(p2);
+                            skPoints[i] = Convert(p1);
+                            skPoints[i + 1] = Convert(p2);
                         }
                     }
 
@@ -216,14 +205,14 @@ namespace OxyPlot.Maui.Skia
                 default:
                     for (var i = 0; i < points.Count; i += 2)
                     {
-                        skPoints[i] = this.Convert(points[i]);
-                        skPoints[i + 1] = this.Convert(points[i + 1]);
+                        skPoints[i] = Convert(points[i]);
+                        skPoints[i + 1] = Convert(points[i + 1]);
                     }
 
                     break;
             }
 
-            this.SkCanvas.DrawPoints(SKPointMode.Lines, skPoints, paint);
+            SkCanvas?.DrawPoints(SKPointMode.Lines, skPoints, paint);
         }
 
         /// <inheritdoc/>
@@ -233,29 +222,30 @@ namespace OxyPlot.Maui.Skia
             OxyColor stroke,
             double thickness,
             EdgeRenderingMode edgeRenderingMode,
-            double[] dashArray = null,
+            double[]? dashArray = null,
             LineJoin lineJoin = LineJoin.Miter)
         {
             if (!fill.IsVisible() && !(stroke.IsVisible() || thickness <= 0) || points.Count < 2)
-            {
                 return;
-            }
 
-            var path = this.GetPath();
-            var actualPoints = this.GetActualPoints(points, thickness, edgeRenderingMode);
-            AddPoints(actualPoints, path);
-            path.Close();
+            var path = GetPath();
+            if (path != null)
+            {
+                var actualPoints = GetActualPoints(points, thickness, edgeRenderingMode);
+                AddPoints(actualPoints, path);
+                path.Close();
+            }
 
             if (fill.IsVisible())
             {
-                var paint = this.GetFillPaint(fill, edgeRenderingMode);
-                this.SkCanvas.DrawPath(path, paint);
+                var paint = GetFillPaint(fill, edgeRenderingMode);
+                SkCanvas?.DrawPath(path, paint);
             }
 
             if (stroke.IsVisible() && thickness > 0)
             {
-                var paint = this.GetLinePaint(stroke, thickness, edgeRenderingMode, dashArray, lineJoin);
-                this.SkCanvas.DrawPath(path, paint);
+                var paint = GetLinePaint(stroke, thickness, edgeRenderingMode, dashArray, lineJoin);
+                SkCanvas?.DrawPath(path, paint);
             }
         }
 
@@ -266,37 +256,36 @@ namespace OxyPlot.Maui.Skia
             OxyColor stroke,
             double thickness,
             EdgeRenderingMode edgeRenderingMode,
-            double[] dashArray = null,
+            double[]? dashArray = null,
             LineJoin lineJoin = LineJoin.Miter)
         {
             if (!fill.IsVisible() && !(stroke.IsVisible() || thickness <= 0) || polygons.Count == 0)
-            {
                 return;
-            }
 
-            var path = this.GetPath();
+            var path = GetPath();
             foreach (var polygon in polygons)
             {
                 if (polygon.Count < 2)
-                {
                     continue;
-                }
 
-                var actualPoints = this.GetActualPoints(polygon, thickness, edgeRenderingMode);
-                AddPoints(actualPoints, path);
-                path.Close();
+                var actualPoints = GetActualPoints(polygon, thickness, edgeRenderingMode);
+                if (path != null)
+                {
+                    AddPoints(actualPoints, path);
+                    path.Close();
+                }
             }
 
             if (fill.IsVisible())
             {
-                var paint = this.GetFillPaint(fill, edgeRenderingMode);
-                this.SkCanvas.DrawPath(path, paint);
+                var paint = GetFillPaint(fill, edgeRenderingMode);
+                SkCanvas?.DrawPath(path, paint);
             }
 
             if (stroke.IsVisible() && thickness > 0)
             {
-                var paint = this.GetLinePaint(stroke, thickness, edgeRenderingMode, dashArray, lineJoin);
-                this.SkCanvas.DrawPath(path, paint);
+                var paint = GetLinePaint(stroke, thickness, edgeRenderingMode, dashArray, lineJoin);
+                SkCanvas?.DrawPath(path, paint);
             }
         }
 
@@ -304,22 +293,20 @@ namespace OxyPlot.Maui.Skia
         public void DrawRectangle(OxyRect rectangle, OxyColor fill, OxyColor stroke, double thickness, EdgeRenderingMode edgeRenderingMode)
         {
             if (!fill.IsVisible() && !(stroke.IsVisible() || thickness <= 0))
-            {
                 return;
-            }
 
-            var actualRectangle = this.GetActualRect(rectangle, thickness, edgeRenderingMode);
+            var actualRectangle = GetActualRect(rectangle, thickness, edgeRenderingMode);
 
             if (fill.IsVisible())
             {
-                var paint = this.GetFillPaint(fill, edgeRenderingMode);
-                this.SkCanvas.DrawRect(actualRectangle, paint);
+                var paint = GetFillPaint(fill, edgeRenderingMode);
+                SkCanvas?.DrawRect(actualRectangle, paint);
             }
 
             if (stroke.IsVisible() && thickness > 0)
             {
-                var paint = this.GetStrokePaint(stroke, thickness, edgeRenderingMode);
-                this.SkCanvas.DrawRect(actualRectangle, paint);
+                var paint = GetStrokePaint(stroke, thickness, edgeRenderingMode);
+                SkCanvas?.DrawRect(actualRectangle, paint);
             }
         }
 
@@ -327,26 +314,22 @@ namespace OxyPlot.Maui.Skia
         public void DrawRectangles(IList<OxyRect> rectangles, OxyColor fill, OxyColor stroke, double thickness, EdgeRenderingMode edgeRenderingMode)
         {
             if (!fill.IsVisible() && !(stroke.IsVisible() || thickness <= 0) || rectangles.Count == 0)
-            {
                 return;
-            }
 
-            var path = this.GetPath();
-            foreach (var rectangle in this.GetActualRects(rectangles, thickness, edgeRenderingMode))
-            {
-                path.AddRect(rectangle);
-            }
+            var path = GetPath();
+            foreach (var rectangle in GetActualRects(rectangles, thickness, edgeRenderingMode))
+                path?.AddRect(rectangle);
 
             if (fill.IsVisible())
             {
-                var paint = this.GetFillPaint(fill, edgeRenderingMode);
-                this.SkCanvas.DrawPath(path, paint);
+                var paint = GetFillPaint(fill, edgeRenderingMode);
+                SkCanvas?.DrawPath(path, paint);
             }
 
             if (stroke.IsVisible() && thickness > 0)
             {
-                var paint = this.GetStrokePaint(stroke, thickness, edgeRenderingMode);
-                this.SkCanvas.DrawPath(path, paint);
+                var paint = GetStrokePaint(stroke, thickness, edgeRenderingMode);
+                SkCanvas?.DrawPath(path, paint);
             }
         }
 
@@ -355,7 +338,7 @@ namespace OxyPlot.Maui.Skia
             ScreenPoint p,
             string text,
             OxyColor fill,
-            string fontFamily = null,
+            string? fontFamily = null,
             double fontSize = 10,
             double fontWeight = 400,
             double rotation = 0,
@@ -364,15 +347,13 @@ namespace OxyPlot.Maui.Skia
             OxySize? maxSize = null)
         {
             if (text == null || !fill.IsVisible())
-            {
                 return;
-            }
 
-            var paint = this.GetTextPaint(fontFamily, fontSize, fontWeight, out var shaper);
+            var paint = GetTextPaint(fontFamily, fontSize, fontWeight, out var shaper);
             paint.Color = fill.ToSKColor();
 
-            var x = this.Convert(p.X);
-            var y = this.Convert(p.Y);
+            var x = Convert(p.X);
+            var y = Convert(p.Y);
 
             var lines = StringHelper.SplitLines(text);
             var lineHeight = paint.GetFontMetrics(out var metrics);
@@ -385,15 +366,15 @@ namespace OxyPlot.Maui.Skia
                 _ => throw new ArgumentOutOfRangeException(nameof(verticalAlignment))
             };
 
-            using var _ = new SKAutoCanvasRestore(this.SkCanvas);
-            this.SkCanvas.Translate(x, y);
-            this.SkCanvas.RotateDegrees((float)rotation);
+            using var _ = new SKAutoCanvasRestore(SkCanvas);
+            SkCanvas?.Translate(x, y);
+            SkCanvas?.RotateDegrees((float)rotation);
 
             foreach (var line in lines)
             {
-                if (this.UseTextShaping)
+                if (UseTextShaping)
                 {
-                    var width = this.MeasureText(line, shaper, paint);
+                    var width = MeasureText(line, shaper, paint);
                     var deltaX = horizontalAlignment switch
                     {
                         HorizontalAlignment.Left => 0,
@@ -402,8 +383,8 @@ namespace OxyPlot.Maui.Skia
                         _ => throw new ArgumentOutOfRangeException(nameof(horizontalAlignment))
                     };
 
-                    this.paint.TextAlign = SKTextAlign.Left;
-                    this.SkCanvas.DrawShapedText(shaper, line, deltaX, deltaY, paint);
+                    paint.TextAlign = SKTextAlign.Left;
+                    SkCanvas.DrawShapedText(shaper, line, deltaX, deltaY, paint);
                 }
                 else
                 {
@@ -415,7 +396,7 @@ namespace OxyPlot.Maui.Skia
                         _ => throw new ArgumentOutOfRangeException(nameof(horizontalAlignment))
                     };
 
-                    this.SkCanvas.DrawText(line, 0, deltaY, paint);
+                    SkCanvas?.DrawText(line, 0, deltaY, paint);
                 }
 
                 deltaY += lineHeight;
@@ -423,7 +404,7 @@ namespace OxyPlot.Maui.Skia
         }
 
         /// <inheritdoc/>
-        public OxySize MeasureText(string text, string fontFamily = null, double fontSize = 10, double fontWeight = 500)
+        public OxySize MeasureText(string text, string? fontFamily = null, double fontSize = 10, double fontWeight = 500)
         {
             if (text == null)
             {
@@ -431,29 +412,27 @@ namespace OxyPlot.Maui.Skia
             }
 
             var lines = StringHelper.SplitLines(text);
-            var paint = this.GetTextPaint(fontFamily, fontSize, fontWeight, out var shaper);
+            var paint = GetTextPaint(fontFamily, fontSize, fontWeight, out var shaper);
             var height = paint.GetFontMetrics(out _) * lines.Length;
-            var width = lines.Max(line => this.MeasureText(line, shaper, paint));
+            var width = lines.Max(line => MeasureText(line, shaper, paint));
 
-            return new OxySize(this.ConvertBack(width), this.ConvertBack(height));
+            return new OxySize(ConvertBack(width), ConvertBack(height));
         }
 
         /// <inheritdoc/>
         public void PopClip()
         {
-            if (this.SkCanvas.SaveCount == 1)
-            {
+            if (SkCanvas?.SaveCount == 1)
                 throw new InvalidOperationException("Unbalanced call to PopClip.");
-            }
 
-            this.SkCanvas.Restore();
+            SkCanvas?.Restore();
         }
 
         /// <inheritdoc/>
         public void PushClip(OxyRect clippingRectangle)
         {
-            this.SkCanvas.Save();
-            this.SkCanvas.ClipRect(this.Convert(clippingRectangle));
+            SkCanvas?.Save();
+            SkCanvas?.ClipRect(Convert(clippingRectangle));
         }
 
         /// <inheritdoc/>
@@ -468,28 +447,22 @@ namespace OxyPlot.Maui.Skia
         protected virtual void Dispose(bool disposing)
         {
             if (!disposing)
-            {
                 return;
-            }
 
-            this.paint?.Dispose();
-            this.paint = null;
-            this.path?.Dispose();
-            this.path = null;
+            paint?.Dispose();
+            paint = null;
+            path?.Dispose();
+            path = null;
 
-            foreach (var typeface in this.typefaceCache.Values)
-            {
+            foreach (var typeface in typefaceCache.Values)
                 typeface.Dispose();
-            }
 
-            this.typefaceCache.Clear();
+            typefaceCache.Clear();
 
-            foreach (var shaper in this.shaperCache.Values)
-            {
+            foreach (var shaper in shaperCache.Values)
                 shaper.Dispose();
-            }
 
-            this.shaperCache.Clear();
+            shaperCache.Clear();
         }
 
         /// <summary>
@@ -497,19 +470,15 @@ namespace OxyPlot.Maui.Skia
         /// </summary>
         /// <param name="points">The points.</param>
         /// <param name="path">The path.</param>
-        private static void AddPoints(IEnumerable<SKPoint> points, SKPath path)
+        private static void AddPoints(IEnumerable<SKPoint> points, SKPath? path)
         {
             using var e = points.GetEnumerator();
             if (!e.MoveNext())
-            {
                 return;
-            }
 
-            path.MoveTo(e.Current);
+            path?.MoveTo(e.Current);
             while (e.MoveNext())
-            {
-                path.LineTo(e.Current);
-            }
+                path?.LineTo(e.Current);
         }
 
         /// <summary>
@@ -545,10 +514,10 @@ namespace OxyPlot.Maui.Skia
         /// <returns>The converted rectangle.</returns>
         private SKRect Convert(OxyRect rect)
         {
-            var left = this.Convert(rect.Left);
-            var right = this.Convert(rect.Right);
-            var top = this.Convert(rect.Top);
-            var bottom = this.Convert(rect.Bottom);
+            var left = Convert(rect.Left);
+            var right = Convert(rect.Right);
+            var top = Convert(rect.Top);
+            var bottom = Convert(rect.Bottom);
             return new SKRect(left, top, right, bottom);
         }
 
@@ -559,7 +528,7 @@ namespace OxyPlot.Maui.Skia
         /// <returns>The converted value.</returns>
         private float Convert(double value)
         {
-            return (float)value * this.DpiScale;
+            return (float)value * DpiScale;
         }
 
         /// <summary>
@@ -569,7 +538,7 @@ namespace OxyPlot.Maui.Skia
         /// <returns>The converted point.</returns>
         private SKPoint Convert(ScreenPoint point)
         {
-            return new SKPoint(this.Convert(point.X), this.Convert(point.Y));
+            return new SKPoint(Convert(point.X), Convert(point.Y));
         }
 
         /// <summary>
@@ -579,7 +548,7 @@ namespace OxyPlot.Maui.Skia
         /// <returns>The converted value.</returns>
         private double ConvertBack(float value)
         {
-            return value / this.DpiScale;
+            return value / DpiScale;
         }
 
         /// <summary>
@@ -593,7 +562,7 @@ namespace OxyPlot.Maui.Skia
             var ret = new float[values.Length];
             for (var i = 0; i < values.Length; i++)
             {
-                ret[i] = this.Convert(values[i]) * strokeThickness;
+                ret[i] = Convert(values[i]) * strokeThickness;
             }
 
             return ret;
@@ -607,10 +576,10 @@ namespace OxyPlot.Maui.Skia
         /// <returns>The converted rectangle.</returns>
         private SKRect ConvertSnap(OxyRect rect, float snapOffset)
         {
-            var left = this.ConvertSnap(rect.Left, snapOffset);
-            var right = this.ConvertSnap(rect.Right, snapOffset);
-            var top = this.ConvertSnap(rect.Top, snapOffset);
-            var bottom = this.ConvertSnap(rect.Bottom, snapOffset);
+            var left = ConvertSnap(rect.Left, snapOffset);
+            var right = ConvertSnap(rect.Right, snapOffset);
+            var top = ConvertSnap(rect.Top, snapOffset);
+            var bottom = ConvertSnap(rect.Bottom, snapOffset);
             return new SKRect(left, top, right, bottom);
         }
 
@@ -622,7 +591,7 @@ namespace OxyPlot.Maui.Skia
         /// <returns>The converted value.</returns>
         private float ConvertSnap(double value, float snapOffset)
         {
-            return Snap(this.Convert(value), snapOffset);
+            return Snap(Convert(value), snapOffset);
         }
 
         /// <summary>
@@ -633,7 +602,7 @@ namespace OxyPlot.Maui.Skia
         /// <returns>The converted point.</returns>
         private SKPoint ConvertSnap(ScreenPoint point, float snapOffset)
         {
-            return new SKPoint(this.ConvertSnap(point.X, snapOffset), this.ConvertSnap(point.Y, snapOffset));
+            return new SKPoint(ConvertSnap(point.X, snapOffset), ConvertSnap(point.Y, snapOffset));
         }
 
         /// <summary>
@@ -647,13 +616,13 @@ namespace OxyPlot.Maui.Skia
         {
             switch (edgeRenderingMode)
             {
-                case EdgeRenderingMode.Automatic when this.RendersToPixels && RenderContextBase.IsStraightLine(screenPoints):
-                case EdgeRenderingMode.Adaptive when this.RendersToPixels && RenderContextBase.IsStraightLine(screenPoints):
-                case EdgeRenderingMode.PreferSharpness when this.RendersToPixels:
-                    var snapOffset = this.GetSnapOffset(strokeThickness, edgeRenderingMode);
-                    return screenPoints.Select(p => this.ConvertSnap(p, snapOffset));
+                case EdgeRenderingMode.Automatic when RendersToPixels && RenderContextBase.IsStraightLine(screenPoints):
+                case EdgeRenderingMode.Adaptive when RendersToPixels && RenderContextBase.IsStraightLine(screenPoints):
+                case EdgeRenderingMode.PreferSharpness when RendersToPixels:
+                    var snapOffset = GetSnapOffset(strokeThickness, edgeRenderingMode);
+                    return screenPoints.Select(p => ConvertSnap(p, snapOffset));
                 default:
-                    return screenPoints.Select(this.Convert);
+                    return screenPoints.Select(Convert);
             }
         }
 
@@ -668,14 +637,14 @@ namespace OxyPlot.Maui.Skia
         {
             switch (edgeRenderingMode)
             {
-                case EdgeRenderingMode.Adaptive when this.RendersToPixels:
-                case EdgeRenderingMode.Automatic when this.RendersToPixels:
-                case EdgeRenderingMode.PreferSharpness when this.RendersToPixels:
-                    var actualThickness = this.GetActualThickness(strokeThickness, edgeRenderingMode);
+                case EdgeRenderingMode.Adaptive when RendersToPixels:
+                case EdgeRenderingMode.Automatic when RendersToPixels:
+                case EdgeRenderingMode.PreferSharpness when RendersToPixels:
+                    var actualThickness = GetActualThickness(strokeThickness, edgeRenderingMode);
                     var snapOffset = GetSnapOffset(actualThickness);
-                    return this.ConvertSnap(rect, snapOffset);
+                    return ConvertSnap(rect, snapOffset);
                 default:
-                    return this.Convert(rect);
+                    return Convert(rect);
             }
         }
 
@@ -690,14 +659,14 @@ namespace OxyPlot.Maui.Skia
         {
             switch (edgeRenderingMode)
             {
-                case EdgeRenderingMode.Adaptive when this.RendersToPixels:
-                case EdgeRenderingMode.Automatic when this.RendersToPixels:
-                case EdgeRenderingMode.PreferSharpness when this.RendersToPixels:
-                    var actualThickness = this.GetActualThickness(strokeThickness, edgeRenderingMode);
+                case EdgeRenderingMode.Adaptive when RendersToPixels:
+                case EdgeRenderingMode.Automatic when RendersToPixels:
+                case EdgeRenderingMode.PreferSharpness when RendersToPixels:
+                    var actualThickness = GetActualThickness(strokeThickness, edgeRenderingMode);
                     var snapOffset = GetSnapOffset(actualThickness);
-                    return rects.Select(rect => this.ConvertSnap(rect, snapOffset));
+                    return rects.Select(rect => ConvertSnap(rect, snapOffset));
                 default:
-                    return rects.Select(this.Convert);
+                    return rects.Select(Convert);
             }
         }
 
@@ -709,8 +678,8 @@ namespace OxyPlot.Maui.Skia
         /// <returns>The actual stroke thickness.</returns>
         private float GetActualThickness(double strokeThickness, EdgeRenderingMode edgeRenderingMode)
         {
-            var scaledThickness = this.Convert(strokeThickness);
-            if (edgeRenderingMode == EdgeRenderingMode.PreferSharpness && this.RendersToPixels)
+            var scaledThickness = Convert(strokeThickness);
+            if (edgeRenderingMode == EdgeRenderingMode.PreferSharpness && RendersToPixels)
             {
                 scaledThickness = Snap(scaledThickness, 0);
             }
@@ -729,11 +698,12 @@ namespace OxyPlot.Maui.Skia
         /// <returns>The paint.</returns>
         private SKPaint GetFillPaint(OxyColor fillColor, EdgeRenderingMode edgeRenderingMode)
         {
-            this.paint.Color = fillColor.ToSKColor();
-            this.paint.Style = SKPaintStyle.Fill;
-            this.paint.IsAntialias = this.ShouldUseAntiAliasing(edgeRenderingMode);
-            this.paint.PathEffect = null;
-            return this.paint;
+            paint ??= new SKPaint();
+            paint.Color = fillColor.ToSKColor();
+            paint.Style = SKPaintStyle.Fill;
+            paint.IsAntialias = ShouldUseAntiAliasing(edgeRenderingMode);
+            paint.PathEffect = null;
+            return paint;
         }
 
         /// <summary>
@@ -747,10 +717,11 @@ namespace OxyPlot.Maui.Skia
         /// <returns>The paint.</returns>
         private SKPaint GetImagePaint(double opacity, bool interpolate)
         {
-            this.paint.Color = new SKColor(0, 0, 0, (byte)(255 * opacity));
-            this.paint.FilterQuality = interpolate ? SKFilterQuality.High : SKFilterQuality.None;
-            this.paint.IsAntialias = true;
-            return this.paint;
+            paint ??= new SKPaint();
+            paint.Color = new SKColor(0, 0, 0, (byte)(255 * opacity));
+            paint.FilterQuality = interpolate ? SKFilterQuality.High : SKFilterQuality.None;
+            paint.IsAntialias = true;
+            return paint;
         }
 
         /// <summary>
@@ -765,13 +736,13 @@ namespace OxyPlot.Maui.Skia
         /// <param name="dashArray">The dash array.</param>
         /// <param name="lineJoin">The line join.</param>
         /// <returns>The paint.</returns>
-        private SKPaint GetLinePaint(OxyColor strokeColor, double strokeThickness, EdgeRenderingMode edgeRenderingMode, double[] dashArray, LineJoin lineJoin)
+        private SKPaint GetLinePaint(OxyColor strokeColor, double strokeThickness, EdgeRenderingMode edgeRenderingMode, double[]? dashArray, LineJoin lineJoin)
         {
-            var paint = this.GetStrokePaint(strokeColor, strokeThickness, edgeRenderingMode);
+            var paint = GetStrokePaint(strokeColor, strokeThickness, edgeRenderingMode);
 
             if (dashArray != null)
             {
-                var actualDashArray = this.ConvertDashArray(dashArray, paint.StrokeWidth);
+                var actualDashArray = ConvertDashArray(dashArray, paint.StrokeWidth);
                 paint.PathEffect = SKPathEffect.CreateDash(actualDashArray, 0);
             }
 
@@ -793,10 +764,13 @@ namespace OxyPlot.Maui.Skia
         /// This clears and returns the local <see cref="path"/> instance.
         /// </remarks>
         /// <returns>The path.</returns>
-        private SKPath GetPath()
+        private SKPath? GetPath()
         {
-            this.path.Reset();
-            return this.path;
+            if (paint == null)
+                return null;
+
+            path?.Reset();
+            return path;
         }
 
         /// <summary>
@@ -810,7 +784,7 @@ namespace OxyPlot.Maui.Skia
         /// <returns>The snap offset.</returns>
         private float GetSnapOffset(double thickness, EdgeRenderingMode edgeRenderingMode)
         {
-            var actualThickness = this.GetActualThickness(thickness, edgeRenderingMode);
+            var actualThickness = GetActualThickness(thickness, edgeRenderingMode);
             return GetSnapOffset(actualThickness);
         }
 
@@ -826,14 +800,16 @@ namespace OxyPlot.Maui.Skia
         /// <returns>The paint.</returns>
         private SKPaint GetStrokePaint(OxyColor strokeColor, double strokeThickness, EdgeRenderingMode edgeRenderingMode)
         {
-            this.paint.Color = strokeColor.ToSKColor();
-            this.paint.Style = SKPaintStyle.Stroke;
-            this.paint.IsAntialias = this.ShouldUseAntiAliasing(edgeRenderingMode);
-            this.paint.StrokeWidth = this.GetActualThickness(strokeThickness, edgeRenderingMode);
-            this.paint.PathEffect = null;
-            this.paint.StrokeJoin = SKStrokeJoin.Miter;
-            this.paint.StrokeMiter = this.MiterLimit;
-            return this.paint;
+            paint ??= new SKPaint();
+
+            paint.Color = strokeColor.ToSKColor();
+            paint.Style = SKPaintStyle.Stroke;
+            paint.IsAntialias = ShouldUseAntiAliasing(edgeRenderingMode);
+            paint.StrokeWidth = GetActualThickness(strokeThickness, edgeRenderingMode);
+            paint.PathEffect = null;
+            paint.StrokeJoin = SKStrokeJoin.Miter;
+            paint.StrokeMiter = MiterLimit;
+            return paint;
         }
 
         /// <summary>
@@ -847,21 +823,21 @@ namespace OxyPlot.Maui.Skia
         /// <param name="fontWeight">The font weight.</param>
         /// <param name="shaper">The font shaper.</param>
         /// <returns>The paint.</returns>
-        private SKPaint GetTextPaint(string fontFamily, double fontSize, double fontWeight, out SKShaper shaper)
+        private SKPaint GetTextPaint(string? fontFamily, double fontSize, double fontWeight, out SKShaper? shaper)
         {
             var fontDescriptor = new FontDescriptor(fontFamily, fontWeight);
-            if (!this.typefaceCache.TryGetValue(fontDescriptor, out var typeface))
+            if (!typefaceCache.TryGetValue(fontDescriptor, out var typeface))
             {
                 typeface = ResolveTypeface(fontFamily, (int)fontWeight);
-                this.typefaceCache.Add(fontDescriptor, typeface);
+                typefaceCache.Add(fontDescriptor, typeface);
             }
 
-            if (this.UseTextShaping)
+            if (UseTextShaping)
             {
-                if (!this.shaperCache.TryGetValue(fontDescriptor, out shaper))
+                if (!shaperCache.TryGetValue(fontDescriptor, out shaper))
                 {
                     shaper = new SKShaper(typeface);
-                    this.shaperCache.Add(fontDescriptor, shaper);
+                    shaperCache.Add(fontDescriptor, shaper);
                 }
             }
             else
@@ -869,22 +845,26 @@ namespace OxyPlot.Maui.Skia
                 shaper = null;
             }
 
-            this.paint.Typeface = typeface;
-            this.paint.TextSize = this.Convert(fontSize);
-            this.paint.IsAntialias = true;
-            this.paint.Style = SKPaintStyle.Fill;
-            this.paint.HintingLevel = this.RendersToScreen ? SKPaintHinting.Full : SKPaintHinting.NoHinting;
-            this.paint.SubpixelText = this.RendersToScreen;
-            return this.paint;
+            paint ??= new SKPaint();
+
+            paint.Typeface = typeface;
+            paint.TextSize = Convert(fontSize);
+            paint.IsAntialias = true;
+            paint.Style = SKPaintStyle.Fill;
+            paint.HintingLevel = RendersToScreen ? SKPaintHinting.Full : SKPaintHinting.NoHinting;
+            paint.SubpixelText = RendersToScreen;
+            return paint;
         }
 
-        protected virtual SKTypeface ResolveTypeface(string fontFamily, int fontWeight)
+        protected virtual SKTypeface ResolveTypeface(string? fontFamily, int fontWeight)
         {
             var typeface = SKTypeface.FromFamilyName(fontFamily, new SKFontStyle(fontWeight, (int)SKFontStyleWidth.Normal, SKFontStyleSlant.Upright));
+
             if (typeface != null && typeface.FamilyName == fontFamily)
                 return typeface;
 
-            SKTypeface typefaceFallback = typeface;
+            //SKTypeface typefaceFallback = typeface;
+
             if (MauiPlotSetting.SKTypefaceProvider != null)
             {
                 typeface = MauiPlotSetting.SKTypefaceProvider(fontFamily);
@@ -897,10 +877,11 @@ namespace OxyPlot.Maui.Skia
             if (typeface != null)
                 return typeface;
 
-            return typefaceFallback ?? SKTypeface.Default;
+            //return typefaceFallback ?? SKTypeface.Default;
+            return typeface ?? SKTypeface.Default;
         }
 
-        private SKTypeface GetTypefaceFromCustomDirectory(string fontFamily)
+        private SKTypeface? GetTypefaceFromCustomDirectory(string? fontFamily)
         {
             if (string.IsNullOrEmpty(MauiPlotSetting.CustomFontsDirectory) ||
                 !Directory.Exists(MauiPlotSetting.CustomFontsDirectory))
@@ -931,14 +912,14 @@ namespace OxyPlot.Maui.Skia
         /// <param name="shaper">The text shaper.</param>
         /// <param name="paint">The paint.</param>
         /// <returns>The width of the text when rendered using the specified shaper and paint.</returns>
-        private float MeasureText(string text, SKShaper shaper, SKPaint paint)
+        private float MeasureText(string text, SKShaper? shaper, SKPaint paint)
         {
-            if (!this.UseTextShaping)
+            if (!UseTextShaping)
             {
                 return paint.MeasureText(text);
             }
 
-            // we have to get a bit creative here as SKShaper does not offer a direct overload for this.
+            // we have to get a bit creative here as SKShaper does not offer a direct overload for 
             // see also https://github.com/mono/SkiaSharp/blob/master/source/SkiaSharp.HarfBuzz/SkiaSharp.HarfBuzz.Shared/SKShaper.cs
             using var buffer = new HarfBuzzSharp.Buffer();
             switch (paint.TextEncoding)
@@ -957,7 +938,7 @@ namespace OxyPlot.Maui.Skia
             }
 
             buffer.GuessSegmentProperties();
-            shaper.Shape(buffer, paint);
+            shaper?.Shape(buffer, paint);
             return buffer.GlyphPositions.Sum(gp => gp.XAdvance) * paint.TextSize / 512;
         }
 
@@ -981,16 +962,16 @@ namespace OxyPlot.Maui.Skia
             /// </summary>
             /// <param name="fontFamily">The font family.</param>
             /// <param name="fontWeight">The font weight.</param>
-            public FontDescriptor(string fontFamily, double fontWeight)
+            public FontDescriptor(string? fontFamily, double fontWeight)
             {
-                this.FontFamily = fontFamily;
-                this.FontWeight = fontWeight;
+                FontFamily = fontFamily;
+                FontWeight = fontWeight;
             }
 
             /// <summary>
             /// The font family.
             /// </summary>
-            public string FontFamily { get; }
+            public string? FontFamily { get; }
 
             /// <summary>
             /// The font weight.
@@ -998,17 +979,21 @@ namespace OxyPlot.Maui.Skia
             public double FontWeight { get; }
 
             /// <inheritdoc/>
-            public override bool Equals(object obj)
+            public override bool Equals([NotNullWhen(true)] object? obj)
             {
-                return obj is FontDescriptor other && this.FontFamily == other.FontFamily && this.FontWeight == other.FontWeight;
+                return obj is FontDescriptor other && FontFamily == other.FontFamily && FontWeight == other.FontWeight;
             }
+
 
             /// <inheritdoc/>
             public override int GetHashCode()
             {
                 var hashCode = -1030903623;
-                hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(this.FontFamily);
-                hashCode = hashCode * -1521134295 + this.FontWeight.GetHashCode();
+                if (FontFamily == null)
+                    return hashCode;
+
+                hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FontFamily);
+                hashCode = hashCode * -1521134295 + FontWeight.GetHashCode();
                 return hashCode;
             }
         }

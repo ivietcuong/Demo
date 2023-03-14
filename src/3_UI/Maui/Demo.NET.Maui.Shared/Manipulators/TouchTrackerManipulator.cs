@@ -1,4 +1,5 @@
 ﻿using OxyPlot.Maui.Skia.Tracker;
+
 using Timer = System.Timers.Timer;
 
 namespace OxyPlot.Maui.Skia.Manipulators
@@ -11,7 +12,7 @@ namespace OxyPlot.Maui.Skia.Manipulators
         /// <summary>
         /// The current series.
         /// </summary>
-        private Series.Series currentSeries;
+        private Series.Series? currentSeries;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TouchTrackerManipulator" /> class.
@@ -20,14 +21,14 @@ namespace OxyPlot.Maui.Skia.Manipulators
         public TouchTrackerManipulator(IPlotView plotView)
             : base(plotView)
         {
-            this.Snap = true;
-            this.PointsOnly = false;
-            this.LockToInitialSeries = true;
-            this.FiresDistance = 20.0;
-            this.CheckDistanceBetweenPoints = false;
+            Snap = true;
+            PointsOnly = false;
+            LockToInitialSeries = true;
+            FiresDistance = 20.0;
+            CheckDistanceBetweenPoints = false;
 
             // Note: the tracker manipulator should not handle pan or zoom
-            this.SetHandledForPanOrZoom = false;
+            SetHandledForPanOrZoom = false;
         }
 
         /// <summary>
@@ -65,11 +66,11 @@ namespace OxyPlot.Maui.Skia.Manipulators
         {
             base.Completed(e);
 
-            this.currentSeries = null;
-            // this.PlotView.HideTracker();
-            if (this.PlotView.ActualModel != null)
+            currentSeries = null;
+            // PlotView.HideTracker();
+            if (PlotView.ActualModel != null)
             {
-                this.PlotView.ActualModel.RaiseTrackerChanged(null);
+                PlotView.ActualModel.RaiseTrackerChanged(null);
             }
         }
 
@@ -83,7 +84,7 @@ namespace OxyPlot.Maui.Skia.Manipulators
 
             var v = (startPoint - e.Position);
 
-            if (v.Value.Length > 10)
+            if (v != null && v.Value.Length > 10)
             {
                 if (updateTrackerTimer != null && updateTrackerTimer.Enabled)
                 {
@@ -92,7 +93,7 @@ namespace OxyPlot.Maui.Skia.Manipulators
                 }
 
                 // This is touch, we want to hide the tracker because the user is probably panning / zooming now
-                this.PlotView.HideTracker();
+                PlotView.HideTracker();
             }
         }
 
@@ -105,13 +106,13 @@ namespace OxyPlot.Maui.Skia.Manipulators
             base.Started(e);
             startPoint = e.Position;
 
-            this.currentSeries = this.PlotView.ActualModel != null ? this.PlotView.ActualModel.GetSeriesFromPoint(e.Position) : null;
+            currentSeries = PlotView.ActualModel != null ? PlotView.ActualModel.GetSeriesFromPoint(e.Position) : null;
 
             UpdateTrackerDelay(e.Position);
         }
 
         private ScreenPoint? startPoint;
-        private Timer updateTrackerTimer;
+        private Timer? updateTrackerTimer;
 
         private void UpdateTrackerDelay(ScreenPoint position)
         {
@@ -122,7 +123,7 @@ namespace OxyPlot.Maui.Skia.Manipulators
                 updateTrackerTimer.Elapsed += (s, e) =>
                 {
                     updateTrackerTimer = null;
-                    (this.PlotView as BindableObject).Dispatcher.Dispatch(() => UpdateTracker(position));
+                    ((BindableObject)PlotView ).Dispatcher.Dispatch(() => UpdateTracker(position));
                 };
             }
             else
@@ -138,23 +139,23 @@ namespace OxyPlot.Maui.Skia.Manipulators
         /// <param name="position">The position.</param>
         private void UpdateTracker(ScreenPoint position)
         {
-            if (this.currentSeries == null || !this.LockToInitialSeries)
+            if (currentSeries == null || !LockToInitialSeries)
             {
                 // get the nearest
-                this.currentSeries = this.PlotView.ActualModel?.GetSeriesFromPoint(position, this.FiresDistance);
+                currentSeries = PlotView.ActualModel?.GetSeriesFromPoint(position, FiresDistance);
             }
 
-            if (this.currentSeries == null)
+            if (currentSeries == null)
             {
-                if (!this.LockToInitialSeries)
+                if (!LockToInitialSeries)
                 {
-                    this.PlotView.HideTracker();
+                    PlotView.HideTracker();
                 }
 
                 return;
             }
 
-            var actualModel = this.PlotView.ActualModel;
+            var actualModel = PlotView.ActualModel;
             if (actualModel == null)
             {
                 return;
@@ -166,11 +167,11 @@ namespace OxyPlot.Maui.Skia.Manipulators
             }
 
             var result = TrackerHelper.GetNearestHit(
-                this.currentSeries, position, this.Snap, this.PointsOnly, this.FiresDistance, this.CheckDistanceBetweenPoints);
+                currentSeries, position, Snap, PointsOnly, FiresDistance, CheckDistanceBetweenPoints);
             if (result != null)
             {
                 result.PlotModel = actualModel;
-                this.PlotView.ShowTracker(result);
+                PlotView.ShowTracker(result);
                 actualModel.RaiseTrackerChanged(result);
             }
         }

@@ -16,18 +16,10 @@ namespace OxyPlot.Maui.Skia.Tracker
         /// <paramref name="checkDistanceBetweenPoints" /> is ignored if <paramref name="pointsOnly"/> is equal to <c>False</c>.
         /// </remarks>
         /// <returns>A tracker hit result.</returns>
-        public static TrackerHitResult GetNearestHit(
-            Series.Series series,
-            ScreenPoint point,
-            bool snap,
-            bool pointsOnly,
-            double firesDistance,
-            bool checkDistanceBetweenPoints)
+        public static TrackerHitResult? GetNearestHit(Series.Series series, ScreenPoint point, bool snap, bool pointsOnly, double firesDistance, bool checkDistanceBetweenPoints)
         {
             if (series == null)
-            {
                 return null;
-            }
 
             // Check data points only
             if (snap || pointsOnly)

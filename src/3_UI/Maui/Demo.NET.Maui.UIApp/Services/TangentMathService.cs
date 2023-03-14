@@ -8,7 +8,7 @@ namespace Demo.Net.Maui.UIApp.Services
 	{
 		private readonly ILogger _logger;
 		public string Name { get; set; } = "Tangent";
-		public string Description { get; set; } = "y = tan(x)";
+		public string Description { get; set; } = "tangent.png";
 
 		public TangentMathService(ILogger<TangentMathService> logger)
 		{

@@ -8,7 +8,7 @@ namespace Demo.Net.Maui.UIApp.Services
 	{
 		private readonly ILogger _logger;
 		public string Name { get; set; } = "Parabola";
-		public string Description { get; set; } = "y = a.x^{2} + b.x + c";
+		public string Description { get; set; } = "algebra.png";
 
 		public ParabolaMathService(ILogger<ParabolaMathService> logger)
 		{
