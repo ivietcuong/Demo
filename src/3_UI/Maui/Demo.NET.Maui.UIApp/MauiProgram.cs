@@ -28,6 +28,7 @@ namespace Demo.NET.Maui.UIApp
 #endif
 
 			builder.Services.AddSingleton<HomeViewModel>();
+			builder.Services.AddSingleton<HomeView>();
 			builder.Services.AddSingleton<AppShell>();
 			builder.Services.AddSingleton<MainPageViewModel>();
 			builder.Services.AddSingleton<MainPage>();

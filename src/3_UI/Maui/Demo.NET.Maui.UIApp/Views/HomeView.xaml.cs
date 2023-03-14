@@ -1,3 +1,4 @@
+using Demo.NET.Maui.UIApp.ViewModels;
 using Demo.NetStandard.Core.DataSource;
 
 using OxyPlot;
@@ -13,10 +14,8 @@ public partial class HomeView : ContentView
 		InitializeComponent();
 		PlotView.Model = new PlotModel
 		{
-			Title = "SkiaShart",
-			Subtitle = "Maui",
-			TitleFont = "Sitka Display Semibold",
-			SubtitleFont = "Sitka Display Semibold"
+			Title = "SkiaSharp",
+			Subtitle = "Maui"
 		};
 
 		var legend = new Legend
@@ -30,10 +29,16 @@ public partial class HomeView : ContentView
 		PlotView.Model.Legends.Add(legend);
 
 		var points = Data.Points.Cast<NetStandard.Core.Entities.Point>().Select(p => new DataPoint(p.X, p.Y));
-		var lineseries = new LineSeries();
+		var lineseries = new LineSeries() { Title = "LineSeries" };
 		lineseries.Points.AddRange(points);
 		PlotView.Model.Series.Add(lineseries);
 		PlotView.Model.InvalidatePlot(true);
+	}
+
+	public HomeView(HomeViewModel viewModel)
+		: this()
+	{
+		BindingContext = viewModel;
 	}
 
 }
