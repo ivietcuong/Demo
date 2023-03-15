@@ -29,5 +29,13 @@ namespace Demo.Net.Wpf.XmlPresenter.Services
             _logger.LogTrace($"{nameof(Calculate)}");
             return result;
         }
-    }
+
+		public string Validate(double coefficienta, double coefficientb, double coefficientc)
+		{
+            if (coefficienta == 0)
+                return "Coefficient A should not be zero";
+
+			return string.Empty;
+		}
+	}
 }

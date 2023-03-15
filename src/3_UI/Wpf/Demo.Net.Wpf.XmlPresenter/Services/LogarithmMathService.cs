@@ -30,5 +30,16 @@ namespace Demo.Net.Wpf.XmlPresenter.Services
             _logger.LogTrace($"{nameof(Calculate)}");
             return result;
         }
-    }
+
+		public string Validate(double coefficienta, double coefficientb, double coefficientc)
+		{
+			if (coefficientb <= 0)
+				return "Coefficient B should be greater than zero";
+
+			if (coefficientb == 1)
+				return "Coefficient B should not equal 1";
+
+            return string.Empty;
+		}
+	}
 }

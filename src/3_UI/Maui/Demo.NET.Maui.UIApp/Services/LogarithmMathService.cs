@@ -22,5 +22,10 @@ namespace Demo.Net.Maui.UIApp.Services
 			_logger.LogTrace($"{nameof(Calculate)}");
 			return result;
 		}
+
+		public string Validate(double coefficienta, double coefficientb, double coefficientc)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

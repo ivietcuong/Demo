@@ -26,5 +26,10 @@ namespace Demo.Net.Wpf.JsonPresenter.Services
             _logger.LogTrace($"{nameof(Calculate)}");
             return result;
         }
-    }
+
+		public string Validate(double coefficienta, double coefficientb, double coefficientc)
+		{
+            return string.Empty;
+		}
+	}
 }

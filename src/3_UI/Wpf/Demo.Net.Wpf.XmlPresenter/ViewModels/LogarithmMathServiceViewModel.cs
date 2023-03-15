@@ -30,12 +30,16 @@ namespace Demo.Net.Wpf.XmlPresenter.ViewModels
 
         public static ValidationResult? ValidateLogarithmMathService(double @value, ValidationContext context)
         {
-            if (value <= 0)
-                return new ValidationResult("Coefficient B should be greater than zero");
-            if (value == 1)
-                return new ValidationResult("Coefficient B should not equal 1");
-
             var instance = (LogarithmMathServiceViewModel)context.ObjectInstance;
+
+			if (instance.MathService == null)
+				return new ValidationResult($"{nameof(instance.MathService)} is null");
+
+			var result = instance.MathService.Validate(instance.CoefficientA, instance.CoefficientB, instance.CoefficientC);
+
+			if (!string.IsNullOrEmpty(result))
+				return new ValidationResult(result);
+
             instance.ClearErrors(nameof(CoefficientB));
 
             return ValidationResult.Success;

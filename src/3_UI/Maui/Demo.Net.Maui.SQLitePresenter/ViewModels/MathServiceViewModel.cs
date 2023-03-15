@@ -11,7 +11,7 @@ using System.ComponentModel;
 
 namespace Demo.Net.Maui.SQLitePresenter.ViewModels
 {
-    public partial class MathServiceViewModel : ObservableRecipient, INotifyDataErrorInfo
+    public partial class MathServiceViewModel : ObservableRecipient/*, INotifyDataErrorInfo*/
     {
         protected ILogger? Logger;
 
@@ -27,7 +27,7 @@ namespace Demo.Net.Maui.SQLitePresenter.ViewModels
         [ObservableProperty]
         private IMathService? _mathService;
 
-        public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
+        //public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
         public string? Name
         {
@@ -43,7 +43,8 @@ namespace Demo.Net.Maui.SQLitePresenter.ViewModels
         }
         public string Message
         {
-            get => string.Join(Environment.NewLine, GetErrors().Cast<string>().ToList().Select(e => e));
+            //get => string.Join(Environment.NewLine, GetErrors().Cast<string>().ToList().Select(e => e));
+            get;
         }
         public string? Description
         {
@@ -58,7 +59,7 @@ namespace Demo.Net.Maui.SQLitePresenter.ViewModels
             }
         }
 
-        public bool HasErrors => throw new NotImplementedException();
+        //public bool HasErrors => throw new NotImplementedException();
         public MathServiceViewModel()
         {
             IsActive = true;
@@ -78,9 +79,9 @@ namespace Demo.Net.Maui.SQLitePresenter.ViewModels
             return MathService.Calculate(points, CoefficientA, CoefficientB, CoefficientB);
         }
 
-        public IEnumerable GetErrors(string? propertyName = null)
-        {
-            throw new NotImplementedException();
-        }
+        //public IEnumerable GetErrors(string? propertyName = null)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
