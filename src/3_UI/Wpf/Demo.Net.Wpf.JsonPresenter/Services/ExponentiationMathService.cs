@@ -19,15 +19,15 @@ namespace Demo.Net.Wpf.JsonPresenter.Services
         {
             _logger = logger;
         }
-        public IEnumerable<Point> Calculate(IEnumerable<Point> points, double coefficienta, double coefficientb, double coefficientc)
+        public IEnumerable<Point> Calculate(IEnumerable<Point> points, double coefficientA, double coefficientB, double coefficientC)
         {
-            _logger.LogInformation($"{nameof(coefficienta)}: {coefficienta} - {nameof(coefficientb)}: {coefficientb} - {nameof(coefficientc)}: {coefficientc}");
-            var result = points.Select(p => new Point() { X = p.X, Y = Math.Pow(p.X, coefficienta) });
+            _logger.LogInformation($"{nameof(coefficientA)}: {coefficientA} - {nameof(coefficientB)}: {coefficientB} - {nameof(coefficientC)}: {coefficientC}");
+            var result = points.Select(p => new Point() { X = p.X, Y = Math.Pow(p.X, coefficientA) });
             _logger.LogTrace($"{nameof(Calculate)}");
             return result;
         }
 
-		public string Validate(double coefficienta, double coefficientb, double coefficientc)
+		public string Validate(double coefficientA, double coefficientB, double coefficientC)
 		{
             return string.Empty;
 		}

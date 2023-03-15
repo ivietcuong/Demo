@@ -15,17 +15,23 @@ namespace Demo.Net.Maui.UIApp.Services
 			_logger = logger;
 		}
 
-		public IEnumerable<NetStandard.Core.Entities.Point> Calculate(IEnumerable<NetStandard.Core.Entities.Point> points, double coefficienta, double coefficientb, double coefficientc)
+		public IEnumerable<NetStandard.Core.Entities.Point> Calculate(IEnumerable<NetStandard.Core.Entities.Point> points, double coefficientA, double coefficientB, double coefficientC)
 		{
-			_logger.LogInformation($"{nameof(coefficienta)}: {coefficienta} - {nameof(coefficientb)}: {coefficientb} - {nameof(coefficientc)}: {coefficientc}");
-			var result = points.Select(p => new NetStandard.Core.Entities.Point() { X = p.X, Y = Math.Log(p.X <= 0 ? -1 * p.X : p.X, coefficientb) });
+			_logger.LogInformation($"{nameof(coefficientA)}: {coefficientA} - {nameof(coefficientB)}: {coefficientB} - {nameof(coefficientC)}: {coefficientC}");
+			var result = points.Select(p => new NetStandard.Core.Entities.Point() { X = p.X, Y = Math.Log(p.X <= 0 ? -1 * p.X : p.X, coefficientB) });
 			_logger.LogTrace($"{nameof(Calculate)}");
 			return result;
 		}
 
-		public string Validate(double coefficienta, double coefficientb, double coefficientc)
+		public string Validate(double coefficientA, double coefficientB, double coefficientC)
 		{
-			throw new NotImplementedException();
+			if (coefficientB <= 0)
+				return "Coefficient B should be greater than zero";
+
+			if (coefficientB == 1)
+				return "Coefficient B should not equal 1";
+
+			return string.Empty;
 		}
 	}
 }

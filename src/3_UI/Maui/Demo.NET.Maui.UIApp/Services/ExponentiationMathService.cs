@@ -15,17 +15,17 @@ namespace Demo.Net.Maui.UIApp.Services
 			_logger = logger;
 		}
 		
-		public IEnumerable<NetStandard.Core.Entities.Point> Calculate(IEnumerable<NetStandard.Core.Entities.Point> points, double coefficienta, double coefficientb, double coefficientc)
+		public IEnumerable<NetStandard.Core.Entities.Point> Calculate(IEnumerable<NetStandard.Core.Entities.Point> points, double coefficientA, double coefficientB, double coefficientC)
 		{
-			_logger.LogInformation($"{nameof(coefficienta)}: {coefficienta} - {nameof(coefficientb)}: {coefficientb} - {nameof(coefficientc)}: {coefficientc}");
-			var result = points.Select(p => new NetStandard.Core.Entities.Point() { X = p.X, Y = Math.Pow(p.X, coefficienta) });
+			_logger.LogInformation($"{nameof(coefficientA)}: {coefficientA} - {nameof(coefficientB)}: {coefficientB} - {nameof(coefficientC)}: {coefficientC}");
+			var result = points.Select(p => new NetStandard.Core.Entities.Point() { X = p.X, Y = Math.Pow(p.X, coefficientA) });
 			_logger.LogTrace($"{nameof(Calculate)}");
 			return result;
 		}
 
-		public string Validate(double coefficienta, double coefficientb, double coefficientc)
+		public string Validate(double coefficientA, double coefficientB, double coefficientC)
 		{
-			throw new NotImplementedException();
+			return string.Empty;
 		}
 	}
 }

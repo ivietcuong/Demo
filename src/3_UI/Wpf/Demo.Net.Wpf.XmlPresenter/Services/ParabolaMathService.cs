@@ -22,17 +22,17 @@ namespace Demo.Net.Wpf.XmlPresenter.Services
         {
             _logger = logger;
         }
-        public IEnumerable<Point> Calculate(IEnumerable<Point> points, double coefficienta, double coefficientb, double coefficientc)
+        public IEnumerable<Point> Calculate(IEnumerable<Point> points, double coefficientA, double coefficientB, double coefficientC)
         {
-            _logger.LogInformation($"{nameof(coefficienta)}: {coefficienta} - {nameof(coefficientb)}: {coefficientb} - {nameof(coefficientc)}: {coefficientc}");
-            var result = points.Select(p => new Point() { X = p.X, Y = coefficienta * Math.Pow(p.X, 2) + coefficientb * p.X + coefficientc });
+            _logger.LogInformation($"{nameof(coefficientA)}: {coefficientA} - {nameof(coefficientB)}: {coefficientB} - {nameof(coefficientC)}: {coefficientC}");
+            var result = points.Select(p => new Point() { X = p.X, Y = coefficientA * Math.Pow(p.X, 2) + coefficientB * p.X + coefficientC });
             _logger.LogTrace($"{nameof(Calculate)}");
             return result;
         }
 
-		public string Validate(double coefficienta, double coefficientb, double coefficientc)
+		public string Validate(double coefficientA, double coefficientB, double coefficientC)
 		{
-            if (coefficienta == 0)
+            if (coefficientA == 0)
                 return "Coefficient A should not be zero";
 
 			return string.Empty;

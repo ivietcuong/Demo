@@ -11,77 +11,95 @@ using System.ComponentModel;
 
 namespace Demo.Net.Maui.SQLitePresenter.ViewModels
 {
-    public partial class MathServiceViewModel : ObservableRecipient/*, INotifyDataErrorInfo*/
-    {
-        protected ILogger? Logger;
+	public partial class MathServiceViewModel : ObservableRecipient/*, INotifyDataErrorInfo*/
+	{
+		protected ILogger? Logger;
 
-        [ObservableProperty]
-        private double _coefficientA;
+		[ObservableProperty]
+		private double _coefficientA;
 
-        [ObservableProperty]
-        private double _coefficientB;
+		[ObservableProperty]
+		private double _coefficientB;
 
-        [ObservableProperty]
-        private double _coefficientC;
+		[ObservableProperty]
+		private double _coefficientC;
 
-        [ObservableProperty]
-        private IMathService? _mathService;
+		[ObservableProperty]
+		private IMathService? _mathService;
 
-        //public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
+		public string? Name
+		{
+			get => MathService?.Name;
+			set
+			{
+				if (MathService == null)
+					return;
 
-        public string? Name
-        {
-            get => MathService?.Name;
-            set
-            {
-                if (MathService == null)
-                    return;
+				MathService.Name = value;
+				OnPropertyChanged();
+			}
+		}
+		public string? Message
+		{
+			//get => string.Join(Environment.NewLine, GetErrors().Cast<string>().ToList().Select(e => e));
+			get;
+		}
+		public string? Description
+		{
+			get => MathService?.Description;
+			set
+			{
+				if (MathService == null)
+					return;
 
-                MathService.Name = value;
-                OnPropertyChanged();
-            }
-        }
-        public string Message
-        {
-            //get => string.Join(Environment.NewLine, GetErrors().Cast<string>().ToList().Select(e => e));
-            get;
-        }
-        public string? Description
-        {
-            get => MathService?.Description;
-            set
-            {
-                if (MathService == null)
-                    return;
+				MathService.Description = value;
+				OnPropertyChanged();
+			}
+		}
 
-                MathService.Description = value;
-                OnPropertyChanged();
-            }
-        }
+		//public bool HasErrors => throw new NotImplementedException();
 
-        //public bool HasErrors => throw new NotImplementedException();
-        public MathServiceViewModel()
-        {
-            IsActive = true;
-        }
-        protected override void OnActivated()
-        {
-            Messenger.Register<MathServiceViewModel, MathServiceChangedMessage>(this, (r, m) =>
-            {
-            });
-        }
+		//public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
-        public IEnumerable<NetStandard.Core.Entities.Point> Calculate(IEnumerable<NetStandard.Core.Entities.Point> points)
-        {
-            if (MathService == null)
-                return points;
+		public MathServiceViewModel()
+		{
+			IsActive = true;
+		}
 
-            return MathService.Calculate(points, CoefficientA, CoefficientB, CoefficientB);
-        }
+		public IEnumerable<NetStandard.Core.Entities.Point> Calculate(IEnumerable<NetStandard.Core.Entities.Point> points)
+		{
+			if (MathService == null)
+				return points;
 
-        //public IEnumerable GetErrors(string? propertyName = null)
-        //{
-        //    throw new NotImplementedException();
-        //}
-    }
+			return MathService.Calculate(points, CoefficientA, CoefficientB, CoefficientB);
+		}
+
+		protected override void OnActivated()
+		{
+			Messenger.Register<MathServiceViewModel, MathServiceChangedMessage>(this, (r, m) =>
+			{
+				MathService = m.Value;
+			});
+		}
+
+		protected override void OnDeactivated()
+		{
+			Messenger.Unregister<MathServiceChangedMessage>(this);
+		}
+
+		partial void OnCoefficientAChanged(double value)
+		{
+			MathService?.Validate(value, CoefficientB, CoefficientC);
+		}
+
+		partial void OnCoefficientBChanged(double value)
+		{
+			MathService?.Validate(CoefficientA, value, CoefficientC);
+		}
+
+		//public IEnumerable GetErrors(string? propertyName = null)
+		//{
+		//    throw new NotImplementedException();
+		//}
+	}
 }

@@ -31,6 +31,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<MauiXaml Update="PlotControl\DemoPlotControl.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Tracker\TrackerControl.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
