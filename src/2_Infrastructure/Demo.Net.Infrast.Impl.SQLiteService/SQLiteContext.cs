@@ -10,12 +10,11 @@ namespace Demo.Net.Infrast.Impl.SQLiteService
 
 		public virtual DbSet<Point> Points { get; set; }
 
-        public SQLiteContext()
-        {
-            
-        }
+		public SQLiteContext()
+		{
+		}
 
-        public SQLiteContext(DbContextOptions<SQLiteContext> options)
+		public SQLiteContext(DbContextOptions<SQLiteContext> options)
 			: base(options) 
 		{
 		}

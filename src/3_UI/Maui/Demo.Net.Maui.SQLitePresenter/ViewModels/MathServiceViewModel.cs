@@ -52,6 +52,7 @@ namespace Demo.Net.Maui.SQLitePresenter.ViewModels
 		{
 			IsActive = true;
 			_pointService = pointService;
+			var query = _pointService.GetPointListAsync().Result;
 		}
 
 		public IEnumerable<NetStandard.Core.Entities.Point> Calculate(IEnumerable<NetStandard.Core.Entities.Point> points)

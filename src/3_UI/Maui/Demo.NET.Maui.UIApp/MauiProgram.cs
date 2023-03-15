@@ -9,7 +9,6 @@ using Demo.NetStandard.Core.Interfaces;
 using Demo.NetStandard.Core.Services;
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using OxyPlot.Maui.Skia;
@@ -43,27 +42,10 @@ namespace Demo.Net.Maui.UIApp
 
 			return builder.Build();
 		}
-
-		private static async Task CopyFromAppPackageFileToAppDataDirectory()
-		{
-			try
-			{
-				using (Stream stream = await FileSystem.OpenAppPackageFileAsync("points.db"))
-				{
-					using (MemoryStream memoryStream = new MemoryStream())
-					{
-						stream.CopyTo(memoryStream);
-						await File.WriteAllBytesAsync(Path.Combine(FileSystem.Current.AppDataDirectory, "points.db"), memoryStream.ToArray());
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-			}
-		}
-
+		
 		private static void RegisterViews(MauiAppBuilder builder)
 		{
+			builder.Services.AddSingleton<IFileSystem>(FileSystem.Current);
 			builder.Services.AddSingleton<AppShell>();
 			builder.Services.AddSingleton<MainPage>();
 		}
@@ -87,11 +69,24 @@ namespace Demo.Net.Maui.UIApp
 		{
 			string databasepath = $"Data Source={Path.Combine(FileSystem.Current.AppDataDirectory, "points.db")}";
 			var optionsBuilder = new DbContextOptionsBuilder<SQLiteContext>();
-			optionsBuilder.UseSqlite(databasepath).LogTo(Console.WriteLine);
-
+			optionsBuilder.UseSqlite(databasepath);
 
 			builder.Services.AddSingleton<DbContextOptionsBuilder<SQLiteContext>>(optionsBuilder);
-			builder.Services.AddSingleton<IUnitOfWork, SQLiteContext>();
+			builder.Services.AddSingleton<DbContextOptions<SQLiteContext>>(optionsBuilder.Options);
+
+			//builder.Services.AddSingleton<IUnitOfWork, SQLiteContext>(provider => 
+			//{
+			//	var options =(DbContextOptions<SQLiteContext>) ActivatorUtilities.CreateInstance(provider, typeof(DbContextOptions<SQLiteContext>));
+			//	return (SQLiteContext)ActivatorUtilities.CreateInstance(provider, typeof(SQLiteContext), options);
+			//});
+
+			builder.Services.AddSingleton<IUnitOfWork, SQLiteContext>(provider =>
+			{
+				var optionsBuilder = new DbContextOptionsBuilder<SQLiteContext>();
+				optionsBuilder.UseSqlite(databasepath);
+				return (SQLiteContext)ActivatorUtilities.CreateInstance(provider, typeof(SQLiteContext), optionsBuilder.Options);
+			});
+
 			builder.Services.AddSingleton<IAsyncRepository, AsyncSQLiteRepository>();
 			builder.Services.AddSingleton<IPointService, SQLitePointService>();
 
