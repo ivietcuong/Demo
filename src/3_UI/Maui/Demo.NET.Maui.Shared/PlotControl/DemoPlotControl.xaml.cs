@@ -53,6 +53,16 @@ public partial class DemoPlotControl : ContentView
 	private void UpdateControl(DemoPlotControl demoPlotControl)
 	{
 		demoPlotControl._plotView.Model.Series.Clear();
+
+		foreach (var a in demoPlotControl._plotView.Model.Axes)
+		{
+			a.PositionAtZeroCrossing = true;
+			a.TickStyle = OxyPlot.Axes.TickStyle.Crossing;
+			a.AxislineStyle = LineStyle.Solid;
+			a.Maximum = 10000;
+			a.Minimum = -10000;
+		}
+
 		demoPlotControl._lineSeries = new LineSeries() { Title = demoPlotControl.LineTitle };
 
 		if (demoPlotControl.ItemsSource != null)
