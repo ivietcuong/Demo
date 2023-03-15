@@ -44,6 +44,24 @@ namespace Demo.Net.Maui.UIApp
 			return builder.Build();
 		}
 
+		private static async Task LoadMauiAsset()
+		{
+			using (Stream stream = await FileSystem.OpenAppPackageFileAsync("points.db"))
+			{
+				using (MemoryStream memoryStream = new MemoryStream())
+				{
+					stream.CopyTo(memoryStream);
+
+					File.WriteAllBytes($"Data Source={Path.Combine(FileSystem.Current.AppDataDirectory, "points.db")}", memoryStream.ToArray());
+				}
+
+				using (StreamReader reader = new StreamReader(stream))
+				{
+					var contents = await reader.ReadToEndAsync();
+					await File.WriteAllTextAsync($"Data Source={Path.Combine(FileSystem.Current.AppDataDirectory, "points.db")}", contents);
+				}
+			}
+		}
 
 		private static void RegisterViews(MauiAppBuilder builder)
 		{

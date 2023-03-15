@@ -49,16 +49,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiAsset Remove="Resources\Raw\AboutAssets.txt" />
-	  <MauiAsset Remove="Resources\Raw\points.db" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Include="Resources\Raw\AboutAssets.txt" />
-	  <EmbeddedResource Include="Resources\Raw\points.db" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
