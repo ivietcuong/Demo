@@ -44,7 +44,7 @@ namespace Demo.Net.Maui.UIApp
 			return builder.Build();
 		}
 
-		private static async Task LoadMauiAsset()
+		private static async Task CopyFromAppPackageFileToAppDataDirectory()
 		{
 			try
 			{
