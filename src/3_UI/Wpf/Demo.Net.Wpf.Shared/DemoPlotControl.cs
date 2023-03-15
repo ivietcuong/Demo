@@ -9,6 +9,7 @@ using System.Collections;
 using OxyPlot.Legends;
 using System;
 using System.Diagnostics;
+using OxyPlot.Axes;
 
 namespace Demo.Net.Wpf.Shared
 {
@@ -16,6 +17,8 @@ namespace Demo.Net.Wpf.Shared
     public class DemoPlotControl : Control
     {
         private const string PartPlotView = "PART_PlotView";
+        private const string LinearAxisLeft = "LinearAxisLeft";
+        private const string LinearAxisBottom = "LinearAxisBottom";
 
 
         public static readonly DependencyProperty TitleProperty =
@@ -76,7 +79,8 @@ namespace Demo.Net.Wpf.Shared
                     Title = Title,
                     Subtitle = Subtitle,
                     TitleFont = "Sitka Display Semibold",
-                    SubtitleFont = "Sitka Display Semibold"
+                    SubtitleFont = "Sitka Display Semibold",
+                    PlotMargins = new OxyThickness(10, 10, 10, 10)
                 };
 
                 var legend = new Legend
@@ -88,6 +92,27 @@ namespace Demo.Net.Wpf.Shared
                 };
 
                 _plotView.Model.Legends.Add(legend);
+
+                var linearAxisLeft = new LinearAxis
+                {
+                    Key = LinearAxisLeft,
+                    PositionAtZeroCrossing = true,
+                    TickStyle = TickStyle.Crossing,
+                    AxislineStyle = LineStyle.Solid
+                };
+                _plotView.Model.Axes.Add(linearAxisLeft);
+
+                var linearAxisBottom = new LinearAxis
+                {
+                    Maximum = 1900,
+                    Minimum = -1900,
+                    Key = LinearAxisBottom,
+                    PositionAtZeroCrossing = true,
+                    Position = AxisPosition.Bottom,
+                    TickStyle = TickStyle.Crossing,
+                    AxislineStyle = LineStyle.Solid
+                };
+                _plotView.Model.Axes.Add(linearAxisBottom);
 
                 UpdateControl(this);
 
@@ -101,7 +126,9 @@ namespace Demo.Net.Wpf.Shared
 
         private void UpdateControl(DemoPlotControl control)
         {
+            control._plotView.Model.ResetAllAxes();
             control._plotView.Model.Series.Clear();
+
             control._lineSeries = new LineSeries() { Title = control.LineTitle };
 
             if (control.ItemsSource != null)
@@ -109,7 +136,18 @@ namespace Demo.Net.Wpf.Shared
 
             control._plotView.Model.Series.Add(control._lineSeries);
 
+            var m = Math.Abs(control._lineSeries.Points.MaxBy(p => p.Y).Y) > Math.Abs(control._lineSeries.Points.MinBy(p => p.Y).Y) ?
+                    Math.Abs(control._lineSeries.Points.MaxBy(p => p.Y).Y) : Math.Abs(control._lineSeries.Points.MinBy(p => p.Y).Y);
+
+            var linearaxisleft = control._plotView.Model.Axes.FirstOrDefault(a => a.Key.Equals(LinearAxisLeft));
+            if (linearaxisleft != null)
+            {
+                linearaxisleft.Maximum = m;
+                linearaxisleft.Minimum = -m;
+            }
+
             control._plotView.Model.InvalidatePlot(true);
+
         }
 
         private static void OnTitleChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
