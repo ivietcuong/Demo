@@ -15,25 +15,23 @@
                             SelectedItem="{Binding SelectedMathService}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
+                        <Grid Margin="0,0,0,1"
+                              BackgroundColor="Maroon">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
                             <Image Grid.Column="0"
-                                   HeightRequest="48"
-                                   WidthRequest="48"
-                                   Background="Maroon"
-                                   Margin="0, 0, 0, 1"
+                                   HeightRequest="24"
+                                   WidthRequest="24"
+                                   Margin="10, 0, 0, 0"
                                    Source="{Binding Description}" />
 
                             <Label Grid.Column="1"
                                    Text="{Binding Name}"
                                    Padding="20, 14"
-                                   Margin="0, 0, 0, 1"
                                    TextColor="White"
-                                   Background="Maroon"
                                    HorizontalOptions="FillAndExpand" />
                         </Grid>
                     </DataTemplate>

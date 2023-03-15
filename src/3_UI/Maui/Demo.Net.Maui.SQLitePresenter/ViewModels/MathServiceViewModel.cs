@@ -110,7 +110,10 @@ namespace Demo.Net.Maui.SQLitePresenter.ViewModels
 			CoefficientA = 1;
 			CoefficientB = 2;
 			CoefficientC = 0;
-			Points = new ObservableCollection<Point>(await _pointService.GetPointListAsync());
+
+			var points = await _pointService.GetPointListAsync();
+            var meanvalue = points.Count() / 2;
+            Points = new ObservableCollection<Point>(points.Select(p => new Point() { X = p.X - meanvalue, Y = p.Y }));
 
 			OnPropertyChanged(nameof(Name));
 			CalculateCommand.NotifyCanExecuteChanged();
