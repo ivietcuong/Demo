@@ -6,6 +6,8 @@ using Microsoft.Extensions.Logging;
 
 using System.Collections.ObjectModel;
 
+using Demo.Net.Maui.Shared;
+
 using Point = Demo.NetStandard.Core.Entities.Point;
 
 namespace Demo.Net.Maui.UIApp.ViewModels
@@ -16,7 +18,7 @@ namespace Demo.Net.Maui.UIApp.ViewModels
 		[ObservableProperty]
 		private ObservableCollection<Point> _points;
 
-		public HomeViewModel(IFileService fileservice,ILogger<HomeViewModel> logger)
+		public HomeViewModel(IFileService fileservice, ILogger<HomeViewModel> logger)
 		{
 			_fileservice = fileservice;
 			GetPoints().InitializeData(logger);

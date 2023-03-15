@@ -53,6 +53,7 @@ namespace Demo.Net.Maui.UIApp
 		private static void RegisterDatabase(MauiAppBuilder builder)
 		{
 			builder.Services.AddSingleton<IFileSystem>(FileSystem.Current);
+			builder.Services.AddSingleton<IFileService, FileService>();
 
 			string databasepath = $"Data Source={Path.Combine(FileSystem.Current.AppDataDirectory, "points.db")}";
 
