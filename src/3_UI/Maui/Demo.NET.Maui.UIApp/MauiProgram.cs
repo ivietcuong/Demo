@@ -35,6 +35,7 @@ namespace Demo.Net.Maui.UIApp
 			builder.Logging.AddDebug();
 #endif
 
+			RegisterDatabase(builder);
 			RegisterMathServices(builder);
 			RegisterViewModels(builder);
 			RegisterWorkspaces(builder);
@@ -44,10 +45,26 @@ namespace Demo.Net.Maui.UIApp
 		}
 		
 		private static void RegisterViews(MauiAppBuilder builder)
-		{
-			builder.Services.AddSingleton<IFileSystem>(FileSystem.Current);
+		{			
 			builder.Services.AddSingleton<AppShell>();
 			builder.Services.AddSingleton<MainPage>();
+		}
+
+		private static void RegisterDatabase(MauiAppBuilder builder)
+		{
+			builder.Services.AddSingleton<IFileSystem>(FileSystem.Current);
+
+			string databasepath = $"Data Source={Path.Combine(FileSystem.Current.AppDataDirectory, "points.db")}";
+
+			builder.Services.AddSingleton<IUnitOfWork, SQLiteContext>(provider =>
+			{
+				var optionsBuilder = new DbContextOptionsBuilder<SQLiteContext>();
+				optionsBuilder.UseSqlite(databasepath);
+				return (SQLiteContext)ActivatorUtilities.CreateInstance(provider, typeof(SQLiteContext), optionsBuilder.Options);
+			});
+
+			builder.Services.AddSingleton<IAsyncRepository, AsyncSQLiteRepository>();
+			builder.Services.AddSingleton<IPointService, SQLitePointService>();
 		}
 
 		private static void RegisterWorkspaces(MauiAppBuilder builder)
@@ -64,24 +81,12 @@ namespace Demo.Net.Maui.UIApp
 		}
 
 		private static void RegisterMathServices(MauiAppBuilder builder)
-		{
-			string databasepath = $"Data Source={Path.Combine(FileSystem.Current.AppDataDirectory, "points.db")}";
-
-			builder.Services.AddSingleton<IUnitOfWork, SQLiteContext>(provider =>
-			{
-				var optionsBuilder = new DbContextOptionsBuilder<SQLiteContext>();
-				optionsBuilder.UseSqlite(databasepath);
-				return (SQLiteContext)ActivatorUtilities.CreateInstance(provider, typeof(SQLiteContext), optionsBuilder.Options);
-			});
-
-			builder.Services.AddSingleton<IAsyncRepository, AsyncSQLiteRepository>();
-			builder.Services.AddSingleton<IPointService, SQLitePointService>();
-
-
+		{			
 			builder.Services.AddSingleton<IMathService, TangentMathService>();
 			builder.Services.AddSingleton<IMathService, ParabolaMathService>();
 			builder.Services.AddSingleton<IMathService, LogarithmMathService>();
 			builder.Services.AddSingleton<IMathService, ExponentiationMathService>();
 		}
+
 	}
 }
