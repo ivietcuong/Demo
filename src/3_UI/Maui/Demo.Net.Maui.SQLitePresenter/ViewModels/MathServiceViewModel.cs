@@ -8,7 +8,10 @@ using Demo.NetStandard.Core.Services;
 using Microsoft.Extensions.Logging;
 
 using System.Collections;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+
+using Point = Demo.NetStandard.Core.Entities.Point;
 
 namespace Demo.Net.Maui.SQLitePresenter.ViewModels
 {
@@ -29,6 +32,9 @@ namespace Demo.Net.Maui.SQLitePresenter.ViewModels
 
 		[ObservableProperty]
 		private IMathService? _mathService;
+
+		[ObservableProperty]
+		private ObservableCollection<Point>? _points;
 
 		public string? Name
 		{
@@ -52,10 +58,9 @@ namespace Demo.Net.Maui.SQLitePresenter.ViewModels
 		{
 			IsActive = true;
 			_pointService = pointService;
-			var query = _pointService.GetPointListAsync().Result;
 		}
 
-		public IEnumerable<NetStandard.Core.Entities.Point> Calculate(IEnumerable<NetStandard.Core.Entities.Point> points)
+		public IEnumerable<Point> Calculate(IEnumerable<Point> points)
 		{
 			if (MathService == null)
 				return points;
@@ -93,18 +98,19 @@ namespace Demo.Net.Maui.SQLitePresenter.ViewModels
 
 		protected override void OnActivated()
 		{
-			Messenger.Register(this, (MessageHandler<MathServiceViewModel, MathServiceChangedMessage>)((r, m) =>
+			Messenger.Register(this, (MessageHandler<MathServiceViewModel, MathServiceChangedMessage>)(async (r, m) =>
 			{
 				MathService = m.Value;
-				Reset();
+				await Reset();
 			}));
 		}
 
-		private void Reset()
+		private async Task Reset()
 		{
 			CoefficientA = 1;
 			CoefficientB = 2;
 			CoefficientC = 0;
+			Points = new ObservableCollection<Point>(await _pointService.GetPointListAsync());
 
 			OnPropertyChanged(nameof(Name));
 			CalculateCommand.NotifyCanExecuteChanged();
@@ -118,8 +124,8 @@ namespace Demo.Net.Maui.SQLitePresenter.ViewModels
 		[RelayCommand(CanExecute = nameof(CanExecute))]
 		private void Calculate()
 		{
-			//if (MathService != null)
-			//	Points = new ObservableCollection<Point>(SelectedMathService.Calculate(Points));
+			if (MathService != null)
+				Points = new ObservableCollection<Point>(MathService.Calculate(Points, CoefficientA, CoefficientB, CoefficientC));
 		}
 
 		private bool CanExecute()

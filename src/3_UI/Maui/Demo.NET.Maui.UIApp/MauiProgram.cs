@@ -63,22 +63,9 @@ namespace Demo.Net.Maui.UIApp
 			builder.Services.AddSingleton<MathServiceViewModel>();
 		}
 
-		//https://learn.microsoft.com/en-us/training/modules/store-local-data/
-		//builder.Services.AddSingleton<IFileSystem>(FileSystem.Current);
 		private static void RegisterMathServices(MauiAppBuilder builder)
 		{
 			string databasepath = $"Data Source={Path.Combine(FileSystem.Current.AppDataDirectory, "points.db")}";
-			var optionsBuilder = new DbContextOptionsBuilder<SQLiteContext>();
-			optionsBuilder.UseSqlite(databasepath);
-
-			builder.Services.AddSingleton<DbContextOptionsBuilder<SQLiteContext>>(optionsBuilder);
-			builder.Services.AddSingleton<DbContextOptions<SQLiteContext>>(optionsBuilder.Options);
-
-			//builder.Services.AddSingleton<IUnitOfWork, SQLiteContext>(provider => 
-			//{
-			//	var options =(DbContextOptions<SQLiteContext>) ActivatorUtilities.CreateInstance(provider, typeof(DbContextOptions<SQLiteContext>));
-			//	return (SQLiteContext)ActivatorUtilities.CreateInstance(provider, typeof(SQLiteContext), options);
-			//});
 
 			builder.Services.AddSingleton<IUnitOfWork, SQLiteContext>(provider =>
 			{

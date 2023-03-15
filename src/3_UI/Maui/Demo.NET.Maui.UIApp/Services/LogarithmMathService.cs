@@ -2,6 +2,8 @@
 
 using Microsoft.Extensions.Logging;
 
+using Point = Demo.NetStandard.Core.Entities.Point;
+
 namespace Demo.Net.Maui.UIApp.Services
 {
 	public class LogarithmMathService : IMathService
@@ -15,10 +17,10 @@ namespace Demo.Net.Maui.UIApp.Services
 			_logger = logger;
 		}
 
-		public IEnumerable<NetStandard.Core.Entities.Point> Calculate(IEnumerable<NetStandard.Core.Entities.Point> points, double coefficientA, double coefficientB, double coefficientC)
+		public IEnumerable<Point> Calculate(IEnumerable<Point> points, double coefficientA, double coefficientB, double coefficientC)
 		{
 			_logger.LogInformation($"{nameof(coefficientA)}: {coefficientA} - {nameof(coefficientB)}: {coefficientB} - {nameof(coefficientC)}: {coefficientC}");
-			var result = points.Select(p => new NetStandard.Core.Entities.Point() { X = p.X, Y = Math.Log(p.X <= 0 ? -1 * p.X : p.X, coefficientB) });
+			var result = points.Select(p => new Point() { X = p.X, Y = Math.Log(p.X <= 0 ? -1 * p.X : p.X, coefficientB) });
 			_logger.LogTrace($"{nameof(Calculate)}");
 			return result;
 		}

@@ -4,6 +4,7 @@ using OxyPlot.Maui.Skia;
 
 using System.Collections;
 using OxyPlot.Series;
+using Point = Demo.NetStandard.Core.Entities.Point;
 
 namespace Demo.Net.Maui.Shared;
 
@@ -55,7 +56,7 @@ public partial class DemoPlotControl : ContentView
 		demoPlotControl._lineSeries = new LineSeries() { Title = demoPlotControl.LineTitle };
 
 		if (demoPlotControl.ItemsSource != null)
-			demoPlotControl._lineSeries.Points.AddRange(demoPlotControl.ItemsSource.Cast<NetStandard.Core.Entities.Point>().Select(p => new DataPoint(p.X, p.Y)));
+			demoPlotControl._lineSeries.Points.AddRange(demoPlotControl.ItemsSource.Cast<Point>().Select(p => new DataPoint(p.X, p.Y)));
 
 		demoPlotControl._plotView.Model.Series.Add(demoPlotControl._lineSeries);
 

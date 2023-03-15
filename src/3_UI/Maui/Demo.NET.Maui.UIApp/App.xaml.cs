@@ -27,11 +27,15 @@
 		{
 			try
 			{
-				using (Stream stream = await FileSystem.OpenAppPackageFileAsync("points.db"))
+				if (File.Exists(Path.Combine(_filesystem.AppDataDirectory, "points.db")))
+					return;
+
+				using (Stream stream = await _filesystem.OpenAppPackageFileAsync("points.db"))
 				{
 					using (MemoryStream memoryStream = new MemoryStream())
 					{
 						stream.CopyTo(memoryStream);
+						
 						await File.WriteAllBytesAsync(Path.Combine(_filesystem.AppDataDirectory, "points.db"), memoryStream.ToArray());
 					}
 				}
