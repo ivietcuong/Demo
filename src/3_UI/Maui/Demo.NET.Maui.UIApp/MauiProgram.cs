@@ -46,20 +46,19 @@ namespace Demo.Net.Maui.UIApp
 
 		private static async Task LoadMauiAsset()
 		{
-			using (Stream stream = await FileSystem.OpenAppPackageFileAsync("points.db"))
+			try
 			{
-				using (MemoryStream memoryStream = new MemoryStream())
+				using (Stream stream = await FileSystem.OpenAppPackageFileAsync("points.db"))
 				{
-					stream.CopyTo(memoryStream);
-
-					File.WriteAllBytes($"Data Source={Path.Combine(FileSystem.Current.AppDataDirectory, "points.db")}", memoryStream.ToArray());
+					using (MemoryStream memoryStream = new MemoryStream())
+					{
+						stream.CopyTo(memoryStream);
+						await File.WriteAllBytesAsync(Path.Combine(FileSystem.Current.AppDataDirectory, "points.db"), memoryStream.ToArray());
+					}
 				}
-
-				using (StreamReader reader = new StreamReader(stream))
-				{
-					var contents = await reader.ReadToEndAsync();
-					await File.WriteAllTextAsync($"Data Source={Path.Combine(FileSystem.Current.AppDataDirectory, "points.db")}", contents);
-				}
+			}
+			catch (Exception ex)
+			{
 			}
 		}
 
