@@ -19,7 +19,8 @@ public partial class DemoPlotControl : ContentView
 		get { return (string)GetValue(TitleProperty); }
 		set { SetValue(TitleProperty, value); }
 	}
-	public static readonly BindableProperty TitleProperty = BindableProperty.Create(nameof(Title), typeof(string), typeof(DemoPlotControl), string.Empty, BindingMode.TwoWay);
+	public static readonly BindableProperty TitleProperty = BindableProperty.Create(nameof(Title), typeof(string), typeof(DemoPlotControl), string.Empty, BindingMode.TwoWay, null, propertyChanged: OnTitleSourceChanged);
+
 
 	public string Subtitle
 	{
@@ -48,16 +49,6 @@ public partial class DemoPlotControl : ContentView
 		ControlTemplate = (ControlTemplate)Resources["DemoPlotControlTemplate"];
 	}
 
-	private static void OnItemSourceChanged(BindableObject bindable, object oldValue, object newValue)
-	{
-		var control = (DemoPlotControl)bindable;
-
-		if (control == null || control._plotView == null || newValue == null)
-			return;
-
-		control?.UpdateControl(control);
-	}
-
 	private void UpdateControl(DemoPlotControl demoPlotControl)
 	{
 		demoPlotControl._plotView.Model.Series.Clear();
@@ -69,6 +60,27 @@ public partial class DemoPlotControl : ContentView
 		demoPlotControl._plotView.Model.Series.Add(demoPlotControl._lineSeries);
 
 		demoPlotControl._plotView.Model.InvalidatePlot(true);
+	}
+
+	private static void OnItemSourceChanged(BindableObject bindable, object oldValue, object newValue)
+	{
+		var control = (DemoPlotControl)bindable;
+
+		if (control == null || control._plotView == null || newValue == null)
+			return;
+
+		control?.UpdateControl(control);
+	}
+
+	private static void OnTitleSourceChanged(BindableObject bindable, object oldValue, object newValue)
+	{
+		var control = (DemoPlotControl)bindable;
+
+		if (control == null || control._plotView == null || newValue == null)
+			return;
+
+		control._plotView.Model.Title = newValue.ToString();
+		control._plotView.Model.InvalidatePlot(true);
 	}
 
 	protected override void OnApplyTemplate()

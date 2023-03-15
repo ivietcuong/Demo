@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 
 using Demo.Net.Maui.Shared.Services;
@@ -11,15 +12,17 @@ using System.ComponentModel;
 
 namespace Demo.Net.Maui.SQLitePresenter.ViewModels
 {
-	public partial class MathServiceViewModel : ObservableRecipient/*, INotifyDataErrorInfo*/
+	public partial class MathServiceViewModel : ObservableRecipient, INotifyDataErrorInfo
 	{
+		private readonly Dictionary<string, List<string>> _errors = new();
+		private readonly IPointService _pointService;
 		protected ILogger? Logger;
 
 		[ObservableProperty]
-		private double _coefficientA;
+		private double _coefficientA = 1;
 
 		[ObservableProperty]
-		private double _coefficientB;
+		private double _coefficientB = 2;
 
 		[ObservableProperty]
 		private double _coefficientC;
@@ -30,40 +33,25 @@ namespace Demo.Net.Maui.SQLitePresenter.ViewModels
 		public string? Name
 		{
 			get => MathService?.Name;
-			set
-			{
-				if (MathService == null)
-					return;
-
-				MathService.Name = value;
-				OnPropertyChanged();
-			}
 		}
+
 		public string? Message
 		{
-			//get => string.Join(Environment.NewLine, GetErrors().Cast<string>().ToList().Select(e => e));
-			get;
-		}
-		public string? Description
-		{
-			get => MathService?.Description;
-			set
+			get
 			{
-				if (MathService == null)
-					return;
-
-				MathService.Description = value;
-				OnPropertyChanged();
+				var result = string.Join(Environment.NewLine, GetErrors().Cast<string>().Select(e => e));
+				return result;
 			}
 		}
 
-		//public bool HasErrors => throw new NotImplementedException();
+		public bool HasErrors => _errors.Any();
 
-		//public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
+		public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
-		public MathServiceViewModel()
+		public MathServiceViewModel(IPointService pointService)
 		{
 			IsActive = true;
+			_pointService = pointService;
 		}
 
 		public IEnumerable<NetStandard.Core.Entities.Point> Calculate(IEnumerable<NetStandard.Core.Entities.Point> points)
@@ -74,12 +62,51 @@ namespace Demo.Net.Maui.SQLitePresenter.ViewModels
 			return MathService.Calculate(points, CoefficientA, CoefficientB, CoefficientB);
 		}
 
+		partial void OnCoefficientAChanged(double value)
+		{
+			var result = MathService?.Validate(value, CoefficientB, CoefficientC);
+
+			if (string.IsNullOrEmpty(result))
+				_errors.Remove(nameof(CoefficientA));
+			else
+				_errors.Add(nameof(CoefficientA), new List<string>() { result });
+
+			CalculateCommand.NotifyCanExecuteChanged();
+			ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(nameof(CoefficientA)));
+			OnPropertyChanged(nameof(Message));
+		}
+
+		partial void OnCoefficientBChanged(double value)
+		{
+			var result = MathService?.Validate(CoefficientA, value, CoefficientC);
+
+			if (string.IsNullOrEmpty(result))
+				_errors.Remove(nameof(CoefficientB));
+			else
+				_errors.Add(nameof(CoefficientA), new List<string>() { result });
+
+			CalculateCommand.NotifyCanExecuteChanged();
+			ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(nameof(CoefficientB)));
+			OnPropertyChanged(nameof(Message));
+		}
+
 		protected override void OnActivated()
 		{
-			Messenger.Register<MathServiceViewModel, MathServiceChangedMessage>(this, (r, m) =>
+			Messenger.Register(this, (MessageHandler<MathServiceViewModel, MathServiceChangedMessage>)((r, m) =>
 			{
 				MathService = m.Value;
-			});
+				Reset();
+			}));
+		}
+
+		private void Reset()
+		{
+			CoefficientA = 1;
+			CoefficientB = 2;
+			CoefficientC = 0;
+
+			OnPropertyChanged(nameof(Name));
+			CalculateCommand.NotifyCanExecuteChanged();
 		}
 
 		protected override void OnDeactivated()
@@ -87,19 +114,25 @@ namespace Demo.Net.Maui.SQLitePresenter.ViewModels
 			Messenger.Unregister<MathServiceChangedMessage>(this);
 		}
 
-		partial void OnCoefficientAChanged(double value)
+		[RelayCommand(CanExecute = nameof(CanExecute))]
+		private void Calculate()
 		{
-			MathService?.Validate(value, CoefficientB, CoefficientC);
+			//if (MathService != null)
+			//	Points = new ObservableCollection<Point>(SelectedMathService.Calculate(Points));
 		}
 
-		partial void OnCoefficientBChanged(double value)
+		private bool CanExecute()
 		{
-			MathService?.Validate(CoefficientA, value, CoefficientC);
+			return MathService != null && !HasErrors;
 		}
 
-		//public IEnumerable GetErrors(string? propertyName = null)
-		//{
-		//    throw new NotImplementedException();
-		//}
+		public IEnumerable GetErrors(string? propertyName = null)
+		{
+			if (!string.IsNullOrEmpty(propertyName))
+				return _errors[propertyName];
+
+			var errors = _errors.Values.SelectMany(e => e);
+			return errors;
+		}
 	}
 }

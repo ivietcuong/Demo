@@ -1,10 +1,5 @@
 using Demo.Net.Maui.Shared.ViewModels;
 using Demo.Net.Maui.UIApp.ViewModels;
-using Demo.NetStandard.Core.DataSource;
-
-using OxyPlot;
-using OxyPlot.Legends;
-using OxyPlot.Series;
 
 namespace Demo.Net.Maui.UIApp.Views;
 
