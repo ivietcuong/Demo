@@ -85,7 +85,7 @@
 				   Grid.ColumnSpan="3"
 				   Padding="5"
 				   FontSize="16"
-				   TextColor="Yellow"
+				   TextColor="Red"
 				   Margin="0, 5, 10, 10"
 				   VerticalOptions="Start"
 				   HorizontalOptions="Start"
