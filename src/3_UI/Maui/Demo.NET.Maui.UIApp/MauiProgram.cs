@@ -55,12 +55,10 @@ namespace Demo.Net.Maui.UIApp
 			builder.Services.AddSingleton<IFileSystem>(FileSystem.Current);
 			builder.Services.AddSingleton<IFileService, FileService>();
 
-			string databasepath = $"Data Source={Path.Combine(FileSystem.Current.AppDataDirectory, "points.db")}";
-
 			builder.Services.AddSingleton<IUnitOfWork, SQLiteContext>(provider =>
 			{
 				var optionsBuilder = new DbContextOptionsBuilder<SQLiteContext>();
-				optionsBuilder.UseSqlite(databasepath);
+				optionsBuilder.UseSqlite($"Data Source={Path.Combine(FileSystem.Current.AppDataDirectory, "points.db")}");
 				return (SQLiteContext)ActivatorUtilities.CreateInstance(provider, typeof(SQLiteContext), optionsBuilder.Options);
 			});
 
