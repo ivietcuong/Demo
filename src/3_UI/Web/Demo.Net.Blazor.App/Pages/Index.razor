@@ -5,9 +5,5 @@
 
 <PageTitle>Index</PageTitle>
 
-<ListBox TItem="Person" ItemSource="@People" SelectionChanged=@OnSelectionChanged>
-    @*<ItemTemplate>
-        <label>@($"{context.Title} {context.Name}")</label><br />
-    </ItemTemplate>*@
-</ListBox>
+<DemoPlotView JSRuntime=@JSRuntime X=@X Y=@Y/>
 

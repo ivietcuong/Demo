@@ -14,7 +14,7 @@ namespace Demo.Net.Blazor.App.Shared
         public IWorkspace? Workspace { get; set; }
 
 		[Inject]
-		IEnumerable<IWorkspace>? Workspaces { get; set; }
+		public IEnumerable<IWorkspace>? Workspaces { get; set; }
 
 		public Shell()
 		{
