@@ -4,6 +4,6 @@
 	{
 		public Type Type { get; }
 		public string Name { get; }
-		public Dictionary<string, object?> Properties { get; }
+		public Dictionary<string, object?> Parameters { get; }
 	}
 }

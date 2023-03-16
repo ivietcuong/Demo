@@ -6,6 +6,6 @@ namespace Demo.Net.Blazor.App.Shared
     {
         public Type Type { get => GetType(); }
         public string Name { get => nameof(SurveyPrompt); }
-        public Dictionary<string, object?> Properties { get; }
+        public Dictionary<string, object?> Parameters { get; }
     }
 }

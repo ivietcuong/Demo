@@ -34,7 +34,7 @@ namespace Demo.Net.Blazor.App.Shared
 
             count++;
 
-            Body = BuildComponent;
+            //Body = BuildComponent;
         }
 
         private void BuildComponent(RenderTreeBuilder builder)
@@ -46,8 +46,8 @@ namespace Demo.Net.Blazor.App.Shared
 
             builder.OpenComponent(0, Workspace.Type);
 
-            if (Workspace.Properties != null)
-                foreach (var p in Workspace.Properties)
+            if (Workspace.Parameters != null)
+                foreach (var p in Workspace.Parameters)
                     builder.AddAttribute(sequence++, p.Key, p.Value);
 
             builder.CloseComponent();
