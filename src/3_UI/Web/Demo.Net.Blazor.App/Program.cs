@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Demo.Net.Blazor.App
 {
-    public class Program
+	//https://learn.microsoft.com/de-de/aspnet/core/blazor/tutorials/signalr-blazor?view=aspnetcore-7.0&tabs=visual-studio&pivots=server
+	public class Program
     {
         public static void Main(string[] args)
         {
