@@ -1,18 +1,25 @@
-﻿@page "/counter"
+﻿@using Demo.Net.Blazor.App.Data
+
+@page "/counter"
 
 <PageTitle>Counter</PageTitle>
 
 <h1>Counter</h1>
+<h1>@DemoData.Name</h1>
 
 <p role="status">Current count: @currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
-    private int currentCount = 0;
 
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
+	[Inject]
+	public IDemoData? DemoData { get; set; }
+
+	private int currentCount = 0;
+
+	private void IncrementCount()
+	{
+		currentCount++;
+	}
 }
