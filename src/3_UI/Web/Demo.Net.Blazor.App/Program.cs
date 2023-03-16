@@ -1,5 +1,7 @@
 using Demo.Net.Blazor.App.Data;
+using Demo.Net.Blazor.App.Pages;
 using Demo.Net.Blazor.App.Shared;
+using Demo.Net.Blazor.Shared;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -16,8 +18,11 @@ namespace Demo.Net.Blazor.App
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
+
             builder.Services.AddSingleton<WeatherForecastService>();
-            builder.Services.AddSingleton<IDemoData, DemoData>();
+            builder.Services.AddSingleton<IWorkspace, Counter>();
+            //builder.Services.AddSingleton<IWorkspace, FetchData>();
+            builder.Services.AddSingleton<IWorkspace, SurveyPrompt>();
 
             var app = builder.Build();
 

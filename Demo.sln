@@ -50,7 +50,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Net.Maui.SQLitePresent
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{91A155EA-8973-4D6D-AB6B-C2912CACB74B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Net.Blazor.App", "src\3_UI\Web\Demo.Net.Blazor.App\Demo.Net.Blazor.App.csproj", "{77EA048B-C9A6-4615-9DC5-445DDFECBFC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Net.Blazor.App", "src\3_UI\Web\Demo.Net.Blazor.App\Demo.Net.Blazor.App.csproj", "{77EA048B-C9A6-4615-9DC5-445DDFECBFC0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Net.Blazor.Shared", "src\3_UI\Web\Demo.Net.Blazor.Shared\Demo.Net.Blazor.Shared.csproj", "{92D1AC84-DCF6-42DD-A2C6-4AD28C2B6AA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -120,6 +122,10 @@ Global
 		{77EA048B-C9A6-4615-9DC5-445DDFECBFC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77EA048B-C9A6-4615-9DC5-445DDFECBFC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77EA048B-C9A6-4615-9DC5-445DDFECBFC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92D1AC84-DCF6-42DD-A2C6-4AD28C2B6AA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92D1AC84-DCF6-42DD-A2C6-4AD28C2B6AA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92D1AC84-DCF6-42DD-A2C6-4AD28C2B6AA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92D1AC84-DCF6-42DD-A2C6-4AD28C2B6AA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -143,6 +149,7 @@ Global
 		{2FC26D43-8E72-41DE-B134-13E7DC42B1EC} = {CAA74E2A-3294-4B7B-9373-0DEC2F7AF49C}
 		{91A155EA-8973-4D6D-AB6B-C2912CACB74B} = {67F1FDD7-3224-4F02-9210-17DF1510E3E7}
 		{77EA048B-C9A6-4615-9DC5-445DDFECBFC0} = {91A155EA-8973-4D6D-AB6B-C2912CACB74B}
+		{92D1AC84-DCF6-42DD-A2C6-4AD28C2B6AA6} = {91A155EA-8973-4D6D-AB6B-C2912CACB74B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {42BF3B49-E541-4E42-BE64-26F1528C71D5}
