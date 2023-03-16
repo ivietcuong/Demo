@@ -1,7 +1,8 @@
-﻿@using Demo.Net.Blazor.App.Data
+﻿@page "/counter"
+
+@using Demo.Net.Blazor.App.Data
 @inherits LayoutComponentBase
 
-@page "/counter"
 
 <PageTitle>Counter</PageTitle>
 
@@ -10,8 +11,3 @@
 <p role="status">Current count: @currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-
-@code {
-
-	
-}

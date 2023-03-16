@@ -1,56 +1,34 @@
-﻿using Demo.Net.Blazor.App.Data;
-using Demo.Net.Blazor.App.Pages;
-using Demo.Net.Blazor.Shared;
+﻿using Demo.Net.Blazor.Shared;
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Demo.Net.Blazor.App.Shared
 {
-    public partial class Shell : LayoutComponentBase
-    {
-        private int count = 0;
-        public IWorkspace? Workspace { get; set; }
+	public partial class Shell : ComponentBase
+	{
+		private int index = 0;
+		public IWorkspace? Workspace { get; set; }
 
-        [Inject]
-        IEnumerable<IWorkspace>? Workspaces { get; set; }
+		[Inject]
+		IEnumerable<IWorkspace>? Workspaces { get; set; }
 
-        public Shell()
-        {
-            
-        }
+		public Shell()
+		{
 
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-        }
+		}
 
-        private void NavigateToWorkspace()
-        {
-            if (count % 2 == 0)
-                Workspace = Workspaces.FirstOrDefault();
-            else
-                Workspace = Workspaces.LastOrDefault();
+		protected override void OnInitialized()
+		{
+			base.OnInitialized();
+		}
 
-            count++;
+		private void NavigateToWorkspace()
+		{
+			if (index == 3)
+				index = 0;
 
-            //Body = BuildComponent;
-        }
-
-        private void BuildComponent(RenderTreeBuilder builder)
-        {
-            if (Workspace == null)
-                return;
-
-            int sequence = 1;
-
-            builder.OpenComponent(0, Workspace.Type);
-
-            if (Workspace.Parameters != null)
-                foreach (var p in Workspace.Parameters)
-                    builder.AddAttribute(sequence++, p.Key, p.Value);
-
-            builder.CloseComponent();
-        }
-    }
+			Workspace = Workspaces?.ElementAt(index);
+			index++;
+		}
+	}
 }
