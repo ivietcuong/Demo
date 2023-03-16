@@ -1,22 +1,41 @@
-﻿@using Demo.Net.Blazor.App.Data
-@inherits LayoutComponentBase
+﻿@inherits ComponentBase
+@using Demo.Net.Blazor.App.Data
+@using Demo.Net.Blazor.Shared
+@using Demo.Net.Blazor.Shared.Controls
+
 
 <div class="page">
 
-	<div class="sidebar">
-		<h2 class="text-danger">Demo</h2>
-		<button class="btn btn-primary" @onclick="NavigateToWorkspace">Click me</button>
-	</div>
+    <div class="sidebar">
 
-	<main>
-		<article class="content px-4">
-			@*@Body*@
+        <div class="top-row ps-3 navbar navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="">Demo</a>
+                <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+        <div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+            <div class="d-grid gap-0">
+                <ListBox TItem="IWorkspace" ItemSource=@Workspaces SelectionChanged=@NavigateToWorkspace>
+                    <ItemTemplate>
+                        <div>@context.Name</div>
+                    </ItemTemplate>
+                </ListBox>
+                
+            </div>
+        </div>
+    </div>
 
-			@if (Workspace != null)
-			{
-				<DynamicComponent Type="@Workspace?.Type" Parameters="@Workspace?.Parameters" />
-			}
+    <main>
+        <article class="content px-4">
 
-		</article>
-	</main>
+            @if (Workspace != null)
+            {
+                <DynamicComponent Type="@Workspace?.Type" Parameters="@Workspace?.Parameters" />
+            }
+
+        </article>
+    </main>
 </div>

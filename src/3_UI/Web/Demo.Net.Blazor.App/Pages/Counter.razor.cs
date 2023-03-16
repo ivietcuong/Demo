@@ -9,8 +9,8 @@ namespace Demo.Net.Blazor.App.Pages
         private int currentCount = 0;
 
         public Type Type { get => GetType(); }
-        public string Name { get => nameof(FetchData); }
-        public Dictionary<string, object?> Parameters { get; }
+        public string Name { get => nameof(Counter); }
+        public Dictionary<string, object?> Parameters { get; } = new Dictionary<string, object?>();
 
         private void IncrementCount()
         {

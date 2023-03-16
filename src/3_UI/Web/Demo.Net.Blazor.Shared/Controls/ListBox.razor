@@ -1,0 +1,25 @@
+﻿@typeparam TItem
+@inherits ComponentBase
+
+@if (ChildContent != null)
+{
+    @ChildContent
+}
+else
+{
+    @if (ItemSource != null)
+    {
+        @foreach (var item in ItemSource)
+        {
+            @if (ItemTemplate == null)
+            {
+                <button class="btn btn-outline-secondary" @onclick="@(() => OnClick(item))">@($"{item}")</button>
+                <br />
+            }
+            else
+            {
+                <div class="btn btn-outline-light btn-demo" @onclick="@(() => OnClick(item))">@ItemTemplate(item)</div>
+            }
+        }
+    }
+}

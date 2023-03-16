@@ -1,7 +1,13 @@
 ﻿@page "/"
+@inherits ComponentBase
+
+@using Demo.Net.Blazor.Shared.Controls
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<ListBox TItem="Person" ItemSource="@People" SelectionChanged=@OnSelectionChanged>
+    @*<ItemTemplate>
+        <label>@($"{context.Title} {context.Name}")</label><br />
+    </ItemTemplate>*@
+</ListBox>
 
-Welcome to your new app.

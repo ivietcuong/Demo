@@ -1,56 +1,44 @@
-﻿using Demo.Net.Blazor.App.Data;
-using Demo.Net.Blazor.App.Pages;
-using Demo.Net.Blazor.Shared;
+﻿using Demo.Net.Blazor.Shared;
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Demo.Net.Blazor.App.Shared
 {
-    public partial class Shell : LayoutComponentBase
-    {
-        private int count = 0;
+	public partial class Shell : ComponentBase
+	{
+		private int _index = 0;
+
+        private bool _collapseNavMenu = true;
+        private string? NavMenuCssClass => _collapseNavMenu ? "collapse" : null;
+
         public IWorkspace? Workspace { get; set; }
 
-        [Inject]
-        IEnumerable<IWorkspace>? Workspaces { get; set; }
+		[Inject]
+		IEnumerable<IWorkspace>? Workspaces { get; set; }
 
-        public Shell()
+		public Shell()
+		{
+
+		}
+
+		protected override void OnInitialized()
+		{
+			base.OnInitialized();
+		}
+
+		private void NavigateToWorkspace(IWorkspace workspace)
+		{
+			if (_index == 3)
+				_index = 0;
+
+			Workspace = Workspaces?.ElementAt(_index);
+			_index++;
+		}
+
+
+        private void ToggleNavMenu()
         {
-            
-        }
-
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-        }
-
-        private void NavigateToWorkspace()
-        {
-            if (count % 2 == 0)
-                Workspace = Workspaces.FirstOrDefault();
-            else
-                Workspace = Workspaces.LastOrDefault();
-
-            count++;
-
-            //Body = BuildComponent;
-        }
-
-        private void BuildComponent(RenderTreeBuilder builder)
-        {
-            if (Workspace == null)
-                return;
-
-            int sequence = 1;
-
-            builder.OpenComponent(0, Workspace.Type);
-
-            if (Workspace.Parameters != null)
-                foreach (var p in Workspace.Parameters)
-                    builder.AddAttribute(sequence++, p.Key, p.Value);
-
-            builder.CloseComponent();
+            _collapseNavMenu = !_collapseNavMenu;
         }
     }
 }

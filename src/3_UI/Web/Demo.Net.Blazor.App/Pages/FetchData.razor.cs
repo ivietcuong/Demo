@@ -8,6 +8,6 @@ namespace Demo.Net.Blazor.App.Pages
     {
         public Type Type { get => GetType(); }
         public string Name { get => nameof(FetchData); }
-        public Dictionary<string, object?> Parameters { get; }
+        public Dictionary<string, object?> Parameters { get; } = new Dictionary<string, object?>();
     }
 }
