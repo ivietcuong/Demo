@@ -28,7 +28,7 @@ namespace Demo.Net.Blazor.App.Shared
 
 		private void NavigateToWorkspace(IWorkspace workspace)
 		{
-			if (_index == 3)
+			if (_index == 2)
 				_index = 0;
 
 			Workspace = Workspaces?.ElementAt(_index);
