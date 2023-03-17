@@ -1,8 +1,8 @@
 ﻿@inherits ComponentBase
 @using Demo.Net.Blazor.App.Data
 @using Demo.Net.Blazor.Shared
+@using Demo.Net.Blazor.Shared.Icons
 @using Demo.Net.Blazor.Shared.Controls
-
 
 <div class="page">
 
@@ -10,7 +10,7 @@
 
         <div class="top-row ps-3 navbar navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="">Demo</a>
+                <a class="navbar-brand" href=""><HomeIcon /></a>
                 <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -20,10 +20,10 @@
             <div class="d-grid gap-0">
                 <ListBox TItem="IWorkspace" ItemSource=@Workspaces SelectionChanged=@NavigateToWorkspace>
                     <ItemTemplate>
-                        <div>@context.Name</div>
+                        <div><Greater /><span style="margin-left:20px;">@context.Name</span></div>
                     </ItemTemplate>
                 </ListBox>
-                
+
             </div>
         </div>
     </div>
