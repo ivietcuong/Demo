@@ -8,8 +8,6 @@ namespace Demo.Net.Blazor.App.Shared
 {
 	public partial class Shell : ComponentBase
 	{
-		private int _index = 0;
-
 		private bool _collapseNavMenu = true;
 		private string? NavMenuCssClass => _collapseNavMenu ? "collapse" : null;
 
