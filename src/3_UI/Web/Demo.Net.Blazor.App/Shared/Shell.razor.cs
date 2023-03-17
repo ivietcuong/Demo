@@ -2,6 +2,8 @@
 
 using Microsoft.AspNetCore.Components;
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace Demo.Net.Blazor.App.Shared
 {
 	public partial class Shell : ComponentBase
@@ -13,8 +15,11 @@ namespace Demo.Net.Blazor.App.Shared
 
 		public IWorkspace? Workspace { get; set; }
 
-		[Inject]
+		[Inject, AllowNull]
 		public IEnumerable<IWorkspace>? Workspaces { get; set; }
+
+		[Inject, AllowNull]
+		public IComponent? Home { get; set; }
 
 		public Shell()
 		{
@@ -28,22 +33,18 @@ namespace Demo.Net.Blazor.App.Shared
 
 		private void NavigateToWorkspace(IWorkspace workspace)
 		{
-			if (_index == 2)
-				_index = 0;
-
-			Workspace = Workspaces?.ElementAt(_index);
-			_index++;
+			Workspace = workspace;
 		}
 
 		private void OnHome()
 		{
-
+			Workspace = (IWorkspace?)Home; 
 		}
-        private void ToggleNavMenu()
-        {
-            _collapseNavMenu = !_collapseNavMenu;
-        }
+		private void ToggleNavMenu()
+		{
+			_collapseNavMenu = !_collapseNavMenu;
+		}
 
 
-    }
+	}
 }

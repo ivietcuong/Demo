@@ -12,4 +12,8 @@
 	  <ProjectReference Include="..\Demo.Net.Blazor.Shared\Demo.Net.Blazor.Shared.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Data\" />
+	</ItemGroup>
+
 </Project>

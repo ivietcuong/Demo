@@ -1,6 +1,8 @@
-using Demo.Net.Blazor.App.Data;
 using Demo.Net.Blazor.App.Pages;
+using Demo.Net.Blazor.App.Services;
 using Demo.Net.Blazor.Shared;
+
+using Microsoft.AspNetCore.Components;
 
 namespace Demo.Net.Blazor.App
 {
@@ -15,10 +17,16 @@ namespace Demo.Net.Blazor.App
 			builder.Services.AddRazorPages();
 			builder.Services.AddServerSideBlazor();
 
-			builder.Services.AddSingleton<WeatherForecastService>();
-			//builder.Services.AddSingleton<IWorkspace, Pages.Index>();
-			builder.Services.AddSingleton<IWorkspace, Counter>();
-			builder.Services.AddSingleton<IWorkspace, FetchData>();
+			builder.Services.AddSingleton<IComponent, Pages.Index>();
+			builder.Services.AddSingleton<IWorkspace, TangentMath>();
+			builder.Services.AddSingleton<IWorkspace, ParabolaMath>();
+			builder.Services.AddSingleton<IWorkspace, LogarithmMath>();
+			builder.Services.AddSingleton<IWorkspace, ExponentiationMath>();
+
+			builder.Services.AddSingleton<ITangentMathService, TangentMathService>();
+			builder.Services.AddSingleton<IParabolaMathService, ParabolaMathService>();
+			builder.Services.AddSingleton<ILogarithmMathService, LogarithmMathService>();
+			builder.Services.AddSingleton<IExponentiationMathService, ExponentiationMathService>();
 
 			var app = builder.Build();
 
