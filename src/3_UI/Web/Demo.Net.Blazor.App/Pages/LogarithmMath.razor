@@ -1,7 +1,18 @@
 ﻿@page "/Logarithm"
+@using Demo.Net.Blazor.Shared
+@using Demo.Net.Blazor.Shared.Controls
 
-@inherits ComponentBase
+@inherits WorkspaceBase
 
 <PageTitle>Logarithm</PageTitle>
 
 
+<div class="demo-container">
+
+    <div class="demo-container-top">
+        <DemoPlotView JSRuntime=@JSRuntime X=@_x Y=@_y/>
+    </div>
+
+    <div class="demo-container-bottom"></div>
+
+</div>

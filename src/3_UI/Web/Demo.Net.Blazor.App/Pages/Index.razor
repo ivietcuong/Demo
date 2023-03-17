@@ -1,9 +1,11 @@
 ﻿@page "/"
-@inherits ComponentBase
+@using Demo.Net.Blazor.Shared
+
+@inherits WorkspaceBase
 
 @using Demo.Net.Blazor.Shared.Controls
 
-<PageTitle>Index</PageTitle>
+<PageTitle>@nameof(Index)</PageTitle>
 
-<DemoPlotView JSRuntime=@JSRuntime X=@X Y=@Y/>
+<DemoPlotView JSRuntime=@JSRuntime X=@_x Y=@_y/>
 

@@ -55,36 +55,36 @@ namespace Demo.Net.Maui.UIApp
 			builder.Services.AddSingleton<IFileSystem>(FileSystem.Current);
 			builder.Services.AddSingleton<IFileService, FileService>();
 
-			builder.Services.AddSingleton<IUnitOfWork, SQLiteContext>(provider =>
+			builder.Services.AddScoped<IUnitOfWork, SQLiteContext>(provider =>
 			{
 				var optionsBuilder = new DbContextOptionsBuilder<SQLiteContext>();
 				optionsBuilder.UseSqlite($"Data Source={Path.Combine(FileSystem.Current.AppDataDirectory, "points.db")}");
 				return (SQLiteContext)ActivatorUtilities.CreateInstance(provider, typeof(SQLiteContext), optionsBuilder.Options);
 			});
 
-			builder.Services.AddSingleton<IAsyncRepository, AsyncSQLiteRepository>();
-			builder.Services.AddSingleton<IPointService, SQLitePointService>();
+			builder.Services.AddScoped<IAsyncRepository, AsyncSQLiteRepository>();
+			builder.Services.AddScoped<IPointService, SQLitePointService>();
 		}
 
 		private static void RegisterWorkspaces(MauiAppBuilder builder)
 		{
-			builder.Services.AddSingleton<IWorkspace, HomeView>();
-			builder.Services.AddSingleton<IWorkspace, MathServiceView>();
+			builder.Services.AddScoped<IWorkspace, HomeView>();
+			builder.Services.AddScoped<IWorkspace, MathServiceView>();
 		}
 
 		private static void RegisterViewModels(MauiAppBuilder builder)
 		{
-			builder.Services.AddSingleton<MainPageViewModel>();
-			builder.Services.AddSingleton<HomeViewModel>();
-			builder.Services.AddSingleton<MathServiceViewModel>();
+			builder.Services.AddScoped<MainPageViewModel>();
+			builder.Services.AddScoped<HomeViewModel>();
+			builder.Services.AddScoped<MathServiceViewModel>();
 		}
 
 		private static void RegisterMathServices(MauiAppBuilder builder)
 		{			
-			builder.Services.AddSingleton<IMathService, TangentMathService>();
-			builder.Services.AddSingleton<IMathService, ParabolaMathService>();
-			builder.Services.AddSingleton<IMathService, LogarithmMathService>();
-			builder.Services.AddSingleton<IMathService, ExponentiationMathService>();
+			builder.Services.AddScoped<IMathService, TangentMathService>();
+			builder.Services.AddScoped<IMathService, ParabolaMathService>();
+			builder.Services.AddScoped<IMathService, LogarithmMathService>();
+			builder.Services.AddScoped<IMathService, ExponentiationMathService>();
 		}
 
 	}

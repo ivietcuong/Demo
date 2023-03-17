@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Demo.Net.Blazor.App.Pages
 {
-	public partial class ParabolaMath : ComponentBase, IWorkspace
+	public partial class ParabolaMath : WorkspaceBase, IWorkspace
 	{
 		public Type Type 
 		{
@@ -18,8 +18,6 @@ namespace Demo.Net.Blazor.App.Pages
 		{
 			get => "Parabola";
 		}
-
-		public Dictionary<string, object?> Parameters { get; } = new Dictionary<string, object?>();
 
 		[Inject, AllowNull]
 		public IParabolaMathService? MathService { get; set; }

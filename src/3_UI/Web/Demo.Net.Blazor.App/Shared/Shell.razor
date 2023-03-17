@@ -28,13 +28,9 @@
     </div>
 
     <main>
-        <article class="content px-4">
-
-            @if (Workspace != null)
-            {
-                <DynamicComponent Type="@Workspace?.Type" Parameters="@Workspace?.Parameters" />
-            }
-
-        </article>
+        @if (Workspace != null)
+        {
+            <DynamicComponent Type="@Workspace?.Type" Parameters="@Workspace?.Parameters" />
+        }
     </main>
 </div>

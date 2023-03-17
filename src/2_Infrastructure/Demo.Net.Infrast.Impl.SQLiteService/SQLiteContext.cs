@@ -3,6 +3,8 @@ using Demo.NetStandard.Core.Interfaces;
 
 using Microsoft.EntityFrameworkCore;
 
+using System.Diagnostics;
+
 namespace Demo.Net.Infrast.Impl.SQLiteService
 {
 	public class SQLiteContext : DbContext, IUnitOfWork
@@ -37,5 +39,17 @@ namespace Demo.Net.Infrast.Impl.SQLiteService
 			var query = base.Set<T>();
 			return Task.FromResult(query.AsEnumerable());
 		}
-	}
+
+        public override void Dispose()
+        {
+            Debug.WriteLine($"{ContextId} context disposed.");
+            base.Dispose();
+        }
+
+        public override ValueTask DisposeAsync()
+        {
+            Debug.WriteLine($"{ContextId} context disposed async.");
+            return base.DisposeAsync();
+        }
+    }
 }

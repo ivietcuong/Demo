@@ -1,5 +1,18 @@
 ﻿@page "/Parabola"
 
-@inherits ComponentBase
+@using Demo.Net.Blazor.Shared
+@using Demo.Net.Blazor.Shared.Controls
+
+@inherits WorkspaceBase
 
 <PageTitle>Parabola</PageTitle>
+
+<div class="demo-container">
+
+    <div class="demo-container-top">
+        <DemoPlotView JSRuntime=@JSRuntime X=@_x Y=@_y />
+    </div>
+
+    <div class="demo-container-bottom"></div>
+
+</div>

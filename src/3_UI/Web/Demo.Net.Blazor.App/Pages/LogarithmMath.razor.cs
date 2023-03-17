@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Demo.Net.Blazor.App.Pages
 {
-	public partial class LogarithmMath : ComponentBase, IWorkspace
+	public partial class LogarithmMath : WorkspaceBase, IWorkspace
 	{
 		public Type Type 
 		{
@@ -18,8 +18,6 @@ namespace Demo.Net.Blazor.App.Pages
 		{
 			get => "Logarithm"; 
 		}
-
-		public Dictionary<string, object?> Parameters { get; } = new Dictionary<string, object?>();
 
 		[Inject, AllowNull]
 		public ILogarithmMathService? MathService { get; set; }
