@@ -8,10 +8,10 @@ namespace Demo.Net.Blazor.App.Shared
 	{
 		private int _index = 0;
 
-        private bool _collapseNavMenu = true;
-        private string? NavMenuCssClass => _collapseNavMenu ? "collapse" : null;
+		private bool _collapseNavMenu = true;
+		private string? NavMenuCssClass => _collapseNavMenu ? "collapse" : null;
 
-        public IWorkspace? Workspace { get; set; }
+		public IWorkspace? Workspace { get; set; }
 
 		[Inject]
 		public IEnumerable<IWorkspace>? Workspaces { get; set; }
@@ -35,10 +35,15 @@ namespace Demo.Net.Blazor.App.Shared
 			_index++;
 		}
 
+		private void OnHome()
+		{
 
+		}
         private void ToggleNavMenu()
         {
             _collapseNavMenu = !_collapseNavMenu;
         }
+
+
     }
 }

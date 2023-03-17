@@ -16,7 +16,7 @@ namespace Demo.Net.Blazor.App
 			builder.Services.AddServerSideBlazor();
 
 			builder.Services.AddSingleton<WeatherForecastService>();
-			builder.Services.AddSingleton<IWorkspace, Pages.Index>();
+			//builder.Services.AddSingleton<IWorkspace, Pages.Index>();
 			builder.Services.AddSingleton<IWorkspace, Counter>();
 			builder.Services.AddSingleton<IWorkspace, FetchData>();
 
