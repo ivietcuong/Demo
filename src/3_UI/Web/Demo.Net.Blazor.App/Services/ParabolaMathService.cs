@@ -17,8 +17,10 @@ namespace Demo.Net.Blazor.App.Services
 		{
 			_logger.LogInformation($"{nameof(coefficientA)}: {coefficientA} - {nameof(coefficientB)}: {coefficientB} - {nameof(coefficientC)}: {coefficientC}");
 			var result = points.Select(p => new Point() { X = p.X, Y = coefficientA * Math.Pow(p.X, 2) + coefficientB * p.X + coefficientC });
-			_logger.LogTrace($"{nameof(Calculate)}");
-			return result;
+
+            _logger.LogTrace($"{GetType().FullName}: {nameof(Calculate)}");
+
+            return result;
 		}
 
 		public string Validate(double coefficientA, double coefficientB, double coefficientC)

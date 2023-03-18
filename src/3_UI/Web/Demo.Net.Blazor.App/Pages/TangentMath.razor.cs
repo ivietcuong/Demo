@@ -9,16 +9,17 @@ namespace Demo.Net.Blazor.App.Pages
 {
     public partial class TangentMath : WorkspaceBase, IWorkspace
     {
-        public Type Type 
+        public Type Type
         {
-            get => GetType(); 
-        }
-        public string Name 
-        {
-            get => "Tangent"; 
+            get => GetType();
         }
 
-		[Inject, AllowNull]
-		public ITangentMathService? MathService { get; set; }
-	}
+        public string Name
+        {
+            get => "Tangent";
+        }
+
+        [Inject, AllowNull]
+        public ITangentMathService? MathService { get; set; }        
+    }
 }

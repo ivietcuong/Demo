@@ -20,6 +20,6 @@ namespace Demo.Net.Blazor.App.Pages
 		}
 
 		[Inject, AllowNull]
-		public IParabolaMathService? MathService { get; set; }
-	}
+		public IParabolaMathService? MathService { get; set; }        
+    }
 }

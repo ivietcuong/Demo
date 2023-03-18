@@ -6,13 +6,53 @@
 
 <PageTitle>Logarithm</PageTitle>
 
-
 <div class="demo-container">
 
     <div class="demo-container-top">
-        <DemoPlotView JSRuntime=@JSRuntime X=@_x Y=@_y/>
+        <DemoPlotView JSRuntime=@JSRuntime Points=@Points />
     </div>
 
-    <div class="demo-container-bottom"></div>
+    <div class="demo-container-bottom">
+
+        <div class="demo-container-bottom-left">
+
+            <div class="demo-container-bottom-left-top">
+
+                <div style="grid-column:1; margin-right: 20px;">
+                    <div class="form-group">
+                        <label for="coefficientA">Coefficient A</label>
+                        <input type="number" class="form-control" id="coefficientA" placeholder="Enter A">
+                    </div>
+                </div>
+
+                <div style="grid-column:2; margin-right: 20px;">
+                    <div class="form-group">
+                        <label for="coefficientB">Coefficient B</label>
+                        <input type="number" class="form-control" id="coefficientB" placeholder="Enter B">
+                    </div>
+                </div>
+
+                <div style="grid-column:3; margin-right: 35px;">
+                    <div class="form-group">
+                        <label for="coefficientC">Coefficient C</label>
+                        <input type="number" class="form-control" id="coefficientC" placeholder="Enter C">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="demo-container-bottom-left-bottom">
+                <p class="h6 text-danger">h6. Bootstrap heading</p>
+            </div>
+
+        </div>
+
+        <div class="demo-container-bottom-right">
+
+            <button type="button" class="btn btn-secondary" style="margin:20px;">Calculate</button>
+
+        </div>
+
+    </div>
 
 </div>

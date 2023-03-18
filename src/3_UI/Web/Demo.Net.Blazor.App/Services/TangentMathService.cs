@@ -15,9 +15,11 @@ namespace Demo.Net.Blazor.App.Services
 		public IEnumerable<Point> Calculate(IEnumerable<Point> points, double coefficientA, double coefficientB, double coefficientC)
 		{
 			_logger.LogInformation($"{nameof(coefficientA)}: {coefficientA} - {nameof(coefficientB)}: {coefficientB} - {nameof(coefficientC)}: {coefficientC}");
-			var result = points.Select(p => new NetStandard.Core.Entities.Point() { X = p.X, Y = Math.Tan(p.X) });
-			_logger.LogTrace($"{nameof(Calculate)}");
-			return result;
+			var result = points.Select(p => new Point() { X = p.X, Y = Math.Tan(p.X) });
+
+            _logger.LogTrace($"{GetType().FullName}: {nameof(Calculate)}");
+
+            return result;
 		}
 
 		public string Validate(double coefficientA, double coefficientB, double coefficientC)

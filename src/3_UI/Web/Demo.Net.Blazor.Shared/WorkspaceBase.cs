@@ -13,9 +13,6 @@ namespace Demo.Net.Blazor.Shared
         protected bool _firstRender = false;
         protected IEnumerable<Point>? Points;
 
-        public IEnumerable<double>? _x;
-        public IEnumerable<double>? _y;
-
         [Inject, AllowNull]
         public IJSRuntime? JSRuntime
         {
@@ -62,8 +59,6 @@ namespace Demo.Net.Blazor.Shared
             var points = await PointService.GetPointListAsync();
             Points = points.Select(p => new Point() { X = p.X - points.Count() / 2, Y = p.Y });
 
-            _x = Points.Select(p => p.X);
-            _y = Points.Select(p => p.Y);
             await InvokeAsync(StateHasChanged);
 
         }

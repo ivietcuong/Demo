@@ -24,6 +24,6 @@ namespace Demo.Net.Blazor.App.Pages
         {
             get; set;
         }
-        
+
     }
 }

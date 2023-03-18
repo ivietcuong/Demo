@@ -20,6 +20,6 @@ namespace Demo.Net.Blazor.App.Pages
 		}
 
 		[Inject, AllowNull]
-		public ILogarithmMathService? MathService { get; set; }
-	}
+		public ILogarithmMathService? MathService { get; set; }        
+    }
 }

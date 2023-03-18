@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Demo.NetStandard.Core.Entities;
+
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 using System.Diagnostics;
@@ -11,38 +13,38 @@ namespace Demo.Net.Blazor.Shared.Controls
         private IJSObjectReference? _module;
 
         [Parameter, AllowNull]
-        public IJSRuntime? JSRuntime 
+        public IJSRuntime? JSRuntime
         {
-            get; set; 
+            get; set;
         }
 
         [Parameter, AllowNull]
-        public IEnumerable<double>? X 
+        public IEnumerable<Point>? Points
         {
-            get; set; 
+            get; set;
         }
 
-        [Parameter, AllowNull]
-        public IEnumerable<double>? Y 
+        public DemoPlotView()
         {
-            get; set; 
+            Points = new List<Point>();
         }
 
-        protected override async Task OnParametersSetAsync()
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            await base.OnParametersSetAsync();
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (!firstRender)
+                return;
 
             try
             {
-                await base.OnInitializedAsync();
-
                 if (JSRuntime == null)
                     return;
 
                 var name = GetType().Assembly.GetName().Name;
                 _module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/{GetType().Assembly.GetName().Name}/demoplot.js");
 
-                await _module.InvokeVoidAsync("ShowXY", X, Y);
+                await _module.InvokeVoidAsync("ShowXY", Points?.Select(p => p.X), Points?.Select(p => p.Y));
             }
             catch (Exception e)
             {
