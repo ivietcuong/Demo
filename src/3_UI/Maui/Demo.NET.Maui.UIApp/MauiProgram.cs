@@ -58,6 +58,7 @@ namespace Demo.Net.Maui.UIApp
 			builder.Services.AddScoped<IUnitOfWork, SQLiteContext>(provider =>
 			{
 				var optionsBuilder = new DbContextOptionsBuilder<SQLiteContext>();
+				optionsBuilder.UseLoggerFactory(new LoggerFactory());
 				optionsBuilder.UseSqlite($"Data Source={Path.Combine(FileSystem.Current.AppDataDirectory, "points.db")}");
 				return (SQLiteContext)ActivatorUtilities.CreateInstance(provider, typeof(SQLiteContext), optionsBuilder.Options);
 			});
