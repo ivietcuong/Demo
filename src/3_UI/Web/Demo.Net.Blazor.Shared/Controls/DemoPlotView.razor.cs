@@ -53,6 +53,7 @@ namespace Demo.Net.Blazor.Shared.Controls
 
             if (!firstRender)
                 return;
+
             try
             {
                 if (JSRuntime == null)
@@ -60,7 +61,7 @@ namespace Demo.Net.Blazor.Shared.Controls
 
                 _jsObjectReference = await JSRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/{GetType().Assembly.GetName().Name}/demoplot.js");
 
-                RefreshPlot();
+                await RefreshPlot();
             }
             catch (Exception e)
             {
@@ -71,10 +72,29 @@ namespace Demo.Net.Blazor.Shared.Controls
             }
         }
 
-        public async ValueTask DisposeAsync()
+        async ValueTask IAsyncDisposable.DisposeAsync()
         {
-            if (_jsObjectReference != null)
-                await _jsObjectReference.DisposeAsync();
+            try
+            {
+                GC.SuppressFinalize(this);
+                if (_jsObjectReference != null)
+                    await _jsObjectReference.DisposeAsync();
+            }
+            catch (JSDisconnectedException jsexc)
+            {
+                Debug.WriteLine($"{jsexc.Message}");
+            }
+            catch (TaskCanceledException taskexc)
+            {
+                Debug.WriteLine(taskexc.Message);
+
+            }
+            catch (Exception exc)
+            {
+
+                Debug.WriteLine(exc.Message);
+            }
+
         }
     }
 }

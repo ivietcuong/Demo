@@ -43,7 +43,7 @@ namespace Demo.Net.Blazor.Shared
                 return;
 
             _firstRender = firstRender;
-            
+
             await GetPoints();
 
             OnCalculate();
