@@ -2,35 +2,39 @@
 {
     public abstract class MathWorkspaceBase : WorkspaceBase
     {
-        private double _coefficienta;
-        public virtual double CoefficientA
+        private bool _disabled = false;
+        private string? _validationMessage;
+
+        public bool Disabled
         {
-            get => _coefficienta;
-            set
-            {
-                _coefficienta = value;
-            }
+            get { return _disabled; }
+            set { _disabled = value; }
         }
 
-        private double _coefficientb;
-        public virtual double CoefficientB
+        public string? ValidationMessage 
         {
-            get => _coefficientb;
-            set
-            {
-                _coefficientb = value;
-            }
+            get => _validationMessage;
+            set => _validationMessage = value;
         }
 
-        private double _coefficientc;
-        public virtual double CoefficientC
+        public virtual double CoefficientA 
         {
-            get => _coefficientc;
-            set
-            {
-                _coefficientc = value;
-            }
+            get; set; 
         }
 
+        public virtual double CoefficientB 
+        {
+            get; set; 
+        }
+
+        public virtual double CoefficientC 
+        {
+            get; set; 
+        }
+       
+        public virtual string Validation()
+        {
+            return string.Empty;
+        }
     }
 }

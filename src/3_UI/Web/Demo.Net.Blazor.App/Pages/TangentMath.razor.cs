@@ -24,9 +24,9 @@ namespace Demo.Net.Blazor.App.Pages
 
         public TangentMath()
         {
-            CoefficientA = 3;
-            CoefficientB = 3;
-            CoefficientC = 3;
+            CoefficientA = 5;
+            CoefficientB = 5;
+            CoefficientC = 5;
         }
 
         public override void OnCalculate()

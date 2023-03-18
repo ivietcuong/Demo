@@ -19,14 +19,26 @@ namespace Demo.Net.Blazor.App.Pages
             get => "Logarithm";
         }
 
+        private double _coefficientb;
+        public override double CoefficientB
+        {
+            get => _coefficientb;
+            set
+            {
+                _coefficientb = value;
+                ValidationMessage = MathService?.Validate(value, CoefficientB, CoefficientC);
+                Disabled = !string.IsNullOrEmpty(ValidationMessage);
+            }
+        }
+
         [Inject, AllowNull]
         public ILogarithmMathService? MathService { get; set; }
 
         public LogarithmMath()
         {
-            CoefficientA = 3;
-            CoefficientB = 3;
-            CoefficientC = 3;
+            CoefficientA = 0;
+            CoefficientB = 4;
+            CoefficientC = 0;
         }
 
         public override void OnCalculate()

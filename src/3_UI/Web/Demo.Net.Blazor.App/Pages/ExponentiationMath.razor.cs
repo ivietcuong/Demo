@@ -18,8 +18,7 @@ namespace Demo.Net.Blazor.App.Pages
         {
             get => "Exponentiation";
         }
-
-
+     
         [Inject, AllowNull]
         public IExponentiationMathService? MathService
         {
@@ -28,15 +27,14 @@ namespace Demo.Net.Blazor.App.Pages
 
         public ExponentiationMath()
         {
-            CoefficientA = 3;
-            CoefficientB = 3;
-            CoefficientC = 3;
+            CoefficientA = 2;
+            CoefficientB = 4;
+            CoefficientC = 6;
         }
 
         public override void OnCalculate()
         {
             Points = MathService?.Calculate(Points, CoefficientA, CoefficientB, CoefficientC);
         }
-
     }
 }

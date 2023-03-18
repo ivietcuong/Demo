@@ -57,7 +57,7 @@ namespace Demo.Net.Blazor.App
             builder.Services.AddScoped<IWorkspace, LogarithmMath>();
             builder.Services.AddScoped<IWorkspace, ExponentiationMath>();
         }
-        
+
         private static void RegisterDatabase(WebApplicationBuilder builder)
         {
             builder.Services.AddDbContextFactory<SQLiteContext>(optionsbuilder =>

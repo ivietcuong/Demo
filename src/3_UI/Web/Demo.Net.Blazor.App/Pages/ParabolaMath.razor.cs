@@ -7,25 +7,37 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Demo.Net.Blazor.App.Pages
 {
-	public partial class ParabolaMath : MathWorkspaceBase, IWorkspace
-	{
-		public Type Type 
-		{
-			get => GetType();
-		}
-		public string Name 
-		{
-			get => "Parabola";
-		}
+    public partial class ParabolaMath : MathWorkspaceBase, IWorkspace
+    {
+        public Type Type
+        {
+            get => GetType();
+        }
+        public string Name
+        {
+            get => "Parabola";
+        }
 
-		[Inject, AllowNull]
-		public IParabolaMathService? MathService { get; set; }
+        private double _coefficienta;
+        public override double CoefficientA
+        {
+            get => _coefficienta;
+            set
+            {
+                _coefficienta = value;
+                ValidationMessage = MathService?.Validate(value, CoefficientB, CoefficientC);
+                Disabled = !string.IsNullOrEmpty(ValidationMessage);
+            }
+        }
+
+        [Inject, AllowNull]
+        public IParabolaMathService? MathService { get; set; }
 
         public ParabolaMath()
         {
-            CoefficientA = 3;
-            CoefficientB = 3;
-            CoefficientC = 3;
+            CoefficientA = 4;
+            CoefficientB = 4;
+            CoefficientC = 4;
         }
 
         public override void OnCalculate()
