@@ -1,10 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-using Demo.Net.Wpf.Shared;
 using Demo.Net.Wpf.Shared.ViewModels;
 using Demo.NetStandard.Core.Entities;
 using Demo.NetStandard.Core.Services;
+using Demo.NetStandard.Core.Extentions;
 
 using Microsoft.Extensions.Logging;
 
@@ -53,7 +53,7 @@ namespace Demo.Net.Wpf.JsonPresenter.ViewModels
             _pointService = pointService;
             MathServices = new ObservableCollection<MathServiceViewModel>(mathServiceViewModels);
 
-            GetPoints().InitializeData(_logger);
+            GetPoints().Run();
         }
 
         [RelayCommand(CanExecute = nameof(CanExecute))]

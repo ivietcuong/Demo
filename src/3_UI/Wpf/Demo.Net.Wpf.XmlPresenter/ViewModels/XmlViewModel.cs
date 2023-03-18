@@ -1,7 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-
-using Demo.Net.Wpf.Shared;
 using Demo.Net.Wpf.Shared.ViewModels;
 using Demo.NetStandard.Core.Entities;
 using Demo.NetStandard.Core.Services;
@@ -13,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Demo.NetStandard.Core.Extentions;
 
 namespace Demo.Net.Wpf.XmlPresenter.ViewModels
 {
@@ -52,7 +51,7 @@ namespace Demo.Net.Wpf.XmlPresenter.ViewModels
             _pointService = pointService;
             MathServices = mathServiceViewModels.ToList();
 
-            GetPoints().InitializeData(_logger);
+            GetPoints().Run();
         }
 
         [RelayCommand(CanExecute = nameof(CanExecute))]

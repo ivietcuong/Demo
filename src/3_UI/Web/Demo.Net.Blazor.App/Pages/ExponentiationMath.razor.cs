@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Demo.Net.Blazor.App.Pages
 {
-    public partial class ExponentiationMath : WorkspaceBase, IWorkspace
+    public partial class ExponentiationMath : MathWorkspaceBase, IWorkspace
     {
         public Type Type
         {
@@ -19,10 +19,23 @@ namespace Demo.Net.Blazor.App.Pages
             get => "Exponentiation";
         }
 
+
         [Inject, AllowNull]
         public IExponentiationMathService? MathService
         {
             get; set;
+        }
+
+        public ExponentiationMath()
+        {
+            CoefficientA = 3;
+            CoefficientB = 3;
+            CoefficientC = 3;
+        }
+
+        public override void OnCalculate()
+        {
+            Points = MathService?.Calculate(Points, CoefficientA, CoefficientB, CoefficientC);
         }
 
     }

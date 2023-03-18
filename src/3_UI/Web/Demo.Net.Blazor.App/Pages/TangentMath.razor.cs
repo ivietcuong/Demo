@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Demo.Net.Blazor.App.Pages
 {
-    public partial class TangentMath : WorkspaceBase, IWorkspace
+    public partial class TangentMath : MathWorkspaceBase, IWorkspace
     {
         public Type Type
         {
@@ -20,6 +20,18 @@ namespace Demo.Net.Blazor.App.Pages
         }
 
         [Inject, AllowNull]
-        public ITangentMathService? MathService { get; set; }        
+        public ITangentMathService? MathService { get; set; }
+
+        public TangentMath()
+        {
+            CoefficientA = 3;
+            CoefficientB = 3;
+            CoefficientC = 3;
+        }
+
+        public override void OnCalculate()
+        {
+            Points = MathService?.Calculate(Points, CoefficientA, CoefficientB, CoefficientC);
+        }
     }
 }

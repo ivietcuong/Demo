@@ -43,15 +43,25 @@ namespace Demo.Net.Blazor.Shared
                 return;
 
             _firstRender = firstRender;
+            
+            await GetPoints();
 
+            OnCalculate();
+
+            await InvokeAsync(StateHasChanged);
+        }
+
+        private async Task GetPoints()
+        {
             if (PointService == null)
                 return;
 
             var points = await PointService.GetPointListAsync();
             Points = points.Select(p => new Point() { X = p.X - points.Count() / 2, Y = p.Y });
+        }
 
-            await InvokeAsync(StateHasChanged);
-
+        public virtual void OnCalculate()
+        {
         }
     }
 }

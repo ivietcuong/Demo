@@ -20,8 +20,8 @@ namespace Demo.Net.Maui.UIApp.Services
 		public IEnumerable<Point> Calculate(IEnumerable<Point> points, double coefficientA, double coefficientB, double coefficientC)
 		{
 			_logger.LogInformation($"{nameof(coefficientA)}: {coefficientA} - {nameof(coefficientB)}: {coefficientB} - {nameof(coefficientC)}: {coefficientC}");
-			var result = points.Select(p => new Point() { X = p.X, Y = Math.Log(p.X <= 0 ? -1 * p.X : p.X, coefficientB) });
-			_logger.LogTrace($"{nameof(Calculate)}");
+            var result = points.Select(p => new Point() { X = p.X, Y = Math.Log(p.X <= 0 ? -1 * p.X + 1 : p.X, coefficientB) });
+            _logger.LogTrace($"{nameof(Calculate)}");
 			return result;
 		}
 

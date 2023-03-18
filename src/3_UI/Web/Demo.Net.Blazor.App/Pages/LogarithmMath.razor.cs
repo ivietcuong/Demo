@@ -1,6 +1,5 @@
 ﻿using Demo.Net.Blazor.App.Services;
 using Demo.Net.Blazor.Shared;
-using Demo.NetStandard.Core.Entities;
 
 using Microsoft.AspNetCore.Components;
 
@@ -8,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Demo.Net.Blazor.App.Pages
 {
-    public partial class LogarithmMath : WorkspaceBase, IWorkspace
+    public partial class LogarithmMath : MathWorkspaceBase, IWorkspace
     {
         public Type Type
         {
@@ -23,15 +22,16 @@ namespace Demo.Net.Blazor.App.Pages
         [Inject, AllowNull]
         public ILogarithmMathService? MathService { get; set; }
 
-        private async void OnCalculate()
+        public LogarithmMath()
         {
-            Random rd = new Random();
+            CoefficientA = 3;
+            CoefficientB = 3;
+            CoefficientC = 3;
+        }
 
-            //Points = Points?.Select(p => new Point() { X = p.X, Y = p.Y - rd.Next(1000, 10000) });
-
-            Points = MathService?.Calculate(Points, 3, 3, 3);
-
-            await InvokeAsync(StateHasChanged);
+        public override void OnCalculate()
+        {
+            Points = MathService?.Calculate(Points, CoefficientA, CoefficientB, CoefficientC);
         }
     }
 }

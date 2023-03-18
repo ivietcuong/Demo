@@ -1,4 +1,5 @@
 ﻿using Demo.NetStandard.Core.Entities;
+using Demo.NetStandard.Core.Extentions;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -29,7 +30,8 @@ namespace Demo.Net.Blazor.Shared.Controls
                     return;
 
                 _points = value;
-                RefreshPlot();
+
+                RefreshPlot().Run();
             }
         }
 
@@ -37,8 +39,8 @@ namespace Demo.Net.Blazor.Shared.Controls
         {
             Points = new List<Point>();
         }
-        
-        private async void RefreshPlot()
+
+        private async Task RefreshPlot()
         {
             if (JSRuntime != null && _jsObjectReference != null)
                 await _jsObjectReference.InvokeVoidAsync("ShowXY", Points?.Select(p => p.X), Points?.Select(p => p.Y));
@@ -58,7 +60,7 @@ namespace Demo.Net.Blazor.Shared.Controls
 
                 _jsObjectReference = await JSRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/{GetType().Assembly.GetName().Name}/demoplot.js");
 
-                 RefreshPlot();
+                RefreshPlot();
             }
             catch (Exception e)
             {
