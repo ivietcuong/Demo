@@ -5,7 +5,10 @@
 
 @using Demo.Net.Blazor.Shared.Controls
 
-<PageTitle>@nameof(Index)</PageTitle>
+<PageTitle>Home</PageTitle>
 
-<DemoPlotView JSRuntime=@JSRuntime X=@_x Y=@_y/>
+@if (_firstRender)
+{
+    <DemoPlotView JSRuntime=@JSRuntime X=@_x Y=@_y />
+}
 

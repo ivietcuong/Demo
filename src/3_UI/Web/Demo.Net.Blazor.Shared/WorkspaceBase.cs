@@ -10,6 +10,7 @@ namespace Demo.Net.Blazor.Shared
 {
     public abstract class WorkspaceBase : ComponentBase
     {
+        protected bool _firstRender = false;
         protected IEnumerable<Point>? Points;
 
         public IEnumerable<double>? _x;
@@ -37,9 +38,23 @@ namespace Demo.Net.Blazor.Shared
             Parameters = new Dictionary<string, object?>();
         }
 
-        protected override async Task OnParametersSetAsync()
+        protected override Task OnInitializedAsync()
         {
-            await base.OnParametersSetAsync();
+            return base.OnInitializedAsync();
+        }
+
+        protected override Task OnParametersSetAsync()
+        {
+            return base.OnParametersSetAsync();
+        }
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (!firstRender)
+                return;
+
+            _firstRender = firstRender;
 
             if (PointService == null)
                 return;
@@ -49,6 +64,8 @@ namespace Demo.Net.Blazor.Shared
 
             _x = Points.Select(p => p.X);
             _y = Points.Select(p => p.Y);
+            await InvokeAsync(StateHasChanged);
+
         }
     }
 }
