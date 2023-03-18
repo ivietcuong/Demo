@@ -10,7 +10,8 @@ namespace Demo.Net.Blazor.Shared.Controls
 {
     public partial class DemoPlotView : IAsyncDisposable
     {
-        private IJSObjectReference? _module;
+        private IEnumerable<Point>? _points;
+        private IJSObjectReference? _jsObjectReference;
 
         [Parameter, AllowNull]
         public IJSRuntime? JSRuntime
@@ -21,12 +22,27 @@ namespace Demo.Net.Blazor.Shared.Controls
         [Parameter, AllowNull]
         public IEnumerable<Point>? Points
         {
-            get; set;
+            get => _points;
+            set
+            {
+                if (value == null || !value.Any())
+                    return;
+
+                _points = value;
+                RefreshPlot();
+            }
         }
 
         public DemoPlotView()
         {
             Points = new List<Point>();
+        }
+        
+        private async void RefreshPlot()
+        {
+            if (JSRuntime != null && _jsObjectReference != null)
+                await _jsObjectReference.InvokeVoidAsync("ShowXY", Points?.Select(p => p.X), Points?.Select(p => p.Y));
+
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -35,29 +51,28 @@ namespace Demo.Net.Blazor.Shared.Controls
 
             if (!firstRender)
                 return;
-
             try
             {
                 if (JSRuntime == null)
                     return;
 
-                var name = GetType().Assembly.GetName().Name;
-                _module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/{GetType().Assembly.GetName().Name}/demoplot.js");
+                _jsObjectReference = await JSRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/{GetType().Assembly.GetName().Name}/demoplot.js");
 
-                await _module.InvokeVoidAsync("ShowXY", Points?.Select(p => p.X), Points?.Select(p => p.Y));
+                 RefreshPlot();
             }
             catch (Exception e)
             {
-                if (_module != null)
-                    await _module.DisposeAsync();
+                if (_jsObjectReference != null)
+                    await _jsObjectReference.DisposeAsync();
+
                 Debug.WriteLine(e.Message);
             }
         }
 
         public async ValueTask DisposeAsync()
         {
-            if (_module != null)
-                await _module.DisposeAsync();
+            if (_jsObjectReference != null)
+                await _jsObjectReference.DisposeAsync();
         }
     }
 }

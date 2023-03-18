@@ -35,15 +35,6 @@ namespace Demo.Net.Blazor.Shared
             Parameters = new Dictionary<string, object?>();
         }
 
-        protected override Task OnInitializedAsync()
-        {
-            return base.OnInitializedAsync();
-        }
-
-        protected override Task OnParametersSetAsync()
-        {
-            return base.OnParametersSetAsync();
-        }
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             await base.OnAfterRenderAsync(firstRender);
