@@ -23,7 +23,7 @@ Applied Technologies:
 ## WPF
 <span/><img src="demo_wpf.png" width="50%" height="50%" />
 Markdown is awesome. It’s a fantastic way to write content quickly without the overhead of formatting with a WYSIWYG editor
-## MAUI
+### MAUI
 <span/><p><img src="demo_uwp.png" width="50%" height="50%" /> <img src="android.png" width="20%" height="20%" /></p>
 Markdown is awesome. It’s a fantastic way to write content quickly without the overhead of formatting with a WYSIWYG editor
 ## Blazor
