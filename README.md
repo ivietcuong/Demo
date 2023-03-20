@@ -33,3 +33,16 @@ There is just one View for both Plattform Adroind, UWP. They are using the commo
 <span/><p><img src="blazors.jpeg" width="50%" height="50%" /></p>
 
 There are UI App and Share projects. The shared project holds the Controls, so it is reuseable. The UI is a Blazor Server, if it is nessessary, it can be extended with API app. 
+
+## Conclusion
+
+Except Logging and Plotting I just have been using Microsoft Frameworks and it works well. It is depending on project, it is small, it is big, it is quickly to be done...etc.
+
+## How to run
+#### WPF start: Demo.Net.WpfApp
+#### MAUI start: Demo.Net.Maui.UIAPP
+#### Web start: Demo.Net.Blazor.UIAPP
+
+## License
+
+MIT
