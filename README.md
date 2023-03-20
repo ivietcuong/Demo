@@ -28,7 +28,7 @@ It is modular built. Json module and Xml module, each of them implements differe
 ### MAUI
 <span/><p><img src="demo_uwp.png" width="50%" height="50%" /> <img src="android.png" width="20%" height="20%" /></p>
 
-There is just one View for both Plattform Adroind, UWP. They are using the common Shared project, with the same Controls and the Logic's implementations.
+There is just one View for both Plattform Adroid, Windows. They are using the common Shared project, with the same Controls and the Logic's implementations.
 ## Blazor
 <span/><p><img src="blazors.jpeg" width="50%" height="50%" /></p>
 
@@ -39,9 +39,9 @@ There are UI App and Share projects. The shared project holds the Controls, so i
 Except Logging and Plotting I just have been using Microsoft Frameworks and it works well. It is depending on project, it is small, it is big, it is quickly to be done...etc.
 
 ## How to run
-#### WPF start: Demo.Net.WpfApp
-#### MAUI start: Demo.Net.Maui.UIAPP
-#### Web start: Demo.Net.Blazor.UIAPP
+#### WPF start Demo.Net.WpfApp
+#### MAUI start Demo.Net.Maui.UIAPP
+#### Web start Demo.Net.Blazor.UIAPP
 
 ## License
 
