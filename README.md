@@ -1,4 +1,4 @@
-### Demo
+## Demo
 
 <img src="demo_blazor_wpf_uwp.png" alt="NuGet Downloads" />
 My first Project was a Silverlight application, we used Entity Framwork, Prism, WCF and Design Pattern. I always have been deeping my knowledge in Design Pattern and Softwarearchitect since. I used to develop with Prism, and EF, because the most Project were in WPF. For about three years I have not developed any thing with WPF. I've been working with Web application (Blazor-Server) and missing a little bit working with WPF.
@@ -20,12 +20,12 @@ Applied Technologies:
 - MVVM Toolkit, Microsoft ServiceCollection
 - NLog, OxyPlot, Plotly for Logging and Plotting.
 - WPF, MAUI, Blazor server.
-### WPF
+## WPF
 <span/><img src="demo_wpf.png" width="50%" height="50%" />
 Markdown is awesome. It’s a fantastic way to write content quickly without the overhead of formatting with a WYSIWYG editor
-### MAUI
+## MAUI
 <span/><p><img src="demo_uwp.png" width="50%" height="50%" /> <img src="android.png" width="20%" height="20%" /></p>
 Markdown is awesome. It’s a fantastic way to write content quickly without the overhead of formatting with a WYSIWYG editor
-### Blazor
+## Blazor
 <span/><p><img src="blazors.jpeg" width="50%" height="50%" /></p>
 Markdown is awesome. It’s a fantastic way to write content quickly without the overhead of formatting with a WYSIWYG editor
