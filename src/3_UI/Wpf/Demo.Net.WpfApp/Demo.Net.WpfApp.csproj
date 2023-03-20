@@ -8,14 +8,7 @@
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
 		<ApplicationIcon>cicon.ico</ApplicationIcon>
-		<BaseOutputPath>..\..\..\..\bin</BaseOutputPath>
-		<Version>$(AssemblyVersion)</Version>
-		<Authors>$(AssemblyCompany)</Authors>
-		<Company>$(AssemblyCompany)</Company>
-		<Copyright>$(AssemblyCopyright)</Copyright>
-		<Product>$(AssemblyProduct)</Product>		
-		<Description>Demo in WPF</Description>
-		<AssemblyVersion>$(AssemblyVersion)</AssemblyVersion>
+		<BaseOutputPath>..\..\..\..\bin</BaseOutputPath>		
 	</PropertyGroup>
 
 	<ItemGroup>

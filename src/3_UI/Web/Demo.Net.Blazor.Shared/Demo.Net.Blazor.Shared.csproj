@@ -1,11 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
-
+	<Import Project="$(SolutionDir)Demo.Version.props" />
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
-		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	</PropertyGroup>
 
 	<ItemGroup>

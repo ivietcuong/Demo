@@ -8,4 +8,15 @@
 		<AssemblyCopyright>Copyright © Le Viet Cuong 2023</AssemblyCopyright>
 		<DemoOption>None</DemoOption>
     </PropertyGroup>
+
+	<PropertyGroup>
+		<Version>$(AssemblyVersion)</Version>
+		<Authors>$(AssemblyCompany)</Authors>
+		<Company>$(AssemblyCompany)</Company>
+		<Copyright>$(AssemblyCopyright)</Copyright>
+		<Product>$(AssemblyProduct)</Product>
+		<Description>Demo in WPF</Description>
+		<AssemblyVersion>$(AssemblyVersion)</AssemblyVersion>
+	</PropertyGroup>
+	
 </Project>

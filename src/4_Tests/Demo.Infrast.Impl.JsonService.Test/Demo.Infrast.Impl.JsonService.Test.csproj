@@ -6,11 +6,7 @@
 		<TargetFramework>net7.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>		
-		<IsPackable>false</IsPackable>
-		<Version>$(AssemblyVersion)</Version>
-		<Authors>$(AssemblyCompany)</Authors>
-		<Company>$(AssemblyCompany)</Company>
-		<Copyright>$(AssemblyCopyright)</Copyright>
+		<IsPackable>false</IsPackable>		
 		<Description>Unittest</Description>
 	</PropertyGroup>
 	

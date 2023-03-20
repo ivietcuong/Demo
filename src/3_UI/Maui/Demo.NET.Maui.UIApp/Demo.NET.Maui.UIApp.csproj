@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+	<Import Project="$(SolutionDir)Demo.Version.props" />
 	<PropertyGroup>
 		<TargetFrameworks>net7.0-android33.0</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.22621.0</TargetFrameworks>
@@ -32,50 +32,58 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg"
+				  ForegroundFile="Resources\AppIcon\appiconfg.svg"
+				  Color="#512BD4" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg"
+						  Color="#512BD4"
+						  BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+		<MauiImage Update="Resources\Images\dotnet_bot.svg"
+				   BaseSize="168,208" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
-		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+		<MauiAsset Include="Resources\Raw\**"
+				   LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm"
+						  Version="8.1.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug"
+						  Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\1_Core\Demo.NetStandard.Core\Demo.NetStandard.Core.csproj" />
-	  <ProjectReference Include="..\..\..\2_Infrastructure\Demo.Net.Infrast.Impl.SQLiteService\Demo.Net.Infrast.Impl.SQLiteService.csproj" />
-	  <ProjectReference Include="..\Demo.NET.Maui.Shared\Demo.Net.Maui.Shared.csproj" />
-	  <ProjectReference Include="..\Demo.Net.Maui.SQLitePresenter\Demo.Net.Maui.SQLitePresenter.csproj" />
+		<ProjectReference Include="..\..\..\1_Core\Demo.NetStandard.Core\Demo.NetStandard.Core.csproj" />
+		<ProjectReference Include="..\..\..\2_Infrastructure\Demo.Net.Infrast.Impl.SQLiteService\Demo.Net.Infrast.Impl.SQLiteService.csproj" />
+		<ProjectReference Include="..\Demo.NET.Maui.Shared\Demo.Net.Maui.Shared.csproj" />
+		<ProjectReference Include="..\Demo.Net.Maui.SQLitePresenter\Demo.Net.Maui.SQLitePresenter.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\AppShell.xaml.cs">
-	    <DependentUpon>AppShell.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\HomeView.xaml.cs">
-	    <DependentUpon>HomeView.xaml</DependentUpon>
-	  </Compile>
+		<Compile Update="Views\AppShell.xaml.cs">
+			<DependentUpon>AppShell.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\HomeView.xaml.cs">
+			<DependentUpon>HomeView.xaml</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\AppShell.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\HomeView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<MauiXaml Update="Views\AppShell.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\HomeView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 	</ItemGroup>
 
 </Project>

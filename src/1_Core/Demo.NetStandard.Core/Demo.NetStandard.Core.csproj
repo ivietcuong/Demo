@@ -4,11 +4,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
-		<IsPackable>false</IsPackable>
-		<Version>$(AssemblyVersion)</Version>
-		<Authors>$(AssemblyCompany)</Authors>
-		<Company>$(AssemblyCompany)</Company>
-		<Copyright>$(AssemblyCopyright)</Copyright>
+		<IsPackable>false</IsPackable>		
 	</PropertyGroup>
 
 	<ItemGroup>

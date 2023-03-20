@@ -5,11 +5,7 @@
 	<PropertyGroup>
 		<TargetFramework>net7.0-windows</TargetFramework>
 		<Nullable>enable</Nullable>
-		<UseWPF>true</UseWPF>
-		<Version>$(AssemblyVersion)</Version>
-		<Authors>$(AssemblyCompany)</Authors>
-		<Company>$(AssemblyCompany)</Company>
-		<Copyright>$(AssemblyCopyright)</Copyright>
+		<UseWPF>true</UseWPF>		
 	</PropertyGroup>	
 
 	<ItemGroup>
