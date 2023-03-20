@@ -1,6 +1,7 @@
 # Demo
 
-![image](https://user-images.githubusercontent.com/24302614/185499041-1e17df3e-8246-4c4e-a450-c6488dcd23ea.png)
+<img src="Phan Cẩm Ly.jpg" alt="NuGet Downloads" />
+ 
 
 My first Project was a Silverlight application, we used Entity Framwork, Prism, WCF and Design Pattern. I always have been deeping my knowledge in Design Pattern and Softwarearchitect since. I used to develop with Prism, and EF, because the most Project were in WPF. For about three years I have not developed any thing with WPF. I'm working now with Web application (Blazor-Server) and missing a little bit working with WPF.
 
@@ -15,6 +16,7 @@ Demo application has:
 The apps get a list of point (from different sources (json, xml or database)), calculate it (with different implementing of MathService) and show it with diffrent UI (WPF, MAUI, or Web). 
 
 Applied Technologies: 
+- Clean Architecture
 - .NET Standard 2.0 for Core project. It contains Entities classes, Interface and Service, the other Project use this Library project.
 - .NET 7.0 for Infrastructure, which implements Core.
 - MVVM Toolkit, Microsoft ServiceCollection
