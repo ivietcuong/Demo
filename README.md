@@ -5,13 +5,14 @@ My first Project was a Silverlight application, we used Entity Framwork, Prism, 
 
 There are so much Changes, Improvement like .NET 6, .NET 7, Blazor, MAUI and DependencyInjection from Microsoft. I was wondering, how did it work without using Prism. (Prism suppports WPF, MAUI, Xamarin, but not Web application) and how did it work when I just used Libraries or Framework, which just come from Microsoft. That's why, I have made this Demo, just to see, how it works. 
 
-Demo application has:
+#### Demo Core Layer holds the business model, which includes:
 - A Point class.
 - A Point repository.
 - A IPointService, to get Point-list from Repository.
 - A IMathSercive to calculate point list.
  
-The apps get a list of point (from different sources (json, xml or database)), calculate it (with different implementing of MathService) and show it with diffrent UI (WPF, MAUI, or Web). 
+#### The Infrastructure projects contain the implementations of Repository (different imlemetations for json, xml or EF Core), of Service...etc.
+#### The user interface layer are the entry point for the application (WPF, MAUI, Web)
 
 Applied Technologies: 
 - Clean Architecture
@@ -19,13 +20,16 @@ Applied Technologies:
 - .NET 7.0 for Infrastructure, which implements Core.
 - MVVM Toolkit, Microsoft ServiceCollection
 - NLog, OxyPlot, Plotly for Logging and Plotting.
-- WPF, MAUI, Blazor server.
+- WPF, MAUI, Blazor Server.
 ## WPF
 <span/><img src="demo_wpf.png" width="50%" height="50%" />
-Markdown is awesome. It’s a fantastic way to write content quickly without the overhead of formatting with a WYSIWYG editor
+
+It is modular built. Json module and Xml module, each of them implements different logic (for instance, get data from xml, json, or different implementation for calculate from MathServer, just to demonstrate) and has own Views. The Main Page of Application is just a Shell, where all the module are put together. It is easy to extend and maintain. With Prism it is better to implement, but with ServiceCollection it works quite well.
 ### MAUI
 <span/><p><img src="demo_uwp.png" width="50%" height="50%" /> <img src="android.png" width="20%" height="20%" /></p>
-Markdown is awesome. It’s a fantastic way to write content quickly without the overhead of formatting with a WYSIWYG editor
+
+There is just one View for both Plattform Adroind, UWP. They are using the common Shared project, with the same Controls and the Logic's implementations.
 ## Blazor
 <span/><p><img src="blazors.jpeg" width="50%" height="50%" /></p>
-Markdown is awesome. It’s a fantastic way to write content quickly without the overhead of formatting with a WYSIWYG editor
+
+There are UI App and Share projects. The shared project holds the Controls, so it is reuseable. The UI is a Blazor Server, if it is nessessary, it can be extended with API app. 
