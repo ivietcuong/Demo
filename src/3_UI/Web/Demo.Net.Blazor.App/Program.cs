@@ -8,81 +8,102 @@ using Demo.NetStandard.Core.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 
+using NLog;
+using NLog.Web;
+
+using System;
+
 namespace Demo.Net.Blazor.App
 {
-    //https://learn.microsoft.com/de-de/aspnet/core/blazor/tutorials/signalr-blazor?view=aspnetcore-7.0&tabs=visual-studio&pivots=server
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+	//https://learn.microsoft.com/de-de/aspnet/core/blazor/tutorials/signalr-blazor?view=aspnetcore-7.0&tabs=visual-studio&pivots=server
+	public class Program
+	{
+		public static void Main(string[] args)
+		{
+			var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+			logger.Debug("init main");
 
-            // Add services to the container.
-            builder.Services.AddRazorPages();
-            builder.Services.AddServerSideBlazor();
+			try
+			{
+				var builder = WebApplication.CreateBuilder(args);
 
-            RegisterDatabase(builder);
+				builder.Services.AddRazorPages();
+				builder.Services.AddServerSideBlazor();
 
-            RegisterPages(builder);
+				builder.Logging.ClearProviders();
+				builder.Host.UseNLog();
 
-            RegisterServices(builder);
+				RegisterDatabase(builder);
 
-            var app = builder.Build();
+				RegisterPages(builder);
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+				RegisterServices(builder);
 
-            app.UseHttpsRedirection();
+				var app = builder.Build();
 
-            app.UseStaticFiles();
+				if (!app.Environment.IsDevelopment())
+				{
+					app.UseExceptionHandler("/Error");
+					app.UseHsts();
+				}
 
-            app.UseRouting();
+				app.UseHttpsRedirection();
 
-            app.MapBlazorHub();
-            app.MapFallbackToPage("/_Host");
+				app.UseStaticFiles();
 
-            app.Run();
-        }
+				app.UseRouting();
 
-        private static void RegisterPages(WebApplicationBuilder builder)
-        {
-            builder.Services.AddScoped<IComponent, Pages.Index>();
-            builder.Services.AddScoped<IWorkspace, TangentMath>();
-            builder.Services.AddScoped<IWorkspace, ParabolaMath>();
-            builder.Services.AddScoped<IWorkspace, LogarithmMath>();
-            builder.Services.AddScoped<IWorkspace, ExponentiationMath>();
-        }
+				app.MapBlazorHub();
+				app.MapFallbackToPage("/_Host");
 
-        private static void RegisterDatabase(WebApplicationBuilder builder)
-        {
-            builder.Services.AddDbContextFactory<SQLiteContext>(optionsbuilder =>
-            {
-                optionsbuilder.UseSqlite($"Data Source=data/points.db");
-                var builder = new DbContextOptionsBuilder<SQLiteContext>((DbContextOptions<SQLiteContext>)optionsbuilder.Options)
-                    .UseLoggerFactory(new LoggerFactory());
-            });
-            builder.Services.AddScoped<IUnitOfWork, SQLiteContext>(provider =>
-            {
-                var options = provider.GetRequiredService<DbContextOptions<SQLiteContext>>();
-                return (SQLiteContext)ActivatorUtilities.CreateInstance(provider, typeof(SQLiteContext), options);
-            });
+				app.Run();
 
-            builder.Services.AddScoped<IAsyncRepository, AsyncSQLiteRepository>();
-            builder.Services.AddScoped<IPointService, SQLitePointService>();
-        }
+			}
+			catch (Exception exception)
+			{
+				logger.Error(exception, "Stopped program because of exception");
+				throw;
+			}
+			finally
+			{
+				LogManager.Shutdown();
+			}
+		}
 
-        private static void RegisterServices(WebApplicationBuilder builder)
-        {
-            builder.Services.AddScoped<ITangentMathService, TangentMathService>();
-            builder.Services.AddScoped<IParabolaMathService, ParabolaMathService>();
-            builder.Services.AddScoped<ILogarithmMathService, LogarithmMathService>();
-            builder.Services.AddScoped<IExponentiationMathService, ExponentiationMathService>();
-        }
+		private static void RegisterPages(WebApplicationBuilder builder)
+		{
+			builder.Services.AddScoped<IComponent, Pages.Index>();
+			builder.Services.AddScoped<IWorkspace, TangentMath>();
+			builder.Services.AddScoped<IWorkspace, ParabolaMath>();
+			builder.Services.AddScoped<IWorkspace, LogarithmMath>();
+			builder.Services.AddScoped<IWorkspace, ExponentiationMath>();
+		}
 
-    }
+		private static void RegisterDatabase(WebApplicationBuilder builder)
+		{
+			builder.Services.AddDbContextFactory<SQLiteContext>(optionsbuilder =>
+			{
+				optionsbuilder.UseSqlite($"Data Source=data/points.db");
+				var builder = new DbContextOptionsBuilder<SQLiteContext>((DbContextOptions<SQLiteContext>)optionsbuilder.Options)
+					.UseLoggerFactory(new LoggerFactory());
+			});
+			builder.Services.AddScoped<IUnitOfWork, SQLiteContext>(provider =>
+			{
+				var options = provider.GetRequiredService<DbContextOptions<SQLiteContext>>();
+				return (SQLiteContext)ActivatorUtilities.CreateInstance(provider, typeof(SQLiteContext), options);
+			});
+
+			builder.Services.AddScoped<IAsyncRepository, AsyncSQLiteRepository>();
+			builder.Services.AddScoped<IPointService, SQLitePointService>();
+		}
+
+		private static void RegisterServices(WebApplicationBuilder builder)
+		{
+			builder.Services.AddScoped<ITangentMathService, TangentMathService>();
+			builder.Services.AddScoped<IParabolaMathService, ParabolaMathService>();
+			builder.Services.AddScoped<ILogarithmMathService, LogarithmMathService>();
+			builder.Services.AddScoped<IExponentiationMathService, ExponentiationMathService>();
+		}
+
+	}
 }

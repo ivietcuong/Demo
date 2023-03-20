@@ -16,6 +16,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="NLog.Extensions.Logging" Version="5.2.2" />
+	  <PackageReference Include="NLog.Web.AspNetCore" Version="5.2.2" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\..\..\1_Core\Demo.NetStandard.Core\Demo.NetStandard.Core.csproj" />
 	  <ProjectReference Include="..\..\..\2_Infrastructure\Demo.Net.Infrast.Impl.SQLiteService\Demo.Net.Infrast.Impl.SQLiteService.csproj" />
 	  <ProjectReference Include="..\Demo.Net.Blazor.Shared\Demo.Net.Blazor.Shared.csproj" />
