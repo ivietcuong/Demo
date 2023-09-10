@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Demo.NetStandard.Core.Extentions
@@ -13,6 +14,7 @@ namespace Demo.NetStandard.Core.Extentions
             }
             catch (Exception e)
             {
+                Debug.WriteLine(e); 
                 throw;
             }
         }
