@@ -12,7 +12,7 @@ There are so much Changes, Improvement like .NET 6, .NET 7, Blazor, MAUI and Dep
 - A IMathSercive to calculate point list.
  
 #### The Infrastructure projects contain the implementations of Repository (different imlemetations for json, xml or EF Core), of Service...etc.
-#### The user interface layer are the entry point for the application (WPF, MAUI, Web)
+#### The user interface layers are the entry point for the application (WPF, MAUI, Web)
 
 Applied Technologies: 
 - Clean Architecture
