@@ -348,3 +348,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/src/3_UI/Web/Demo.Net.Blazor.App/Data/points.db-shm
+/src/3_UI/Web/Demo.Net.Blazor.App/Data/points.db-wal
