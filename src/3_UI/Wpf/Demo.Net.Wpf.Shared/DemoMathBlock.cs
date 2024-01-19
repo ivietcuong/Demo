@@ -56,7 +56,7 @@ namespace Demo.Net.Wpf.Shared
 			var text = Content.ToString();
 
 			double fontWeight = FontWeight.ToOpenTypeWeight();
-			string fontFamily = string.Empty;
+			var fontFamily = string.Empty;
 
 			if (FontFamily != null)
 				fontFamily = FontFamily.Source;
@@ -104,30 +104,22 @@ namespace Demo.Net.Wpf.Shared
 			var horizontalAlignment = HorizontalContentAlignment.ToHorizontalAlignment();
 			var verticalAlignment = VerticalContentAlignment.ToVerticalAlignment();
 			double fontWeight = FontWeight.ToOpenTypeWeight();
-			double x = Padding.Left;
-			switch (horizontalAlignment)
+			var x = horizontalAlignment switch
 			{
-				case OxyPlot.HorizontalAlignment.Right:
-					x = ActualWidth - Padding.Right;
-					break;
-				case OxyPlot.HorizontalAlignment.Center:
-					x = Padding.Left + (ActualWidth - Padding.Left - Padding.Right) * 0.5;
-					break;
-			}
+				OxyPlot.HorizontalAlignment.Right => ActualWidth - Padding.Right,
+				OxyPlot.HorizontalAlignment.Center => Padding.Left + (ActualWidth - Padding.Left - Padding.Right) * 0.5,
+				_ => Padding.Left
+			};
 
-			double y = Padding.Top;
-			switch (verticalAlignment)
+			var y = verticalAlignment switch
 			{
-				case OxyPlot.VerticalAlignment.Bottom:
-					y = ActualHeight - Padding.Bottom;
-					break;
-				case OxyPlot.VerticalAlignment.Middle:
-					y = Padding.Top + (ActualWidth - Padding.Bottom - Padding.Top) * 0.5;
-					break;
-			}
+				OxyPlot.VerticalAlignment.Bottom => ActualHeight - Padding.Bottom,
+				OxyPlot.VerticalAlignment.Middle => Padding.Top + (ActualWidth - Padding.Bottom - Padding.Top) * 0.5,
+				_ => Padding.Top
+			};
 
 			var p = new ScreenPoint(x, y);
-			string fontFamily = string.Empty;
+			var fontFamily = string.Empty;
 			if (FontFamily != null)
 			{
 				fontFamily = FontFamily.Source;
