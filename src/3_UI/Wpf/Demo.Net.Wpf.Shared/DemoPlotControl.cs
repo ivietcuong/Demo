@@ -22,16 +22,16 @@ namespace Demo.Net.Wpf.Shared
 
 
         public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register("Title", typeof(string), typeof(DemoPlotControl), new FrameworkPropertyMetadata(string.Empty, new PropertyChangedCallback(OnTitleChanged)));
+            DependencyProperty.Register(nameof(Title), typeof(string), typeof(DemoPlotControl), new FrameworkPropertyMetadata(string.Empty, new PropertyChangedCallback(OnTitleChanged)));
 
         public static readonly DependencyProperty SubtitleProperty =
-            DependencyProperty.Register("Subtitle", typeof(string), typeof(DemoPlotControl), new FrameworkPropertyMetadata(string.Empty, new PropertyChangedCallback(OnSubTitleChanged)));
+            DependencyProperty.Register(nameof(Subtitle), typeof(string), typeof(DemoPlotControl), new FrameworkPropertyMetadata(string.Empty, new PropertyChangedCallback(OnSubTitleChanged)));
 
         public static readonly DependencyProperty LineTitleProperty =
-            DependencyProperty.Register("LineTitle", typeof(string), typeof(DemoPlotControl), new FrameworkPropertyMetadata(string.Empty, new PropertyChangedCallback(OnLineTitleChanged)));
+            DependencyProperty.Register(nameof(LineTitle), typeof(string), typeof(DemoPlotControl), new FrameworkPropertyMetadata(string.Empty, new PropertyChangedCallback(OnLineTitleChanged)));
 
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(DemoPlotControl), new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnItemsSourceChanged)));
+            DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable), typeof(DemoPlotControl), new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnItemsSourceChanged)));
 
         private PlotView _plotView = null!;
 
@@ -39,23 +39,23 @@ namespace Demo.Net.Wpf.Shared
 
         public string? Title
         {
-            get { return (string)GetValue(TitleProperty); }
-            set { SetValue(TitleProperty, value); }
+            get => (string)GetValue(TitleProperty);
+            set => SetValue(TitleProperty, value);
         }
         public string? Subtitle
         {
-            get { return (string)GetValue(SubtitleProperty); }
-            set { SetValue(SubtitleProperty, value); }
+            get => (string)GetValue(SubtitleProperty);
+            set => SetValue(SubtitleProperty, value);
         }
         public string LineTitle
         {
-            get { return (string)GetValue(LineTitleProperty); }
-            set { SetValue(LineTitleProperty, value); }
+            get => (string)GetValue(LineTitleProperty);
+            set => SetValue(LineTitleProperty, value);
         }
         public IEnumerable ItemsSource
         {
-            get { return (IEnumerable)GetValue(ItemsSourceProperty); }
-            set { SetValue(ItemsSourceProperty, value); }
+            get => (IEnumerable)GetValue(ItemsSourceProperty);
+            set => SetValue(ItemsSourceProperty, value);
         }
 
         static DemoPlotControl()
