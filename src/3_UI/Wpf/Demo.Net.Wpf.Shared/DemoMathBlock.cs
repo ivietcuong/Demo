@@ -96,11 +96,13 @@ namespace Demo.Net.Wpf.Shared
 		/// </summary>
 		private void UpdateContent()
 		{
-			canvas?.Children.Clear();
-			if (Content == null)
+			if (canvas == null || Content == null)
 				return;
 
-			var text = Content.ToString();
+			canvas.Children.Clear();
+
+			var text = $"{Content}";
+
 			var horizontalAlignment = HorizontalContentAlignment.ToHorizontalAlignment();
 			var verticalAlignment = VerticalContentAlignment.ToVerticalAlignment();
 			double fontWeight = FontWeight.ToOpenTypeWeight();
