@@ -19,7 +19,7 @@ using Demo.Net.Wpf.JsonPresenter.Services;
 using Demo.Net.Wpf.XmlPresenter.Services;
 using Demo.Net.Wpf.Shared.ViewModels;
 using Demo.Net.Infrast.Impl.XmlService;
-using Demo.Net.Infrast.Impl.SQLiteService;
+using Demo.Net.Infrast.Impl.JsonService;
 
 namespace Demo.Net.WpfApp
 {

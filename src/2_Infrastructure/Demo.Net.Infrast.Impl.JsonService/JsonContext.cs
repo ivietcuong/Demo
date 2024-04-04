@@ -14,7 +14,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Demo.Net.Infrast.Impl.SQLiteService
+namespace Demo.Net.Infrast.Impl.JsonService
 {
 	public class JsonContext : IUnitOfWork
 	{
