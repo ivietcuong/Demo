@@ -11,7 +11,11 @@ namespace Demo.Infrast.Impl.SQLiteService.Test
 	[TestFixture]
 	public class SQLiteContextFixture
 	{
+#pragma warning disable NUnit1032 // An IDisposable field/property should be Disposed in a TearDown method
 		private IUnitOfWork _unitOfWork;
+#pragma warning restore NUnit1032 // An IDisposable field/property should be Disposed in a TearDown method
+
+
 		private IPointService _pointService;
 		private ISQLitePathService _pathService;
 		private AsyncSQLiteRepository _asyncRepository;
@@ -44,14 +48,14 @@ namespace Demo.Infrast.Impl.SQLiteService.Test
 		public async Task GetData_With_Set_From_UnitOfWork()
 		{
 			var result = await _unitOfWork.SetAsync<Point>();
-			Assert.IsTrue(result.Any());
+			Assert.Equals(result.Any(), true);
 		}
 
 		[Test]
 		public async Task GetData_From_PointService()
 		{
 			var result = await _pointService.GetPointListAsync();
-			Assert.IsTrue(result.Any());
+			Assert.Equals(result.Any(), true);
 		}
 	}
 }

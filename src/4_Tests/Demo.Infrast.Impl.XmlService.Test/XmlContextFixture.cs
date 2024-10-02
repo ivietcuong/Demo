@@ -32,14 +32,14 @@ namespace Demo.Infrast.Impl.XmlService.Test
 		{
 			await ((XmlContext)_unitOfWork).WriteXmlDataAsync();
 			var result = File.Exists(_pathService.GetPath());
-			Assert.True(result);
+			Assert.Equals(result, true);
 		}
 
 		[Test]
 		public async Task DataCollectionInJsonFile_IsTheSame_AsSourceCollection()
 		{
 			var result = await ((XmlContext)_unitOfWork).ReadXmlDataAsync();
-			Assert.True(result.Any());
+			Assert.Equals(result.Any(), true);
 			Assert.That(result.Count(), Is.EqualTo(Data.Points.Count));
 		}
 
@@ -47,7 +47,7 @@ namespace Demo.Infrast.Impl.XmlService.Test
 		public async Task PointSet_Is_Not_Empty()
 		{
 			var result = await _unitOfWork.SetAsync<Point>();
-			Assert.True(result.Any());
+			Assert.Equals(result.Any(), true);
 			Assert.That(result.Count(), Is.EqualTo(Data.Points.Count));
 		}
 
@@ -70,7 +70,7 @@ namespace Demo.Infrast.Impl.XmlService.Test
 		public async Task GetPointsFromService()
 		{
 			var result = await _pointService.GetPointListAsync();
-			Assert.IsTrue(result.Any());
+			Assert.Equals(result.Any(), true);
 		}
 	}
 }
