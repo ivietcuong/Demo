@@ -32,7 +32,7 @@ namespace Demo.Net.Maui.UIApp
 					});
 
 #if DEBUG
-			builder.Logging.AddDebug();
+			//builder.Logging.AddDebug();
 #endif
 
 			RegisterDatabase(builder);
