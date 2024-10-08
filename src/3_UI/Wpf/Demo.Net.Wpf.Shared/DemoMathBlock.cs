@@ -53,7 +53,7 @@ namespace Demo.Net.Wpf.Shared
 			if (Content == null)
 				return base.MeasureOverride(constraint);
 
-			var text = Content.ToString();
+			var text = $"{Content}";
 
 			double fontWeight = FontWeight.ToOpenTypeWeight();
 			var fontFamily = string.Empty;
