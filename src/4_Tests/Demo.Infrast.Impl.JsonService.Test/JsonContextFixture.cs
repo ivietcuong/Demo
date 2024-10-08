@@ -28,7 +28,7 @@ namespace Demo.Infrast.Impl.JsonSerivce.Test
 		}
 
 		[Fact]
-		public async void IsWrittingJsonFile_Successful()
+		public async Task IsWrittingJsonFile_Successful()
 		{
 			await ((JsonContext)_unitOfWork).WriteJsonDataAsync();
 			var result = File.Exists(_pathService.GetPath());
@@ -36,7 +36,7 @@ namespace Demo.Infrast.Impl.JsonSerivce.Test
 		}
 
 		[Fact]
-		public async void DataCollectionInJsonFile_IsTheSame_AsSourceCollection()
+		public async Task DataCollectionInJsonFile_IsTheSame_AsSourceCollection()
 		{
 			var result = await ((JsonContext)_unitOfWork).ReadJsonDataAsync();
 			Assert.True(result.Any());
@@ -44,7 +44,7 @@ namespace Demo.Infrast.Impl.JsonSerivce.Test
 		}
 
 		[Fact]
-		public async void PointSet_Is_Not_Empty()
+		public async Task PointSet_Is_Not_Empty()
 		{
 			var result = await _unitOfWork.SetAsync<Point>();
 			Assert.True(result.Any());
@@ -52,7 +52,7 @@ namespace Demo.Infrast.Impl.JsonSerivce.Test
 		}
 
 		[Fact]
-		public async void Points_From_Repository_Are_Equal_To_Points_From_Context()
+		public async Task Points_From_Repository_Are_Equal_To_Points_From_Context()
 		{
 			var pointsInContext = await _unitOfWork.SetAsync<Point>();
 			var pointsInRepo = await _asyncRepository.GetAsync<Point>();
@@ -61,7 +61,7 @@ namespace Demo.Infrast.Impl.JsonSerivce.Test
 		}
 
 		[Fact]
-		public async void Throw_Exception_When_Call_AddAsync()
+		public async Task Throw_Exception_When_Call_AddAsync()
 		{
 			await Assert.ThrowsAsync<NotImplementedException>(async () =>
 			{
@@ -70,7 +70,7 @@ namespace Demo.Infrast.Impl.JsonSerivce.Test
 		}
 
 		[Fact]
-		public async void GetPointsFromService()
+		public async Task GetPointsFromService()
 		{
 			var result = await _pointService.GetPointListAsync();
 			Assert.True(result.Any());
