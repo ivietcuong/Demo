@@ -15,7 +15,7 @@ namespace Demo.Net.WpfApp.ViewModels
         private PlotModel? _model;
 
         [ObservableProperty]
-        public ObservableCollection<Point> _points = null!;
+        private ObservableCollection<Point> _points = null!;
 
         public HomeViewModel()
         {

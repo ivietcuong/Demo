@@ -15,11 +15,12 @@ namespace Demo.Net.Blazor.Shared.Controls
         private IJSObjectReference? _jsObjectReference;
 
         [Parameter, AllowNull]
-        public IJSRuntime? JSRuntime
+        public IJSRuntime? JsRuntime
         {
             get; set;
         }
 
+        #pragma warning disable BL0007
         [Parameter, AllowNull]
         public IEnumerable<Point>? Points
         {
@@ -42,7 +43,7 @@ namespace Demo.Net.Blazor.Shared.Controls
 
         private async Task RefreshPlot()
         {
-            if (JSRuntime != null && _jsObjectReference != null)
+            if (JsRuntime != null && _jsObjectReference != null)
                 await _jsObjectReference.InvokeVoidAsync("ShowXY", Points?.Select(p => p.X), Points?.Select(p => p.Y));
 
         }
@@ -56,10 +57,10 @@ namespace Demo.Net.Blazor.Shared.Controls
 
             try
             {
-                if (JSRuntime == null)
+                if (JsRuntime == null)
                     return;
 
-                _jsObjectReference = await JSRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/{GetType().Assembly.GetName().Name}/demoplot.js");
+                _jsObjectReference = await JsRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/{GetType().Assembly.GetName().Name}/demoplot.js");
 
                 await RefreshPlot();
             }
