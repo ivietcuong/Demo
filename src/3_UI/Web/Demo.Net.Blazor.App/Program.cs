@@ -81,12 +81,12 @@ namespace Demo.Net.Blazor.App
 
 		private static void RegisterDatabase(WebApplicationBuilder builder)
 		{
-			builder.Services.AddDbContextFactory<SQLiteContext>(optionsbuilder =>
-			{
-				optionsbuilder.UseSqlite($"Data Source=data/points.db");
-				var builder = new DbContextOptionsBuilder<SQLiteContext>((DbContextOptions<SQLiteContext>)optionsbuilder.Options)
-					.UseLoggerFactory(new LoggerFactory());
-			});
+			builder.Services.AddDbContextFactory<SQLiteContext>(dbContextOptionsBuilder =>
+            {
+                dbContextOptionsBuilder.UseSqlite($"Data Source=data/points.db");
+                new DbContextOptionsBuilder<SQLiteContext>((DbContextOptions<SQLiteContext>)dbContextOptionsBuilder.Options)
+                    .UseLoggerFactory(new LoggerFactory());
+            });
 			builder.Services.AddScoped<IUnitOfWork, SQLiteContext>(provider =>
 			{
 				var options = provider.GetRequiredService<DbContextOptions<SQLiteContext>>();

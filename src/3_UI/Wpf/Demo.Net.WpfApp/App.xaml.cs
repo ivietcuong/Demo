@@ -65,17 +65,17 @@ namespace Demo.Net.WpfApp
 
         private void RegisterLogger(ServiceCollection serviceCollection)
         {
-            var configuratioroot = new ConfigurationBuilder().Build();
+            var configurationRoot = new ConfigurationBuilder().Build();
 
-            var logger = LogManager.Setup()
-                                   .SetupExtensions(ext => ext.RegisterConfigSettings(configuratioroot))
-                                   .GetCurrentClassLogger();
+            LogManager.Setup()
+                .SetupExtensions(ext => ext.RegisterConfigSettings(configurationRoot))
+                .GetCurrentClassLogger();
 
             serviceCollection.AddLogging(configure =>
             {
                 configure.ClearProviders();
                 configure.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
-                configure.AddNLog(configuratioroot);
+                configure.AddNLog(configurationRoot);
             });
         }
 
@@ -144,11 +144,11 @@ namespace Demo.Net.WpfApp
             return serviceCollection;
         }
 
-        private static ServiceCollection RegisterShell(ServiceCollection servicecollection)
+        private static ServiceCollection RegisterShell(ServiceCollection serviceCollection)
         {
-            servicecollection.AddSingleton<ShellViewModel>();
-            servicecollection.AddSingleton<Shell>();
-            return servicecollection;
+            serviceCollection.AddSingleton<ShellViewModel>();
+            serviceCollection.AddSingleton<Shell>();
+            return serviceCollection;
         }
 
         private void OnDemoDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
