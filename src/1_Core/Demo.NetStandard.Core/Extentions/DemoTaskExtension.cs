@@ -6,7 +6,9 @@ namespace Demo.NetStandard.Core.Extentions
 {
     public static class DemoTaskExtension
     {
-        public static async void Run(this Task task)
+		//public static async Task Run(this Task task)
+
+		public static async void Run(this Task task)
         {
             try
             {
