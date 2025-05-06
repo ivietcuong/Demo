@@ -5,7 +5,7 @@ My first project was a Silverlight application where we used technologies such a
 
 Most of the projects I worked on were based on WPF, so I frequently used Prism and Entity Framework. However, for the past three years, I haven't worked with WPF. Instead, I’ve been developing web applications using Blazor Server. While I enjoy working with web technologies, I do miss building WPF applications.
 
-In recent years, Microsoft has introduced many advancements and improvements—such as .NET 6, .NET 7, Blazor, MAUI, and built-in Dependency Injection. This made me wonder: how does application development work today without using Prism? Prism supports WPF, MAUI, and Xamarin, but not web applications. I was curious to see how far I could get using only Microsoft libraries and frameworks.
+In recent years, Microsoft has introduced many advancements and improvements — such as .NET 6, .NET 7, Blazor, MAUI, and built-in Dependency Injection. This made me wonder: how does application development work today without using Prism? Prism supports WPF, MAUI, and Xamarin, but not web applications. I was curious to see how far I could get using only Microsoft libraries and frameworks.
 
 That curiosity led me to create this demo project, aimed at exploring modern development patterns without relying on third-party frameworks like Prism.
 ## Project Overview
@@ -28,7 +28,7 @@ Applied Technologies:
 ## WPF
 <span/><img src="demo_wpf.png" width="50%" height="50%" />
 
-The application is built using a modular architecture. There are separate modules for JSON and XML, each implementing different logic—for example, retrieving data from XML or JSON sources, or using different implementations of the MathService to demonstrate flexibility. Each module also includes its own views.
+The application is built using a modular architecture. There are separate modules for JSON and XML, each implementing different logic — for example, retrieving data from XML or JSON sources, or using different implementations of the MathService to demonstrate flexibility. Each module also includes its own views.
 
 The main page of the application functions as a shell, into which all modules are integrated. This modular structure makes the application easy to extend and maintain. While Prism offers more advanced support for modularity, using Microsoft’s ServiceCollection also works quite well for this purpose.
 
