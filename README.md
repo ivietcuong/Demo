@@ -1,11 +1,15 @@
 ## Demo
 
 <img src="demo_blazor_wpf_uwp.png" alt="NuGet Downloads" />
-My first Project was a Silverlight application, we used Entity Framwork, Prism, WCF and Design Pattern. I always have been deeping my knowledge in Design Pattern and Softwarearchitect since. I used to develop with Prism, and EF, because the most Project were in WPF. For about three years I have not developed any thing with WPF. I've been working with Web application (Blazor-Server) and missing a little bit working with WPF.
+My first project was a Silverlight application where we used technologies such as Entity Framework, Prism, WCF, and various design patterns. Since then, I have continually deepened my knowledge of design patterns and software architecture.
 
-There are so much Changes, Improvement like .NET 6, .NET 7, Blazor, MAUI and DependencyInjection from Microsoft. I was wondering, how did it work without using Prism. (Prism suppports WPF, MAUI, Xamarin, but not Web application) and how did it work when I just used Libraries or Framework, which just come from Microsoft. That's why, I have made this Demo, just to see, how it works. 
+Most of the projects I worked on were based on WPF, so I frequently used Prism and Entity Framework. However, for the past three years, I haven't worked with WPF. Instead, I’ve been developing web applications using Blazor Server. While I enjoy working with web technologies, I do miss building WPF applications.
 
-#### Demo Core Layer holds the business model, which includes:
+In recent years, Microsoft has introduced many advancements and improvements—such as .NET 6, .NET 7, Blazor, MAUI, and built-in Dependency Injection. This made me wonder: how does application development work today without using Prism? Prism supports WPF, MAUI, and Xamarin, but not web applications. I was curious to see how far I could get using only Microsoft libraries and frameworks.
+
+That curiosity led me to create this demo project, aimed at exploring modern development patterns without relying on third-party frameworks like Prism.
+## Project Overview
+#### The Core Layer holds the business model, which includes:
 - A Point class.
 - A Point repository.
 - A IPointService, to get Point-list from Repository.
