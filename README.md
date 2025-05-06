@@ -20,14 +20,14 @@ These projects contain the implementations of repositories (with different varia
 #### The user interface layers 
 These layers serve as the entry points of the application and can include technologies such as WPF, MAUI, or Web interfaces.
 
-Applied Technologies: 
+#### Applied Technologies: 
 - Clean Architecture
 - .NET Standard 2.0 for Core project. It contains Entities classes, Interface and Service, the other Project use this Library project.
 - .NET 7.0 for Infrastructure, which implements Core.
 - MVVM Toolkit, Microsoft ServiceCollection
 - NLog, OxyPlot, Plotly for Logging and Plotting.
 - WPF, MAUI, Blazor Server.
-## WPF
+### WPF
 <span/><img src="demo_wpf.png" width="50%" height="50%" />
 
 The application is built using a modular architecture. There are separate modules for JSON and XML, each implementing different logic - for example, retrieving data from XML or JSON sources, or using different implementations of the MathService to demonstrate flexibility. Each module also includes its own views.
@@ -39,7 +39,7 @@ The main page of the application functions as a shell, into which all modules ar
 
 There is a single shared view for both Android and Windows platforms. They use a common shared project that contains the same controls and logic implementations, enabling consistent behavior and appearance across platforms.
 
-## Blazor
+### Blazor
 <span/><p><img src="blazors.jpeg" width="50%" height="50%" /></p>
 
 The solution consists of UI applications and a shared project. The shared project contains reusable controls and logic, making it easy to maintain and extend across different platforms. The UI layer is implemented as a Blazor Server application. If needed, the architecture allows for easy extension with a separate API application to support broader scenarios.
