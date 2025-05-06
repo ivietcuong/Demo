@@ -15,8 +15,10 @@ That curiosity led me to create this demo project, aimed at exploring modern dev
 - A IPointService, to get Point-list from Repository.
 - A IMathSercive to calculate point list.
  
-#### The Infrastructure projects contain the implementations of Repository (different imlemetations for json, xml or EF Core), of Service...etc.
-#### The user interface layers are the entry point for the application (WPF, MAUI, Web)
+#### The Infrastructure projects 
+These projects contain the implementations of repositories (with different variants such as JSON, XML, or EF Core), as well as services and other backend components.
+#### The user interface layers 
+These layers serve as the entry points of the application and can include technologies such as WPF, MAUI, or Web interfaces.
 
 Applied Technologies: 
 - Clean Architecture
