@@ -28,19 +28,23 @@ Applied Technologies:
 ## WPF
 <span/><img src="demo_wpf.png" width="50%" height="50%" />
 
-It is modular built. Json module and Xml module, each of them implements different logic (for instance, get data from xml, json, or different implementation for calculate from MathServer, just to demonstrate) and has own Views. The Main Page of Application is just a Shell, where all the module are put together. It is easy to extend and maintain. With Prism it is better to implement, but with ServiceCollection it works quite well.
+The application is built using a modular architecture. There are separate modules for JSON and XML, each implementing different logic—for example, retrieving data from XML or JSON sources, or using different implementations of the MathService to demonstrate flexibility. Each module also includes its own views.
+
+The main page of the application functions as a shell, into which all modules are integrated. This modular structure makes the application easy to extend and maintain. While Prism offers more advanced support for modularity, using Microsoft’s ServiceCollection also works quite well for this purpose.
+
 ### MAUI
 <span/><p><img src="demo_uwp.png" width="50%" height="50%" /> <img src="android.png" width="20%" height="20%" /></p>
 
-There is just one View for both Plattform Adroid, Windows. They are using the common Shared project, with the same Controls and the Logic's implementations.
+There is a single shared view for both Android and Windows platforms. They use a common shared project that contains the same controls and logic implementations, enabling consistent behavior and appearance across platforms.
+
 ## Blazor
 <span/><p><img src="blazors.jpeg" width="50%" height="50%" /></p>
 
-There are UI App and Share projects. The shared project holds the Controls, so it is reuseable. The UI is a Blazor Server, if it is nessessary, it can be extended with API app. 
+The solution consists of UI applications and a shared project. The shared project contains reusable controls and logic, making it easy to maintain and extend across different platforms. The UI layer is implemented as a Blazor Server application. If needed, the architecture allows for easy extension with a separate API application to support broader scenarios.
 
 ## Conclusion
 
-Except Logging and Plotting I just have been using Microsoft Frameworks and it works well. It is depending on project, it is small, it is big, it is quickly to be done...etc.
+Apart from logging and plotting (where I used third-party libraries), the entire project is built using Microsoft frameworks—and it works well. Of course, the choice of tools and architecture always depends on the project context: whether it's small or large, requires rapid development, or has long-term maintainability needs. Still, this demo shows that a clean, modular, and maintainable architecture can be achieved using only Microsoft's native tools and libraries.
 
 ## How to run
 #### WPF start Demo.Net.WpfApp
